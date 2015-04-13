@@ -1,7 +1,7 @@
 <?php
 namespace Mrix\Rql\Parser;
 
-use LogicException;
+use Mrix\Rql\Parser\Exception\UnknownTokenException;
 
 /**
  * Token
@@ -120,6 +120,7 @@ class Token
     /**
      * @param int $type
      * @return string
+     * @throws UnknownTokenException
      */
     public static function getTypeName($type)
     {
@@ -149,7 +150,7 @@ class Token
         ];
 
         if (!isset($typeMap[$type])) {
-            throw new LogicException(sprintf('Token of type "%s" does not exist', $type));
+            throw new UnknownTokenException(sprintf('Token of type "%s" does not exist', $type));
         }
 
         return $typeMap[$type];
