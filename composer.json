@@ -1,0 +1,12 @@
+{
+  "name": "mrix/rql-parser",
+  "keywords": ["rest", "rql", "resource", "query", "language", "parser"],
+  "license": "MIT",
+  "autoload": {
+    "psr-4": { "Mrix\\Rql\\Parser\\": "src/"}
+  },
+  "require": {
+    "php": "~5.5"
+  },
+  "minimum-stability": "stable"
+}
