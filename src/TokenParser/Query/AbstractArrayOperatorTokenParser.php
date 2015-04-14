@@ -26,7 +26,7 @@ abstract class AbstractArrayOperatorTokenParser extends AbstractQueryOperatorTok
 
         $field = $tokenStream->expect(Token::T_STRING)->getValue();
         $tokenStream->expect(Token::T_COMMA);
-        $values = $this->parseArray($tokenStream);
+        $values = $this->queryTokenParser->getExpressionParser()->parseArray($tokenStream);
 
         $tokenStream->expect(Token::T_CLOSE_PARENTHESIS);
 

@@ -2,20 +2,50 @@
 namespace Mrix\Rql\Parser;
 
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
+use Mrix\Rql\Parser\Exception\UnknownTypeException;
 
 /**
+ * Expresssion parser
  */
-abstract class AbstractTokenParser implements TokenParserInterface
+class ExpressionParser implements ExpressionParserInterface
 {
     /**
-     * @param TokenStream $tokenStream
-     * @return mixed
-     * @throws SyntaxErrorException
+     * @var TypeCasterInterface[]
      */
-    protected function parseScalar(TokenStream $tokenStream)
+    protected $typeCasters = [];
+
+    /**
+     * @param string $type
+     * @param TypeCasterInterface $typeCaster
+     * @return $this
+     */
+    public function registerTypeCaster($type, TypeCasterInterface $typeCaster)
+    {
+        $this->typeCasters[$type] = $typeCaster;
+
+        return $this;
+    }
+
+    /**
+     * @param string $type
+     * @return TypeCasterInterface
+     */
+    public function getTypeCaster($type)
+    {
+        if (!isset($this->typeCasters[$type])) {
+            throw new UnknownTypeException(sprintf('Unknown type "%s"', $type));
+        }
+
+        return $this->typeCasters[$type];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function parseScalar(TokenStream $tokenStream)
     {
         if (($typeToken = $tokenStream->nextIf(Token::T_TYPE)) !== null) {
-            $value = $this->typeCastValue($this->getScalarValue($tokenStream->next()), $typeToken->getValue());
+            $value = $this->getTypeCaster($typeToken->getValue())->typeCast($tokenStream->next());
         } else {
             $value = $this->getScalarValue($tokenStream->next());
         }
@@ -24,11 +54,9 @@ abstract class AbstractTokenParser implements TokenParserInterface
     }
 
     /**
-     * @param TokenStream $tokenStream
-     * @return array
-     * @throws SyntaxErrorException
+     * @inheritdoc
      */
-    protected function parseArray(TokenStream $tokenStream)
+    public function parseArray(TokenStream $tokenStream)
     {
         $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
 
@@ -75,16 +103,5 @@ abstract class AbstractTokenParser implements TokenParserInterface
                 $token->getName()
             )
         );
-    }
-
-    /**
-     * @param mixed $value
-     * @param string $type
-     * @return mixed
-     */
-    protected function typeCastValue($value, $type)
-    {
-        //TODO: implement type casting
-        return $value;
     }
 }

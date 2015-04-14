@@ -26,7 +26,7 @@ abstract class AbstractScalarOperatorTokenParser extends AbstractQueryOperatorTo
 
         $field = $tokenStream->expect(Token::T_STRING)->getValue();
         $tokenStream->expect(Token::T_COMMA);
-        $value = $this->queryTokenParser->parseScalar($tokenStream);
+        $value = $this->queryTokenParser->getExpressionParser()->parseScalar($tokenStream);
 
         $tokenStream->expect(Token::T_CLOSE_PARENTHESIS);
 

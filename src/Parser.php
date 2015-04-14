@@ -39,7 +39,10 @@ class Parser
     {
         return (new self())
             ->addTokenParser(new TokenParser\SelectTokenParser())
-            ->addTokenParser(new TokenParser\QueryTokenParser())
+            ->addTokenParser(new TokenParser\QueryTokenParser(
+                (new ExpressionParser())
+                    ->registerTypeCaster('string', new TypeCaster\StringTypeCaster())
+            ))
             ->addTokenParser(new TokenParser\SortTokenParser())
             ->addTokenParser(new TokenParser\LimitTokenParser());
     }

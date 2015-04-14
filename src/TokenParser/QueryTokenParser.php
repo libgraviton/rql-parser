@@ -3,19 +3,40 @@ namespace Mrix\Rql\Parser\TokenParser;
 
 use Mrix\Rql\Parser\Token;
 use Mrix\Rql\Parser\TokenStream;
-use Mrix\Rql\Parser\AbstractTokenParser;
+use Mrix\Rql\Parser\TokenParserInterface;
+use Mrix\Rql\Parser\ExpressionParserInterface;
 use Mrix\Rql\Parser\Exception\UnknownOperatorException;
 use Mrix\Rql\Parser\Node\AbstractQueryNode;
 use Mrix\Rql\Parser\TokenParser\Query\AbstractQueryOperatorTokenParser;
 
 /**
  */
-class QueryTokenParser extends AbstractTokenParser
+class QueryTokenParser implements TokenParserInterface
 {
     /**
      * @var AbstractQueryOperatorTokenParser[]
      */
     protected $operatorParsers = [];
+    /**
+     * @var ExpressionParserInterface
+     */
+    protected $expressionParser;
+
+    /**
+     * @param ExpressionParserInterface $expressionParser
+     */
+    public function __construct(ExpressionParserInterface $expressionParser)
+    {
+        $this->expressionParser = $expressionParser;
+    }
+
+    /**
+     * @return ExpressionParserInterface
+     */
+    public function getExpressionParser()
+    {
+        return $this->expressionParser;
+    }
 
     /**
      * @inheritdoc

@@ -2,12 +2,12 @@
 namespace Mrix\Rql\Parser\TokenParser\Query;
 
 use Mrix\Rql\Parser\Token;
-use Mrix\Rql\Parser\AbstractTokenParser;
+use Mrix\Rql\Parser\TokenParserInterface;
 use Mrix\Rql\Parser\TokenParser\QueryTokenParser;
 
 /**
  */
-abstract class AbstractQueryOperatorTokenParser extends AbstractTokenParser
+abstract class AbstractQueryOperatorTokenParser implements TokenParserInterface
 {
     /**
      * @var QueryTokenParser
