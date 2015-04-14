@@ -3,21 +3,15 @@ namespace Mrix\Rql\Parser\TokenParser\Query;
 
 use Mrix\Rql\Parser\Token;
 use Mrix\Rql\Parser\TokenStream;
-use Mrix\Rql\Parser\TokenParser\QueryTokenParser;
-use Mrix\Rql\Parser\Node\Query\AbstractLogicQueryNode;
+use Mrix\Rql\Parser\Node\Query\AbstractLogicOperatorNode;
 
 /**
  */
-abstract class AbstractLogicQueryTokenParser extends QueryTokenParser
+abstract class AbstractLogicOperatorTokenParser extends AbstractQueryOperatorTokenParser
 {
     /**
-     * @return string
-     */
-    abstract protected function getOperatorName();
-
-    /**
      * @param array $queries
-     * @return AbstractLogicQueryNode
+     * @return AbstractLogicOperatorNode
      */
     abstract protected function createNode(array $queries);
 
@@ -31,7 +25,7 @@ abstract class AbstractLogicQueryTokenParser extends QueryTokenParser
 
         $queries = [];
         do {
-            $queries[] = parent::parse($tokenStream);
+            $queries[] = $this->queryTokenParser->parse($tokenStream);
             if (!$tokenStream->nextIf(Token::T_COMMA)) {
                 break;
             }
@@ -40,13 +34,5 @@ abstract class AbstractLogicQueryTokenParser extends QueryTokenParser
         $tokenStream->expect(Token::T_CLOSE_PARENTHESIS);
 
         return $this->createNode($queries);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function supports(Token $token)
-    {
-        return $token->test(Token::T_QUERY_OPERATOR, $this->getOperatorName());
     }
 }

@@ -2,12 +2,12 @@
 namespace Mrix\Rql\Parser\TokenParser\Query\LogicQuery;
 
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
-use Mrix\Rql\Parser\TokenParser\Query\AbstractLogicQueryTokenParser;
+use Mrix\Rql\Parser\TokenParser\Query\AbstractLogicOperatorTokenParser;
 use Mrix\Rql\Parser\Node\Query\LogicQuery\OrNode;
 
 /**
  */
-class OrTokenParser extends AbstractLogicQueryTokenParser
+class OrTokenParser extends AbstractLogicOperatorTokenParser
 {
     /**
      * @return string

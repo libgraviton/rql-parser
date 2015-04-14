@@ -1,12 +1,12 @@
 <?php
 namespace Mrix\Rql\Parser\TokenParser\Query\ScalarQuery;
 
-use Mrix\Rql\Parser\TokenParser\Query\AbstractScalarQueryTokenParser;
+use Mrix\Rql\Parser\TokenParser\Query\AbstractScalarOperatorTokenParser;
 use Mrix\Rql\Parser\Node\Query\ScalarQuery\EqNode;
 
 /**
  */
-class EqTokenParser extends AbstractScalarQueryTokenParser
+class EqTokenParser extends AbstractScalarOperatorTokenParser
 {
     /**
      * @inheritdoc

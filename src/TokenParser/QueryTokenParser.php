@@ -6,6 +6,7 @@ use Mrix\Rql\Parser\TokenStream;
 use Mrix\Rql\Parser\AbstractTokenParser;
 use Mrix\Rql\Parser\Exception\UnknownOperatorException;
 use Mrix\Rql\Parser\Node\AbstractQueryNode;
+use Mrix\Rql\Parser\TokenParser\Query\AbstractQueryOperatorTokenParser;
 
 /**
  */
@@ -30,7 +31,7 @@ class QueryTokenParser extends AbstractTokenParser
 
     /**
      * @param string $operator
-     * @return QueryTokenParser
+     * @return AbstractQueryOperatorTokenParser
      * @throws UnknownOperatorException
      */
     protected function getOperatorParser($operator)
@@ -56,6 +57,6 @@ class QueryTokenParser extends AbstractTokenParser
         }
 
         $className = $operatorMap[$operator];
-        return new $className;
+        return new $className($this);
     }
 }

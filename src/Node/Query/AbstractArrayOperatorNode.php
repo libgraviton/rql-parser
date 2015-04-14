@@ -5,7 +5,7 @@ use Mrix\Rql\Parser\Node\AbstractQueryNode;
 
 /**
  */
-abstract class AbstractArrayQueryNode extends AbstractQueryNode
+abstract class AbstractArrayOperatorNode extends AbstractQueryNode
 {
     /**
      * @var string

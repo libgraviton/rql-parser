@@ -1,12 +1,12 @@
 <?php
 namespace Mrix\Rql\Parser\TokenParser\Query\ArrayQuery;
 
-use Mrix\Rql\Parser\TokenParser\Query\AbstractArrayQueryTokenParser;
+use Mrix\Rql\Parser\TokenParser\Query\AbstractArrayOperatorTokenParser;
 use Mrix\Rql\Parser\Node\Query\ArrayQuery\OutNode;
 
 /**
  */
-class OutTokenParser extends AbstractArrayQueryTokenParser
+class OutTokenParser extends AbstractArrayOperatorTokenParser
 {
     /**
      * @inheritdoc

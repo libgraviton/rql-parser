@@ -1,10 +1,10 @@
 <?php
 namespace Mrix\Rql\Parser\Node\Query\LogicQuery;
 
-use Mrix\Rql\Parser\Node\Query\AbstractLogicQueryNode;
+use Mrix\Rql\Parser\Node\Query\AbstractLogicOperatorNode;
 
 /**
  */
-class OrNode extends AbstractLogicQueryNode
+class OrNode extends AbstractLogicOperatorNode
 {
 }

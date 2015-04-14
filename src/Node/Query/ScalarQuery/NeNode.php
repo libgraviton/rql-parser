@@ -1,10 +1,10 @@
 <?php
 namespace Mrix\Rql\Parser\Node\Query\ScalarQuery;
 
-use Mrix\Rql\Parser\Node\Query\AbstractScalarQueryNode;
+use Mrix\Rql\Parser\Node\Query\AbstractScalarOperatorNode;
 
 /**
  */
-class NeNode extends AbstractScalarQueryNode
+class NeNode extends AbstractScalarOperatorNode
 {
 }
