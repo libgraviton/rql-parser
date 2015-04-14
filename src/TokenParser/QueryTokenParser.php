@@ -13,6 +13,11 @@ use Mrix\Rql\Parser\TokenParser\Query\AbstractQueryOperatorTokenParser;
 class QueryTokenParser extends AbstractTokenParser
 {
     /**
+     * @var AbstractQueryOperatorTokenParser[]
+     */
+    protected $operatorParsers = [];
+
+    /**
      * @inheritdoc
      * @return AbstractQueryNode
      */
@@ -32,9 +37,22 @@ class QueryTokenParser extends AbstractTokenParser
     /**
      * @param string $operator
      * @return AbstractQueryOperatorTokenParser
-     * @throws UnknownOperatorException
      */
     protected function getOperatorParser($operator)
+    {
+        if (!isset($this->operatorParsers[$operator])) {
+            $this->operatorParsers[$operator] = $this->createOperatorParser($operator);
+        }
+
+        return $this->operatorParsers[$operator];
+    }
+
+    /**
+     * @param string $operator
+     * @return AbstractQueryOperatorTokenParser
+     * @throws UnknownOperatorException
+     */
+    protected function createOperatorParser($operator)
     {
         static $operatorMap = [
             'eq'        => Query\ScalarQuery\EqTokenParser::class,
