@@ -79,10 +79,20 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->addLimit(new Node\LimitNode(1, 2)),
             ],
 
-            'typecast' => [
-                'eq(a,string:3)',
+            'string typecast' => [
+                'eq(a,string:3)&in(b,(string:true(),string:false,string:null,string:empty()))&out(c,(string:-1,string:+.5e10))',
                 (new Query())
-                    ->addQuery(new Node\Query\ScalarQuery\EqNode('a', '3')),
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('a', '3'))
+                    ->addQuery(new Node\Query\ArrayQuery\InNode('b', [
+                        'true',
+                        'false',
+                        'null',
+                        '',
+                    ]))
+                    ->addQuery(new Node\Query\ArrayQuery\OutNode('c', [
+                        '-1',
+                        '+.5e10'
+                    ])),
             ],
             'constants' => [
                 'in(a,(null,null(),true,true(),false,false(),empty()))',
