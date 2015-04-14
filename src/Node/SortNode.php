@@ -25,10 +25,10 @@ class SortNode extends AbstractNode
 
     /**
      * @param string $field
-     * @param int|null $direction
+     * @param int $direction
      * @return void
      */
-    public function addField($field, $direction)
+    public function addField($field, $direction = self::SORT_ASC)
     {
         $this->fields[$field] = $direction;
     }
