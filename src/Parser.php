@@ -42,6 +42,9 @@ class Parser
             ->addTokenParser(new TokenParser\QueryTokenParser(
                 (new ExpressionParser())
                     ->registerTypeCaster('string', new TypeCaster\StringTypeCaster())
+                    ->registerTypeCaster('integer', new TypeCaster\IntegerTypeCaster())
+                    ->registerTypeCaster('float', new TypeCaster\FloatTypeCaster())
+                    ->registerTypeCaster('boolean', new TypeCaster\BooleanTypeCaster())
             ))
             ->addTokenParser(new TokenParser\SortTokenParser())
             ->addTokenParser(new TokenParser\LimitTokenParser());

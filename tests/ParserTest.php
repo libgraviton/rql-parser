@@ -94,6 +94,36 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         '+.5e10'
                     ])),
             ],
+            'integer typecast' => [
+                'eq(a,integer:0)&eq(b,integer:1.5)&eq(c,integer:null)&eq(d,integer:true)&eq(e,integer:a)&eq(f,integer:empty())',
+                (new Query())
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('a', 0))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('b', 1))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('c', 0))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('d', 1))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('e', 0))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('f', 0)),
+            ],
+            'float typecast' => [
+                'eq(a,float:0)&eq(b,float:1.5)&eq(c,float:null)&eq(d,float:true)&eq(e,float:a)&eq(f,float:empty())',
+                (new Query())
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('a', 0.))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('b', 1.5))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('c', 0.))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('d', 1.))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('e', 0.))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('f', 0.)),
+            ],
+            'boolean typecast' => [
+                'eq(a,boolean:0)&eq(b,boolean:1.5)&eq(c,boolean:null)&eq(d,boolean:true())&eq(e,boolean:a)&eq(f,boolean:empty())',
+                (new Query())
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('a', false))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('b', true))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('c', false))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('d', true))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('e', true))
+                    ->addQuery(new Node\Query\ScalarQuery\EqNode('f', false)),
+            ],
             'constants' => [
                 'in(a,(null,null(),true,true(),false,false(),empty()))',
                 (new Query())
