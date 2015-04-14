@@ -18,6 +18,7 @@ class Token
     const T_OPEN_PARENTHESIS    = 12;
     const T_COMMA               = 13;
     const T_AMPERSAND           = 14;
+    const T_VERTICAL_BAR        = 15;
 
     const T_TYPE                = 31;
 
@@ -135,6 +136,7 @@ class Token
             self::T_OPEN_PARENTHESIS  => 'T_OPEN_PARENTHESIS',
             self::T_COMMA             => 'T_COMMA',
             self::T_AMPERSAND         => 'T_AMPERSAND',
+            self::T_VERTICAL_BAR      => 'T_VERTICAL_BAR',
 
             self::T_TYPE              => 'T_TYPE',
 

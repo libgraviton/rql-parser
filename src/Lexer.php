@@ -10,7 +10,7 @@ class Lexer
     const REGEX_VALUE       = '/(\w|\-|\+|\*|\$|\.|\%[0-9a-f]{2})+/Ai';
     const REGEX_OPERATOR    = '/[a-z]\w*(?=\()/Ai';
     const REGEX_TYPE        = '/[a-z]\w*\:/Ai';
-    const REGEX_PUNCTUATION = '/[\(\)&,]/A';
+    const REGEX_PUNCTUATION = '/[\(\)&,|]/A';
     const REGEX_CONSTANT    = '/(null|empty|true|false)\(\)/A';
 
     /**
@@ -105,6 +105,8 @@ class Lexer
     {
         if ($punct === '&') {
             $this->pushToken(Token::T_AMPERSAND, $punct);
+        } elseif ($punct === '|') {
+            $this->pushToken(Token::T_VERTICAL_BAR, $punct);
         } elseif ($punct === ',') {
             $this->pushToken(Token::T_COMMA, $punct);
         } elseif ($punct === '(') {
