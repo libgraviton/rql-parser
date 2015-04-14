@@ -7,7 +7,7 @@ use Mrix\Rql\Parser\NormalizerInterface;
  */
 class FiqlNormalizer implements NormalizerInterface
 {
-    const REGEX_STRING      = '(?:\w|\-|\+|\*|\$|\.|\%[0-9a-f]{2})+';
+    const REGEX_STRING      = '(?:\w|\-|\+|\:|\*|\$|\.|\%[0-9a-f]{2})+';
     const REGEX_OPERATOR    = '=[a-z]\w*=';
 
     /**
