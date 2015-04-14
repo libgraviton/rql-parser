@@ -22,13 +22,10 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testParse($rql, Query $expected)
     {
-        $parser = new Parser();
-        $parser->addTokenParser(new TokenParser\SelectTokenParser());
-        $parser->addTokenParser(new TokenParser\QueryTokenParser());
-        $parser->addTokenParser(new TokenParser\SortTokenParser());
-        $parser->addTokenParser(new TokenParser\LimitTokenParser());
+        $lexer = new Lexer();
+        $parser = Parser::createDefault();
 
-        $this->assertEquals($expected, $parser->parse((new Lexer())->tokenize($rql)));
+        $this->assertEquals($expected, $parser->parse($lexer->tokenize($rql)));
     }
 
     /**

@@ -15,11 +15,13 @@ class Parser
 
     /**
      * @param TokenParserInterface $tokenParser
-     * @return void
+     * @return $this
      */
     public function addTokenParser(TokenParserInterface $tokenParser)
     {
         $this->tokenParsers[] = $tokenParser;
+
+        return $this;
     }
 
     /**
@@ -28,6 +30,18 @@ class Parser
     public function getTokenParsers()
     {
         return $this->tokenParsers;
+    }
+
+    /**
+     * @return Parser
+     */
+    public static function createDefault()
+    {
+        return (new self())
+            ->addTokenParser(new TokenParser\SelectTokenParser())
+            ->addTokenParser(new TokenParser\QueryTokenParser())
+            ->addTokenParser(new TokenParser\SortTokenParser())
+            ->addTokenParser(new TokenParser\LimitTokenParser());
     }
 
     /**
