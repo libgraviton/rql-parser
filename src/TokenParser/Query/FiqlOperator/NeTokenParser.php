@@ -10,9 +10,9 @@ class NeTokenParser extends AbstractFiqlTokenParser
     /**
      * @inheritdoc
      */
-    protected function getOperatorName()
+    protected function getOperatorNames()
     {
-        return 'ne';
+        return ['ne', '<>', '!='];
     }
 
     /**

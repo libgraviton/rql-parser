@@ -44,8 +44,12 @@ class FiqlTokenParser implements TokenParserInterface
     public function supports(TokenStream $tokenStream)
     {
         return $tokenStream->test(Token::T_STRING) && $tokenStream->lookAhead()->test(Token::T_OPERATOR, [
-            'eq', 'lt', 'lte',
-            'ne', 'gt', 'gte',
+            'eq', '=', '==',
+            'ne', '<>', '!=',
+            'lt', '<',
+            'lte', '<=',
+            'gt', '>',
+            'gte', '>=',
         ]);
     }
 
@@ -71,11 +75,24 @@ class FiqlTokenParser implements TokenParserInterface
     {
         static $operatorMap = [
             'eq'    => FiqlOperator\EqTokenParser::class,
+            '='     => FiqlOperator\EqTokenParser::class,
+            '=='    => FiqlOperator\EqTokenParser::class,
+
             'ne'    => FiqlOperator\NeTokenParser::class,
+            '<>'    => FiqlOperator\NeTokenParser::class,
+            '!='    => FiqlOperator\NeTokenParser::class,
+
             'lt'    => FiqlOperator\LtTokenParser::class,
+            '<'     => FiqlOperator\LtTokenParser::class,
+
             'gt'    => FiqlOperator\GtTokenParser::class,
+            '>'     => FiqlOperator\GtTokenParser::class,
+
             'lte'   => FiqlOperator\LteTokenParser::class,
+            '<='    => FiqlOperator\LteTokenParser::class,
+
             'gte'   => FiqlOperator\GteTokenParser::class,
+            '>='    => FiqlOperator\GteTokenParser::class,
         ];
 
         if (!isset($operatorMap[$operator])) {

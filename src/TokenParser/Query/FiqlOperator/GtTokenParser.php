@@ -10,9 +10,9 @@ class GtTokenParser extends AbstractFiqlTokenParser
     /**
      * @inheritdoc
      */
-    protected function getOperatorName()
+    protected function getOperatorNames()
     {
-        return 'gt';
+        return ['gt', '>'];
     }
 
     /**

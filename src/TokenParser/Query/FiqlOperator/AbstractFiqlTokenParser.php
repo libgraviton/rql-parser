@@ -37,7 +37,7 @@ abstract class AbstractFiqlTokenParser implements TokenParserInterface
     public function parse(TokenStream $tokenStream)
     {
         $field = $tokenStream->expect(Token::T_STRING)->getValue();
-        $tokenStream->expect(Token::T_OPERATOR, $this->getOperatorName());
+        $tokenStream->expect(Token::T_OPERATOR, $this->getOperatorNames());
         $value = $this->queryTokenParser->getExpressionParser()->parseScalar($tokenStream);
 
         return $this->createNode($field, $value);
@@ -49,11 +49,11 @@ abstract class AbstractFiqlTokenParser implements TokenParserInterface
     public function supports(TokenStream $tokenStream)
     {
         return $tokenStream->test(Token::T_STRING) &&
-            $tokenStream->lookAhead()->test(Token::T_OPERATOR, $this->getOperatorName());
+            $tokenStream->lookAhead()->test(Token::T_OPERATOR, $this->getOperatorNames());
     }
 
     /**
-     * @return string
+     * @return array
      */
-    abstract protected function getOperatorName();
+    abstract protected function getOperatorNames();
 }

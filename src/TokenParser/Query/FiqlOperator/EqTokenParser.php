@@ -10,9 +10,9 @@ class EqTokenParser extends AbstractFiqlTokenParser
     /**
      * @inheritdoc
      */
-    protected function getOperatorName()
+    protected function getOperatorNames()
     {
-        return 'eq';
+        return ['eq', '=', '=='];
     }
 
     /**
