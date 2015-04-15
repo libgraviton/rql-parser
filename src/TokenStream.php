@@ -110,4 +110,14 @@ class TokenStream
     {
         return $this->tokens[$this->current];
     }
+
+    /**
+     * @param int $type
+     * @param string|array $value
+     * @return bool
+     */
+    public function test($type, $value = null)
+    {
+        return  $this->tokens[$this->current]->test($type, $value);
+    }
 }
