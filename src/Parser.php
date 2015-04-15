@@ -62,13 +62,13 @@ class Parser
      */
     public function parse(TokenStream $tokenStream)
     {
-        $query = $this->createQuery();
+        $queryBuilder = $this->createQueryBuilder();
         while (!$tokenStream->isEnd()) {
-            $query->addNode($this->subparse($tokenStream));
+            $queryBuilder->addNode($this->subparse($tokenStream));
             $tokenStream->nextIf(Token::T_AMPERSAND);
         }
 
-        return $query;
+        return $queryBuilder->getQuery();
     }
 
     /**
@@ -96,10 +96,10 @@ class Parser
     }
 
     /**
-     * @return Query
+     * @return QueryBuilder
      */
-    protected function createQuery()
+    protected function createQueryBuilder()
     {
-        return new Query();
+        return new QueryBuilder();
     }
 }

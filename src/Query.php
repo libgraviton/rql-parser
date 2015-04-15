@@ -1,12 +1,10 @@
 <?php
 namespace Mrix\Rql\Parser;
 
-use Mrix\Rql\Parser\Exception\UnknownNodeException;
 use Mrix\Rql\Parser\Node\SelectNode;
 use Mrix\Rql\Parser\Node\AbstractQueryNode;
 use Mrix\Rql\Parser\Node\SortNode;
 use Mrix\Rql\Parser\Node\LimitNode;
-use Mrix\Rql\Parser\Node\Query\LogicQuery\AndNode;
 
 /**
  */
@@ -30,25 +28,6 @@ class Query
     protected $limit;
 
     /**
-     * @param AbstractNode $node
-     * @return $this
-     */
-    public function addNode(AbstractNode $node)
-    {
-        if ($node instanceof SelectNode) {
-            return $this->addSelect($node);
-        } elseif ($node instanceof AbstractQueryNode) {
-            return $this->addQuery($node);
-        } elseif ($node instanceof SortNode) {
-            return $this->addSort($node);
-        } elseif ($node instanceof LimitNode) {
-            return $this->addLimit($node);
-        }
-
-        throw new UnknownNodeException(sprintf('Unknown node type "%s"', get_class($node)));
-    }
-
-    /**
      * @return SelectNode
      */
     public function getSelect()
@@ -58,13 +37,11 @@ class Query
 
     /**
      * @param SelectNode $select
-     * @return $this
+     * @return void
      */
-    public function addSelect(SelectNode $select)
+    public function setSelect(SelectNode $select)
     {
         $this->select = $select;
-
-        return $this;
     }
 
     /**
@@ -77,17 +54,11 @@ class Query
 
     /**
      * @param AbstractQueryNode $query
-     * @return $this
+     * @return void
      */
-    public function addQuery(AbstractQueryNode $query)
+    public function setQuery(AbstractQueryNode $query)
     {
-        if ($this->query === null) {
-            $this->query = $query;
-        } else {
-            $this->query = new AndNode([$this->query, $query]);
-        }
-
-        return $this;
+        $this->query = $query;
     }
 
     /**
@@ -100,13 +71,11 @@ class Query
 
     /**
      * @param SortNode $sort
-     * @return $this
+     * @return void
      */
-    public function addSort(SortNode $sort)
+    public function setSort(SortNode $sort)
     {
         $this->sort = $sort;
-
-        return $this;
     }
 
     /**
@@ -119,12 +88,10 @@ class Query
 
     /**
      * @param LimitNode $limit
-     * @return $this
+     * @return void
      */
-    public function addLimit(LimitNode $limit)
+    public function setLimit(LimitNode $limit)
     {
         $this->limit = $limit;
-
-        return $this;
     }
 }
