@@ -1,13 +1,22 @@
 <?php
 namespace Mrix\Rql\Parser;
 
+use Mrix\Rql\Parser\Exception\SyntaxErrorException;
+
 /**
  */
 interface TokenParserInterface
 {
     /**
+     * @param Parser $parser
+     * @return void
+     */
+    public function setParser(Parser $parser);
+
+    /**
      * @param TokenStream $tokenStream
      * @return AbstractNode
+     * @throws SyntaxErrorException
      */
     public function parse(TokenStream $tokenStream);
 

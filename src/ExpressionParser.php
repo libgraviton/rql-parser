@@ -2,7 +2,6 @@
 namespace Mrix\Rql\Parser;
 
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
-use Mrix\Rql\Parser\Exception\UnknownTypeException;
 
 /**
  * Expresssion parser
@@ -33,7 +32,7 @@ class ExpressionParser implements ExpressionParserInterface
     public function getTypeCaster($type)
     {
         if (!isset($this->typeCasters[$type])) {
-            throw new UnknownTypeException(sprintf('Unknown type "%s"', $type));
+            throw new SyntaxErrorException(sprintf('Unknown type "%s"', $type));
         }
 
         return $this->typeCasters[$type];

@@ -3,8 +3,8 @@ namespace Mrix\Rql\Parser\TokenParser\Query;
 
 use Mrix\Rql\Parser\Token;
 use Mrix\Rql\Parser\TokenStream;
+use Mrix\Rql\Parser\AbstractTokenParser;
 use Mrix\Rql\Parser\TokenParserInterface;
-use Mrix\Rql\Parser\TokenParser\QueryTokenParser;
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
 use Mrix\Rql\Parser\Node\AbstractQueryNode;
 use Mrix\Rql\Parser\Node\Query\LogicOperator\AndNode;
@@ -12,19 +12,19 @@ use Mrix\Rql\Parser\Node\Query\LogicOperator\OrNode;
 
 /**
  */
-class GroupTokenParser implements TokenParserInterface
+class GroupTokenParser extends AbstractTokenParser
 {
     /**
-     * @var QueryTokenParser
+     * @var TokenParserInterface
      */
-    protected $queryTokenParser;
+    protected $conditionTokenParser;
 
     /**
-     * @param QueryTokenParser $queryTokenParser
+     * @param TokenParserInterface $conditionTokenParser
      */
-    public function __construct(QueryTokenParser $queryTokenParser)
+    public function __construct(TokenParserInterface $conditionTokenParser)
     {
-        $this->queryTokenParser = $queryTokenParser;
+        $this->conditionTokenParser = $conditionTokenParser;
     }
 
     /**
@@ -39,7 +39,7 @@ class GroupTokenParser implements TokenParserInterface
         $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
 
         do {
-            $queries[] = $this->queryTokenParser->parse($tokenStream);
+            $queries[] = $this->conditionTokenParser->parse($tokenStream);
 
             if ($tokenStream->nextIf(Token::T_AMPERSAND)) {
                 if ($operator === null) {

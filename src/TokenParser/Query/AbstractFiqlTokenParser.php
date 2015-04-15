@@ -1,29 +1,15 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\FiqlOperator;
+namespace Mrix\Rql\Parser\TokenParser\Query;
 
 use Mrix\Rql\Parser\Token;
 use Mrix\Rql\Parser\TokenStream;
-use Mrix\Rql\Parser\TokenParserInterface;
-use Mrix\Rql\Parser\TokenParser\QueryTokenParser;
+use Mrix\Rql\Parser\AbstractTokenParser;
 use Mrix\Rql\Parser\Node\AbstractQueryNode;
 
 /**
  */
-abstract class AbstractFiqlTokenParser implements TokenParserInterface
+abstract class AbstractFiqlTokenParser extends AbstractTokenParser
 {
-    /**
-     * @var QueryTokenParser
-     */
-    protected $queryTokenParser;
-
-    /**
-     * @param QueryTokenParser $queryTokenParser
-     */
-    public function __construct(QueryTokenParser $queryTokenParser)
-    {
-        $this->queryTokenParser = $queryTokenParser;
-    }
-
     /**
      * @param string $field
      * @param mixed $value
@@ -32,13 +18,18 @@ abstract class AbstractFiqlTokenParser implements TokenParserInterface
     abstract protected function createNode($field, $value);
 
     /**
+     * @return array
+     */
+    abstract protected function getOperatorNames();
+
+    /**
      * @inheritdoc
      */
     public function parse(TokenStream $tokenStream)
     {
         $field = $tokenStream->expect(Token::T_STRING)->getValue();
         $tokenStream->expect(Token::T_OPERATOR, $this->getOperatorNames());
-        $value = $this->queryTokenParser->getExpressionParser()->parseScalar($tokenStream);
+        $value = $this->getParser()->getExpressionParser()->parseScalar($tokenStream);
 
         return $this->createNode($field, $value);
     }
@@ -51,9 +42,4 @@ abstract class AbstractFiqlTokenParser implements TokenParserInterface
         return $tokenStream->test(Token::T_STRING) &&
             $tokenStream->lookAhead()->test(Token::T_OPERATOR, $this->getOperatorNames());
     }
-
-    /**
-     * @return array
-     */
-    abstract protected function getOperatorNames();
 }

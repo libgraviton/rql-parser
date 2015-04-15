@@ -1,39 +1,16 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser;
+namespace Mrix\Rql\Parser;
 
-use Mrix\Rql\Parser\TokenStream;
-use Mrix\Rql\Parser\TokenParserInterface;
-use Mrix\Rql\Parser\ExpressionParserInterface;
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
 
 /**
  */
-class QueryTokenParser implements TokenParserInterface
+class TokenParserGroup extends AbstractTokenParser
 {
-    /**
-     * @var ExpressionParserInterface
-     */
-    protected $expressionParser;
     /**
      * @var TokenParserInterface[]
      */
     protected $tokenParsers = [];
-
-    /**
-     * @param ExpressionParserInterface $expressionParser
-     */
-    public function __construct(ExpressionParserInterface $expressionParser)
-    {
-        $this->expressionParser = $expressionParser;
-    }
-
-    /**
-     * @return ExpressionParserInterface
-     */
-    public function getExpressionParser()
-    {
-        return $this->expressionParser;
-    }
 
     /**
      * @param TokenParserInterface $tokenParser
@@ -41,9 +18,32 @@ class QueryTokenParser implements TokenParserInterface
      */
     public function addTokenParser(TokenParserInterface $tokenParser)
     {
+        if ($this->getParser() !== null) {
+            $tokenParser->setParser($this->getParser());
+        }
         $this->tokenParsers[] = $tokenParser;
 
         return $this;
+    }
+
+    /**
+     * @return TokenParserInterface[]
+     */
+    public function getTokenParsers()
+    {
+        return $this->tokenParsers;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setParser(Parser $parser)
+    {
+        foreach ($this->tokenParsers as $tokenParser) {
+            $tokenParser->setParser($parser);
+        }
+
+        parent::setParser($parser);
     }
 
     /**
@@ -51,7 +51,6 @@ class QueryTokenParser implements TokenParserInterface
      */
     public function parse(TokenStream $tokenStream)
     {
-        $token = $tokenStream->getCurrent();
         foreach ($this->tokenParsers as $tokenParser) {
             if ($tokenParser->supports($tokenStream)) {
                 return $tokenParser->parse($tokenStream);
@@ -61,9 +60,9 @@ class QueryTokenParser implements TokenParserInterface
         throw new SyntaxErrorException(
             sprintf(
                 'Unexpected token "%s" (%s) at position %d',
-                $token->getValue(),
-                $token->getName(),
-                $token->getPosition()
+                $tokenStream->getCurrent()->getValue(),
+                $tokenStream->getCurrent()->getName(),
+                $tokenStream->getCurrent()->getPosition()
             )
         );
     }

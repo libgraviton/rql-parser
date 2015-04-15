@@ -3,12 +3,12 @@ namespace Mrix\Rql\Parser\TokenParser;
 
 use Mrix\Rql\Parser\Token;
 use Mrix\Rql\Parser\TokenStream;
-use Mrix\Rql\Parser\TokenParserInterface;
+use Mrix\Rql\Parser\AbstractTokenParser;
 use Mrix\Rql\Parser\Node\SortNode;
 
 /**
  */
-class SortTokenParser implements TokenParserInterface
+class SortTokenParser extends AbstractTokenParser
 {
     /**
      * @inheritdoc

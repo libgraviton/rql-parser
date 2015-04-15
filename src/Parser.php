@@ -9,9 +9,32 @@ use Mrix\Rql\Parser\Exception\SyntaxErrorException;
 class Parser
 {
     /**
-     * @var TokenParserInterface[]
+     * @var TokenParserGroup
      */
-    protected $tokenParsers = [];
+    protected $tokenParserGroup;
+    /**
+     * @var ExpressionParserInterface
+     */
+    protected $expressionParser;
+
+    /**
+     * @param ExpressionParserInterface $expressionParser
+     */
+    public function __construct(ExpressionParserInterface $expressionParser)
+    {
+        $this->expressionParser = $expressionParser;
+
+        $this->tokenParserGroup = new TokenParserGroup();
+        $this->tokenParserGroup->setParser($this);
+    }
+
+    /**
+     * @return ExpressionParserInterface
+     */
+    public function getExpressionParser()
+    {
+        return $this->expressionParser;
+    }
 
     /**
      * @param TokenParserInterface $tokenParser
@@ -19,17 +42,9 @@ class Parser
      */
     public function addTokenParser(TokenParserInterface $tokenParser)
     {
-        $this->tokenParsers[] = $tokenParser;
+        $this->tokenParserGroup->addTokenParser($tokenParser);
 
         return $this;
-    }
-
-    /**
-     * @return TokenParserInterface[]
-     */
-    public function getTokenParsers()
-    {
-        return $this->tokenParsers;
     }
 
     /**
@@ -37,19 +52,38 @@ class Parser
      */
     public static function createDefault()
     {
-        $queryTokenParser = (new TokenParser\QueryTokenParser(
+        $queryTokenParser = new TokenParserGroup();
+        $queryTokenParser
+            ->addTokenParser(new TokenParser\Query\GroupTokenParser($queryTokenParser))
+
+            ->addTokenParser(new TokenParser\Query\LogicOperator\AndTokenParser($queryTokenParser))
+            ->addTokenParser(new TokenParser\Query\LogicOperator\OrTokenParser($queryTokenParser))
+            ->addTokenParser(new TokenParser\Query\LogicOperator\NotTokenParser($queryTokenParser))
+
+            ->addTokenParser(new TokenParser\Query\ArrayOperator\InTokenParser())
+            ->addTokenParser(new TokenParser\Query\ArrayOperator\OutTokenParser())
+
+            ->addTokenParser(new TokenParser\Query\ScalarOperator\EqTokenParser())
+            ->addTokenParser(new TokenParser\Query\ScalarOperator\NeTokenParser())
+            ->addTokenParser(new TokenParser\Query\ScalarOperator\LtTokenParser())
+            ->addTokenParser(new TokenParser\Query\ScalarOperator\GtTokenParser())
+            ->addTokenParser(new TokenParser\Query\ScalarOperator\LeTokenParser())
+            ->addTokenParser(new TokenParser\Query\ScalarOperator\GeTokenParser())
+
+            ->addTokenParser(new TokenParser\Query\FiqlOperator\EqTokenParser())
+            ->addTokenParser(new TokenParser\Query\FiqlOperator\NeTokenParser())
+            ->addTokenParser(new TokenParser\Query\FiqlOperator\LtTokenParser())
+            ->addTokenParser(new TokenParser\Query\FiqlOperator\GtTokenParser())
+            ->addTokenParser(new TokenParser\Query\FiqlOperator\LeTokenParser())
+            ->addTokenParser(new TokenParser\Query\FiqlOperator\GeTokenParser());
+
+        return (new self(
             (new ExpressionParser())
                 ->registerTypeCaster('string', new TypeCaster\StringTypeCaster())
                 ->registerTypeCaster('integer', new TypeCaster\IntegerTypeCaster())
                 ->registerTypeCaster('float', new TypeCaster\FloatTypeCaster())
                 ->registerTypeCaster('boolean', new TypeCaster\BooleanTypeCaster())
-        ));
-        $queryTokenParser
-            ->addTokenParser(new TokenParser\Query\GroupTokenParser($queryTokenParser))
-            ->addTokenParser(new TokenParser\Query\OperatorTokenParser($queryTokenParser))
-            ->addTokenParser(new TokenParser\Query\FiqlTokenParser($queryTokenParser));
-
-        return (new self())
+        ))
             ->addTokenParser(new TokenParser\SelectTokenParser())
             ->addTokenParser($queryTokenParser)
             ->addTokenParser(new TokenParser\SortTokenParser())
@@ -65,35 +99,11 @@ class Parser
     {
         $queryBuilder = $this->createQueryBuilder();
         while (!$tokenStream->isEnd()) {
-            $queryBuilder->addNode($this->subparse($tokenStream));
+            $queryBuilder->addNode($this->tokenParserGroup->parse($tokenStream));
             $tokenStream->nextIf(Token::T_AMPERSAND);
         }
 
         return $queryBuilder->getQuery();
-    }
-
-    /**
-     * @param TokenStream $tokenStream
-     * @return AbstractNode
-     * @throws SyntaxErrorException
-     */
-    protected function subparse(TokenStream $tokenStream)
-    {
-        $token = $tokenStream->getCurrent();
-        foreach ($this->tokenParsers as $tokenParser) {
-            if ($tokenParser->supports($tokenStream)) {
-                return $tokenParser->parse($tokenStream);
-            }
-        }
-
-        throw new SyntaxErrorException(
-            sprintf(
-                'Unexpected token "%s" (%s) at position %d',
-                $token->getValue(),
-                $token->getName(),
-                $token->getPosition()
-            )
-        );
     }
 
     /**
