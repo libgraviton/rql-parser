@@ -63,7 +63,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         new Node\Query\ScalarOperator\LtNode('c', 'd'),
                         new Node\Query\LogicOperator\OrNode([
                             new Node\Query\ArrayOperator\InNode('a', [1, 'f']),
-                            new Node\Query\ScalarOperator\GeNode('g', 2),
+                            new Node\Query\ScalarOperator\GtNode('g', 2),
                         ])
                     ]))
                     ->addQuery(new Node\Query\LogicOperator\NotNode([

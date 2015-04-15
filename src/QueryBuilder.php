@@ -69,10 +69,13 @@ class QueryBuilder
      */
     public function addQuery(AbstractQueryNode $query)
     {
-        if ($this->query->getQuery() === null) {
+        $current = $this->query->getQuery();
+        if ($current === null) {
             $this->query->setQuery($query);
+        } elseif ($current instanceof AndNode) {
+            $current->addQuery($query);
         } else {
-            $this->query->setQuery(new AndNode([$this->query, $query]));
+            $this->query->setQuery(new AndNode([$current, $query]));
         }
 
         return $this;
