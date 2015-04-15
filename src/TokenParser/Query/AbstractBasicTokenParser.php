@@ -7,19 +7,18 @@ use Mrix\Rql\Parser\AbstractTokenParser;
 
 /**
  */
-abstract class AbstractFiqlTokenParser extends AbstractTokenParser
+abstract class AbstractBasicTokenParser extends AbstractTokenParser
 {
     /**
-     * @return array
+     * @return string
      */
-    abstract protected function getOperatorNames();
+    abstract protected function getOperatorName();
 
     /**
      * @inheritdoc
      */
     public function supports(TokenStream $tokenStream)
     {
-        return $tokenStream->test(Token::T_STRING) &&
-            $tokenStream->lookAhead()->test(Token::T_OPERATOR, $this->getOperatorNames());
+        return $tokenStream->test(Token::T_OPERATOR, $this->getOperatorName());
     }
 }

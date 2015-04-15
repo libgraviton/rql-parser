@@ -1,12 +1,12 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\FiqlOperator;
+namespace Mrix\Rql\Parser\TokenParser\Query\Fiql\ScalarOperator;
 
-use Mrix\Rql\Parser\TokenParser\Query\AbstractFiqlTokenParser;
+use Mrix\Rql\Parser\TokenParser\Query\Fiql\AbstractScalarOperatorTokenParser;
 use Mrix\Rql\Parser\Node\Query\ScalarOperator\LtNode;
 
 /**
  */
-class LtTokenParser extends AbstractFiqlTokenParser
+class LtTokenParser extends AbstractScalarOperatorTokenParser
 {
     /**
      * @inheritdoc

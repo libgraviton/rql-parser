@@ -56,26 +56,26 @@ class Parser
         $queryTokenParser
             ->addTokenParser(new TokenParser\Query\GroupTokenParser($queryTokenParser))
 
-            ->addTokenParser(new TokenParser\Query\LogicOperator\AndTokenParser($queryTokenParser))
-            ->addTokenParser(new TokenParser\Query\LogicOperator\OrTokenParser($queryTokenParser))
-            ->addTokenParser(new TokenParser\Query\LogicOperator\NotTokenParser($queryTokenParser))
+            ->addTokenParser(new TokenParser\Query\Basic\LogicOperator\AndTokenParser($queryTokenParser))
+            ->addTokenParser(new TokenParser\Query\Basic\LogicOperator\OrTokenParser($queryTokenParser))
+            ->addTokenParser(new TokenParser\Query\Basic\LogicOperator\NotTokenParser($queryTokenParser))
 
-            ->addTokenParser(new TokenParser\Query\ArrayOperator\InTokenParser())
-            ->addTokenParser(new TokenParser\Query\ArrayOperator\OutTokenParser())
+            ->addTokenParser(new TokenParser\Query\Basic\ArrayOperator\InTokenParser())
+            ->addTokenParser(new TokenParser\Query\Basic\ArrayOperator\OutTokenParser())
 
-            ->addTokenParser(new TokenParser\Query\ScalarOperator\EqTokenParser())
-            ->addTokenParser(new TokenParser\Query\ScalarOperator\NeTokenParser())
-            ->addTokenParser(new TokenParser\Query\ScalarOperator\LtTokenParser())
-            ->addTokenParser(new TokenParser\Query\ScalarOperator\GtTokenParser())
-            ->addTokenParser(new TokenParser\Query\ScalarOperator\LeTokenParser())
-            ->addTokenParser(new TokenParser\Query\ScalarOperator\GeTokenParser())
+            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\EqTokenParser())
+            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\NeTokenParser())
+            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\LtTokenParser())
+            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\GtTokenParser())
+            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\LeTokenParser())
+            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\GeTokenParser())
 
-            ->addTokenParser(new TokenParser\Query\FiqlOperator\EqTokenParser())
-            ->addTokenParser(new TokenParser\Query\FiqlOperator\NeTokenParser())
-            ->addTokenParser(new TokenParser\Query\FiqlOperator\LtTokenParser())
-            ->addTokenParser(new TokenParser\Query\FiqlOperator\GtTokenParser())
-            ->addTokenParser(new TokenParser\Query\FiqlOperator\LeTokenParser())
-            ->addTokenParser(new TokenParser\Query\FiqlOperator\GeTokenParser());
+            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\EqTokenParser())
+            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\NeTokenParser())
+            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LtTokenParser())
+            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\GtTokenParser())
+            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LeTokenParser())
+            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\GeTokenParser());
 
         return (new self(
             (new ExpressionParser())

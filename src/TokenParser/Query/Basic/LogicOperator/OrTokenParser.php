@@ -1,8 +1,8 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\LogicOperator;
+namespace Mrix\Rql\Parser\TokenParser\Query\Basic\LogicOperator;
 
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
-use Mrix\Rql\Parser\TokenParser\Query\AbstractLogicOperatorTokenParser;
+use Mrix\Rql\Parser\TokenParser\Query\Basic\AbstractLogicOperatorTokenParser;
 use Mrix\Rql\Parser\Node\Query\LogicOperator\OrNode;
 
 /**

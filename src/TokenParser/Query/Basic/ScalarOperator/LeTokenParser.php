@@ -1,7 +1,7 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\ScalarOperator;
+namespace Mrix\Rql\Parser\TokenParser\Query\Basic\ScalarOperator;
 
-use Mrix\Rql\Parser\TokenParser\Query\AbstractScalarOperatorTokenParser;
+use Mrix\Rql\Parser\TokenParser\Query\Basic\AbstractScalarOperatorTokenParser;
 use Mrix\Rql\Parser\Node\Query\ScalarOperator\LeNode;
 
 /**

@@ -1,20 +1,20 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\LogicOperator;
+namespace Mrix\Rql\Parser\TokenParser\Query\Basic\LogicOperator;
 
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
-use Mrix\Rql\Parser\TokenParser\Query\AbstractLogicOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\LogicOperator\AndNode;
+use Mrix\Rql\Parser\TokenParser\Query\Basic\AbstractLogicOperatorTokenParser;
+use Mrix\Rql\Parser\Node\Query\LogicOperator\NotNode;
 
 /**
  */
-class AndTokenParser extends AbstractLogicOperatorTokenParser
+class NotTokenParser extends AbstractLogicOperatorTokenParser
 {
     /**
      * @return string
      */
     protected function getOperatorName()
     {
-        return 'and';
+        return 'not';
     }
 
     /**
@@ -22,16 +22,16 @@ class AndTokenParser extends AbstractLogicOperatorTokenParser
      */
     protected function createNode(array $queries)
     {
-        if (count($queries) < 2) {
+        if (count($queries) !== 1) {
             throw new SyntaxErrorException(
                 sprintf(
-                    '"%s" operator expects at least 2 parameters, %d given',
+                    '"%s" operator expects 1 parameter, %d given',
                     $this->getOperatorName(),
                     count($queries)
                 )
             );
         }
 
-        return new AndNode($queries);
+        return new NotNode($queries);
     }
 }

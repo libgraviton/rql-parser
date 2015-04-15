@@ -1,14 +1,14 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query;
+namespace Mrix\Rql\Parser\TokenParser\Query\Basic;
 
 use Mrix\Rql\Parser\Token;
 use Mrix\Rql\Parser\TokenStream;
-use Mrix\Rql\Parser\AbstractTokenParser;
+use Mrix\Rql\Parser\TokenParser\Query\AbstractBasicTokenParser;
 use Mrix\Rql\Parser\Node\Query\AbstractScalarOperatorNode;
 
 /**
  */
-abstract class AbstractScalarOperatorTokenParser extends AbstractTokenParser
+abstract class AbstractScalarOperatorTokenParser extends AbstractBasicTokenParser
 {
     /**
      * @param string $field
@@ -16,11 +16,6 @@ abstract class AbstractScalarOperatorTokenParser extends AbstractTokenParser
      * @return AbstractScalarOperatorNode
      */
     abstract protected function createNode($field, $value);
-
-    /**
-     * @return string
-     */
-    abstract protected function getOperatorName();
 
     /**
      * @inheritdoc
@@ -37,13 +32,5 @@ abstract class AbstractScalarOperatorTokenParser extends AbstractTokenParser
         $tokenStream->expect(Token::T_CLOSE_PARENTHESIS);
 
         return $this->createNode($field, $value);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function supports(TokenStream $tokenStream)
-    {
-        return $tokenStream->test(Token::T_OPERATOR, $this->getOperatorName());
     }
 }

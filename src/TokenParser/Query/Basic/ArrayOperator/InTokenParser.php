@@ -1,7 +1,7 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\ArrayOperator;
+namespace Mrix\Rql\Parser\TokenParser\Query\Basic\ArrayOperator;
 
-use Mrix\Rql\Parser\TokenParser\Query\AbstractArrayOperatorTokenParser;
+use Mrix\Rql\Parser\TokenParser\Query\Basic\AbstractArrayOperatorTokenParser;
 use Mrix\Rql\Parser\Node\Query\ArrayOperator\InNode;
 
 /**
