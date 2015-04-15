@@ -137,6 +137,34 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         '',
                     ])),
             ],
+            'simple groups' => [
+                '(eq(a,b)&lt(c,d))&(ne(e,f)|gt(g,h))',
+                (new Query())
+                    ->addQuery(new Node\Query\LogicQuery\AndNode([
+                        new Node\Query\ScalarQuery\EqNode('a', 'b'),
+                        new Node\Query\ScalarQuery\LtNode('c', 'd'),
+                    ]))
+                    ->addQuery(new Node\Query\LogicQuery\OrNode([
+                        new Node\Query\ScalarQuery\NeNode('e', 'f'),
+                        new Node\Query\ScalarQuery\GtNode('g', 'h'),
+                    ])),
+            ],
+            'deep groups & mix groups with operators' => [
+                '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|gte(i,j)|in(k,(l,m,n)))))',
+                (new Query())
+                    ->addQuery(new Node\Query\LogicQuery\OrNode([
+                        new Node\Query\ScalarQuery\EqNode('a', 'b'),
+                        new Node\Query\ScalarQuery\LtNode('c', 'd'),
+                        new Node\Query\LogicQuery\AndNode([
+                            new Node\Query\ScalarQuery\GtNode('e', 'f'),
+                            new Node\Query\LogicQuery\OrNode([
+                                new Node\Query\ScalarQuery\NeNode('g', 'h'),
+                                new Node\Query\ScalarQuery\GteNode('i', 'j'),
+                                new Node\Query\ArrayQuery\InNode('k', ['l', 'm', 'n']),
+                            ]),
+                        ]),
+                    ])),
+            ],
         ];
     }
 }

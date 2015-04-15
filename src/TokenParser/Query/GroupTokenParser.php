@@ -1,9 +1,10 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser;
+namespace Mrix\Rql\Parser\TokenParser\Query;
 
 use Mrix\Rql\Parser\Token;
 use Mrix\Rql\Parser\TokenStream;
 use Mrix\Rql\Parser\TokenParserInterface;
+use Mrix\Rql\Parser\TokenParser\QueryTokenParser;
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
 use Mrix\Rql\Parser\Node\AbstractQueryNode;
 use Mrix\Rql\Parser\Node\Query\LogicQuery\AndNode;
@@ -38,11 +39,7 @@ class GroupTokenParser implements TokenParserInterface
         $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
 
         do {
-            if ($tokenStream->getCurrent()->test(Token::T_OPEN_PARENTHESIS)) {
-                $queries[] = $this->parse($tokenStream);
-            } else {
-                $queries[] = $this->queryTokenParser->parse($tokenStream);
-            }
+            $queries[] = $this->queryTokenParser->parse($tokenStream);
 
             if ($tokenStream->nextIf(Token::T_AMPERSAND)) {
                 if ($operator === null) {

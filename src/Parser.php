@@ -37,18 +37,20 @@ class Parser
      */
     public static function createDefault()
     {
-        $queryTokenParser = new TokenParser\QueryTokenParser(
+        $queryTokenParser = (new TokenParser\QueryTokenParser(
             (new ExpressionParser())
                 ->registerTypeCaster('string', new TypeCaster\StringTypeCaster())
                 ->registerTypeCaster('integer', new TypeCaster\IntegerTypeCaster())
                 ->registerTypeCaster('float', new TypeCaster\FloatTypeCaster())
                 ->registerTypeCaster('boolean', new TypeCaster\BooleanTypeCaster())
-        );
+        ));
+        $queryTokenParser
+            ->addTokenParser(new TokenParser\Query\GroupTokenParser($queryTokenParser))
+            ->addTokenParser(new TokenParser\Query\OperatorTokenParser($queryTokenParser));
 
         return (new self())
             ->addTokenParser(new TokenParser\SelectTokenParser())
             ->addTokenParser($queryTokenParser)
-            ->addTokenParser(new TokenParser\GroupTokenParser($queryTokenParser))
             ->addTokenParser(new TokenParser\SortTokenParser())
             ->addTokenParser(new TokenParser\LimitTokenParser());
     }

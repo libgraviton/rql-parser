@@ -305,6 +305,127 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
+            'simple groups' => [
+                '(eq(a,b)&lt(c,d))&(ne(e,f)|gt(g,h))',
+                [
+                    ['(', Token::T_OPEN_PARENTHESIS],
+
+                    ['eq', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['a', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['b', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['lt', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['c', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['d', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['(', Token::T_OPEN_PARENTHESIS],
+
+                    ['ne', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['e', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['f', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['|', Token::T_VERTICAL_BAR],
+
+                    ['gt', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['g', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['h', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    [')', Token::T_CLOSE_PARENTHESIS],
+                ],
+            ],
+            'deep groups & mix groups with operators' => [
+                '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|gte(i,j)|in(k,(l,m,n)))))',
+                [
+                    ['(', Token::T_OPEN_PARENTHESIS],
+
+                    ['eq', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['a', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['b', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['|', Token::T_VERTICAL_BAR],
+
+                    ['lt', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['c', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['d', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['|', Token::T_VERTICAL_BAR],
+
+                    ['and', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+
+                    ['gt', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['e', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['f', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    [',', Token::T_COMMA],
+
+                    ['(', Token::T_OPEN_PARENTHESIS],
+
+                    ['ne', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['g', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['h', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['|', Token::T_VERTICAL_BAR],
+
+                    ['gte', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['i', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['j', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['|', Token::T_VERTICAL_BAR],
+
+                    ['in', Token::T_QUERY_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['k', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['l', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['m', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['n', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    [')', Token::T_CLOSE_PARENTHESIS],
+                ],
+            ],
         ];
     }
 }
