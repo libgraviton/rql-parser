@@ -70,6 +70,9 @@ class Parser
             ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\LeTokenParser())
             ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\GeTokenParser())
 
+            ->addTokenParser(new TokenParser\Query\Fiql\ArrayOperator\InTokenParser())
+            ->addTokenParser(new TokenParser\Query\Fiql\ArrayOperator\OutTokenParser())
+
             ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\EqTokenParser())
             ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\NeTokenParser())
             ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LtTokenParser())
