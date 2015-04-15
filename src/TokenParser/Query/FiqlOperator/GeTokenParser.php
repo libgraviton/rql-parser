@@ -1,18 +1,18 @@
 <?php
 namespace Mrix\Rql\Parser\TokenParser\Query\FiqlOperator;
 
-use Mrix\Rql\Parser\Node\Query\ScalarOperator\LteNode;
+use Mrix\Rql\Parser\Node\Query\ScalarOperator\GeNode;
 
 /**
  */
-class LteTokenParser extends AbstractFiqlTokenParser
+class GeTokenParser extends AbstractFiqlTokenParser
 {
     /**
      * @inheritdoc
      */
     protected function getOperatorNames()
     {
-        return ['lte', '<='];
+        return ['ge', '>='];
     }
 
     /**
@@ -20,6 +20,6 @@ class LteTokenParser extends AbstractFiqlTokenParser
      */
     protected function createNode($field, $value)
     {
-        return new LteNode($field, $value);
+        return new GeNode($field, $value);
     }
 }

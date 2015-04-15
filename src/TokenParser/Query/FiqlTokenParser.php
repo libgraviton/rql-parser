@@ -47,9 +47,9 @@ class FiqlTokenParser implements TokenParserInterface
             'eq', '=', '==',
             'ne', '<>', '!=',
             'lt', '<',
-            'lte', '<=',
+            'le', '<=',
             'gt', '>',
-            'gte', '>=',
+            'ge', '>=',
         ]);
     }
 
@@ -88,11 +88,11 @@ class FiqlTokenParser implements TokenParserInterface
             'gt'    => FiqlOperator\GtTokenParser::class,
             '>'     => FiqlOperator\GtTokenParser::class,
 
-            'lte'   => FiqlOperator\LteTokenParser::class,
-            '<='    => FiqlOperator\LteTokenParser::class,
+            'le'    => FiqlOperator\LeTokenParser::class,
+            '<='    => FiqlOperator\LeTokenParser::class,
 
-            'gte'   => FiqlOperator\GteTokenParser::class,
-            '>='    => FiqlOperator\GteTokenParser::class,
+            'ge'    => FiqlOperator\GeTokenParser::class,
+            '>='    => FiqlOperator\GeTokenParser::class,
         ];
 
         if (!isset($operatorMap[$operator])) {

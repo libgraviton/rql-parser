@@ -149,8 +149,8 @@ class Lexer
             '>'     => 'gt',
             '<'     => 'lt',
 
-            '>='    => 'gte',
-            '<='    => 'lte',
+            '>='    => 'ge',
+            '<='    => 'le',
         ];
 
         if (isset($operatorMap[$operator])) {

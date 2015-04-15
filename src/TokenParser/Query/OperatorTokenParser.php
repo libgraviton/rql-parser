@@ -44,7 +44,7 @@ class OperatorTokenParser implements TokenParserInterface
     public function supports(TokenStream $tokenStream)
     {
         return $tokenStream->test(Token::T_OPERATOR, [
-            'eq', 'ne', 'lt', 'gt', 'lte', 'gte',
+            'eq', 'ne', 'lt', 'gt', 'le', 'ge',
             'in', 'out',
             'and', 'or', 'not',
         ]);
@@ -75,8 +75,8 @@ class OperatorTokenParser implements TokenParserInterface
             'ne'        => ScalarOperator\NeTokenParser::class,
             'lt'        => ScalarOperator\LtTokenParser::class,
             'gt'        => ScalarOperator\GtTokenParser::class,
-            'lte'       => ScalarOperator\LteTokenParser::class,
-            'gte'       => ScalarOperator\GteTokenParser::class,
+            'le'        => ScalarOperator\LeTokenParser::class,
+            'ge'        => ScalarOperator\GeTokenParser::class,
 
             'in'        => ArrayOperator\InTokenParser::class,
             'out'       => ArrayOperator\OutTokenParser::class,

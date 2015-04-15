@@ -2,18 +2,18 @@
 namespace Mrix\Rql\Parser\TokenParser\Query\ScalarOperator;
 
 use Mrix\Rql\Parser\TokenParser\Query\AbstractScalarOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\ScalarOperator\GteNode;
+use Mrix\Rql\Parser\Node\Query\ScalarOperator\GeNode;
 
 /**
  */
-class GteTokenParser extends AbstractScalarOperatorTokenParser
+class GeTokenParser extends AbstractScalarOperatorTokenParser
 {
     /**
      * @inheritdoc
      */
     protected function getOperatorName()
     {
-        return 'gte';
+        return 'ge';
     }
 
     /**
@@ -21,6 +21,6 @@ class GteTokenParser extends AbstractScalarOperatorTokenParser
      */
     protected function createNode($field, $value)
     {
-        return new GteNode($field, $value);
+        return new GeNode($field, $value);
     }
 }

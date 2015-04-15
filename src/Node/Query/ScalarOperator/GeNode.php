@@ -5,6 +5,6 @@ use Mrix\Rql\Parser\Node\Query\AbstractScalarOperatorNode;
 
 /**
  */
-class GteNode extends AbstractScalarOperatorNode
+class GeNode extends AbstractScalarOperatorNode
 {
 }

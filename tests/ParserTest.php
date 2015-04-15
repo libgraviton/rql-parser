@@ -56,14 +56,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'logic operators' => [
-                'and(eq(a,b),lt(c,d),or(in(a,(1,f)),gte(g,2)))&not(ne(h,3))',
+                'and(eq(a,b),lt(c,d),or(in(a,(1,f)),gt(g,2)))&not(ne(h,3))',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\LogicOperator\AndNode([
                         new Node\Query\ScalarOperator\EqNode('a', 'b'),
                         new Node\Query\ScalarOperator\LtNode('c', 'd'),
                         new Node\Query\LogicOperator\OrNode([
                             new Node\Query\ArrayOperator\InNode('a', [1, 'f']),
-                            new Node\Query\ScalarOperator\GteNode('g', 2),
+                            new Node\Query\ScalarOperator\GeNode('g', 2),
                         ])
                     ]))
                     ->addQuery(new Node\Query\LogicOperator\NotNode([
@@ -162,7 +162,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'deep groups & mix groups with operators' => [
-                '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|gte(i,j)|in(k,(l,m,n)))))',
+                '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|ge(i,j)|in(k,(l,m,n)))))',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\LogicOperator\OrNode([
                         new Node\Query\ScalarOperator\EqNode('a', 'b'),
@@ -171,7 +171,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                             new Node\Query\ScalarOperator\GtNode('e', 'f'),
                             new Node\Query\LogicOperator\OrNode([
                                 new Node\Query\ScalarOperator\NeNode('g', 'h'),
-                                new Node\Query\ScalarOperator\GteNode('i', 'j'),
+                                new Node\Query\ScalarOperator\GeNode('i', 'j'),
                                 new Node\Query\ArrayOperator\InNode('k', ['l', 'm', 'n']),
                             ]),
                         ]),

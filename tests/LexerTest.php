@@ -128,7 +128,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'logic operators' => [
-                'and(eq(a,b),lt(c,d),or(in(a,(1,f)),gte(g,2)))&not(ne(h,3))',
+                'and(eq(a,b),lt(c,d),or(in(a,(1,f)),gt(g,2)))&not(ne(h,3))',
                 [
                     ['and', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
@@ -167,7 +167,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     [',', Token::T_COMMA],
 
-                    ['gte', Token::T_OPERATOR],
+                    ['gt', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['g', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -352,7 +352,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'deep groups & mix groups with operators' => [
-                '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|gte(i,j)|in(k,(l,m,n)))))',
+                '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|gt(i,j)|in(k,(l,m,n)))))',
                 [
                     ['(', Token::T_OPEN_PARENTHESIS],
 
@@ -397,7 +397,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['|', Token::T_VERTICAL_BAR],
 
-                    ['gte', Token::T_OPERATOR],
+                    ['gt', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['i', Token::T_STRING],
                     [',', Token::T_COMMA],
