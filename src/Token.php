@@ -78,12 +78,15 @@ class Token
     {
         if ($this->type !== $type) {
             return false;
+        } elseif ($value !== null) {
+            if (is_array($value)) {
+                return in_array($this->value, $value, true);
+            } else {
+                return $this->value === $value;
+            }
+        } else {
+            return true;
         }
-        if ($value !== null && $this->value !== $value) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
