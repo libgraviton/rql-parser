@@ -46,7 +46,8 @@ class Parser
         ));
         $queryTokenParser
             ->addTokenParser(new TokenParser\Query\GroupTokenParser($queryTokenParser))
-            ->addTokenParser(new TokenParser\Query\OperatorTokenParser($queryTokenParser));
+            ->addTokenParser(new TokenParser\Query\OperatorTokenParser($queryTokenParser))
+            ->addTokenParser(new TokenParser\Query\FiqlTokenParser($queryTokenParser));
 
         return (new self())
             ->addTokenParser(new TokenParser\SelectTokenParser())

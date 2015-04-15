@@ -8,7 +8,7 @@ use Mrix\Rql\Parser\Exception\SyntaxErrorException;
 class Lexer
 {
     const REGEX_VALUE       = '/(\w|\-|\+|\*|\$|\.|\%[0-9a-f]{2})+/Ai';
-    const REGEX_OPERATOR    = '/[a-z]\w*(?=\()/Ai';
+    const REGEX_OPERATOR    = '/(?:[a-z]\w*(?=\()|\=[a-z]\w*\=)/Ai';
     const REGEX_TYPE        = '/[a-z]\w*\:/Ai';
     const REGEX_PUNCTUATION = '/[\(\)&,|]/A';
     const REGEX_CONSTANT    = '/(null|empty|true|false)\(\)/A';
@@ -139,7 +139,13 @@ class Lexer
 
     protected function processOperator($operator)
     {
-        $this->pushToken(Token::T_OPERATOR, $operator);
+        if ($operator[0] === '=') {
+            $decoded = substr($operator, 1, -1);
+        } else {
+            $decoded = $operator;
+        }
+
+        $this->pushToken(Token::T_OPERATOR, $decoded);
         $this->moveCursor($operator);
     }
 
