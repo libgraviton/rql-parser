@@ -307,6 +307,114 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
+            'fiql operators' => [
+                'a=eq=1&b=ne=2&c=lt=3&d=gt=4&e=le=5&f=ge=6&g=in=(7,8)&h=out=(9,10)',
+                [
+                    ['a', Token::T_STRING],
+                    ['eq', Token::T_OPERATOR],
+                    ['1', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['b', Token::T_STRING],
+                    ['ne', Token::T_OPERATOR],
+                    ['2', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['c', Token::T_STRING],
+                    ['lt', Token::T_OPERATOR],
+                    ['3', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['d', Token::T_STRING],
+                    ['gt', Token::T_OPERATOR],
+                    ['4', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['e', Token::T_STRING],
+                    ['le', Token::T_OPERATOR],
+                    ['5', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['f', Token::T_STRING],
+                    ['ge', Token::T_OPERATOR],
+                    ['6', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['g', Token::T_STRING],
+                    ['in', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['7', Token::T_INTEGER],
+                    [',', Token::T_COMMA],
+                    ['8', Token::T_INTEGER],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['h', Token::T_STRING],
+                    ['out', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['9', Token::T_INTEGER],
+                    [',', Token::T_COMMA],
+                    ['10', Token::T_INTEGER],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+                ],
+            ],
+            'fiql operators (json compatible)' => [
+                'a=1&b==2&c<>3&d!=4&e<5&f>6&g<=7&h>=8',
+                [
+                    ['a', Token::T_STRING],
+                    ['=', Token::T_OPERATOR],
+                    ['1', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['b', Token::T_STRING],
+                    ['==', Token::T_OPERATOR],
+                    ['2', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['c', Token::T_STRING],
+                    ['<>', Token::T_OPERATOR],
+                    ['3', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['d', Token::T_STRING],
+                    ['!=', Token::T_OPERATOR],
+                    ['4', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['e', Token::T_STRING],
+                    ['<', Token::T_OPERATOR],
+                    ['5', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['f', Token::T_STRING],
+                    ['>', Token::T_OPERATOR],
+                    ['6', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['g', Token::T_STRING],
+                    ['<=', Token::T_OPERATOR],
+                    ['7', Token::T_INTEGER],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['h', Token::T_STRING],
+                    ['>=', Token::T_OPERATOR],
+                    ['8', Token::T_INTEGER],
+                ],
+            ],
             'simple groups' => [
                 '(eq(a,b)&lt(c,d))&(ne(e,f)|gt(g,h))',
                 [
@@ -354,7 +462,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'deep groups & mix groups with operators' => [
-                '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|gt(i,j)|in(k,(l,m,n)))))',
+                '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|gt(i,j)|in(k,(l,m,n))|(o<>p&q=le=r))))',
                 [
                     ['(', Token::T_OPEN_PARENTHESIS],
 
@@ -419,6 +527,18 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     [',', Token::T_COMMA],
                     ['n', Token::T_STRING],
                     [')', Token::T_CLOSE_PARENTHESIS],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['|', Token::T_VERTICAL_BAR],
+
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['o', Token::T_STRING],
+                    ['<>', Token::T_OPERATOR],
+                    ['p', Token::T_STRING],
+                    ['&', Token::T_AMPERSAND],
+                    ['q', Token::T_STRING],
+                    ['le', Token::T_OPERATOR],
+                    ['r', Token::T_STRING],
                     [')', Token::T_CLOSE_PARENTHESIS],
 
                     [')', Token::T_CLOSE_PARENTHESIS],

@@ -148,6 +148,32 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ]))
                     ->getQuery(),
             ],
+            'fiql operators' => [
+                'a=eq=1&b=ne=2&c=lt=3&d=gt=4&e=le=5&f=ge=6&g=in=(7,8)&h=out=(9,10)',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('a', 1))
+                    ->addQuery(new Node\Query\ScalarOperator\NeNode('b', 2))
+                    ->addQuery(new Node\Query\ScalarOperator\LtNode('c', 3))
+                    ->addQuery(new Node\Query\ScalarOperator\GtNode('d', 4))
+                    ->addQuery(new Node\Query\ScalarOperator\LeNode('e', 5))
+                    ->addQuery(new Node\Query\ScalarOperator\GeNode('f', 6))
+                    ->addQuery(new Node\Query\ArrayOperator\InNode('g', [7, 8]))
+                    ->addQuery(new Node\Query\ArrayOperator\OutNode('h', [9, 10]))
+                    ->getQuery(),
+            ],
+            'fiql operators (json compatible)' => [
+                'a=1&b==2&c<>3&d!=4&e<5&f>6&g<=7&h>=8',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('a', 1))
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('b', 2))
+                    ->addQuery(new Node\Query\ScalarOperator\NeNode('c', 3))
+                    ->addQuery(new Node\Query\ScalarOperator\NeNode('d', 4))
+                    ->addQuery(new Node\Query\ScalarOperator\LtNode('e', 5))
+                    ->addQuery(new Node\Query\ScalarOperator\GtNode('f', 6))
+                    ->addQuery(new Node\Query\ScalarOperator\LeNode('g', 7))
+                    ->addQuery(new Node\Query\ScalarOperator\GeNode('h', 8))
+                    ->getQuery(),
+            ],
             'simple groups' => [
                 '(eq(a,b)&lt(c,d))&(ne(e,f)|gt(g,h))',
                 (new QueryBuilder())
@@ -162,7 +188,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'deep groups & mix groups with operators' => [
-                '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|ge(i,j)|in(k,(l,m,n)))))',
+                '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|ge(i,j)|in(k,(l,m,n))|(o<>p&q=le=r))))',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\LogicOperator\OrNode([
                         new Node\Query\ScalarOperator\EqNode('a', 'b'),
@@ -173,6 +199,10 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                                 new Node\Query\ScalarOperator\NeNode('g', 'h'),
                                 new Node\Query\ScalarOperator\GeNode('i', 'j'),
                                 new Node\Query\ArrayOperator\InNode('k', ['l', 'm', 'n']),
+                                new Node\Query\LogicOperator\AndNode([
+                                    new Node\Query\ScalarOperator\NeNode('o', 'p'),
+                                    new Node\Query\ScalarOperator\LeNode('q', 'r'),
+                                ]),
                             ]),
                         ]),
                     ]))
