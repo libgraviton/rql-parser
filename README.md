@@ -1,4 +1,4 @@
-PQL parser
+RQL parser
 ==========
 
 This is a RQL parsing library written in PHP.
