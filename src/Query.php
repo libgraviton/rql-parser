@@ -8,7 +8,7 @@ use Mrix\Rql\Parser\Node\LimitNode;
 
 /**
  */
-class Query
+class Query extends AbstractNode
 {
     /**
      * @var SelectNode
