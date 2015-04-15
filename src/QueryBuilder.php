@@ -6,7 +6,7 @@ use Mrix\Rql\Parser\Node\SelectNode;
 use Mrix\Rql\Parser\Node\AbstractQueryNode;
 use Mrix\Rql\Parser\Node\SortNode;
 use Mrix\Rql\Parser\Node\LimitNode;
-use Mrix\Rql\Parser\Node\Query\LogicQuery\AndNode;
+use Mrix\Rql\Parser\Node\Query\LogicOperator\AndNode;
 
 /**
  */

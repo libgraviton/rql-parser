@@ -1,19 +1,19 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\ArrayQuery;
+namespace Mrix\Rql\Parser\TokenParser\Query\ArrayOperator;
 
 use Mrix\Rql\Parser\TokenParser\Query\AbstractArrayOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\ArrayQuery\InNode;
+use Mrix\Rql\Parser\Node\Query\ArrayOperator\OutNode;
 
 /**
  */
-class InTokenParser extends AbstractArrayOperatorTokenParser
+class OutTokenParser extends AbstractArrayOperatorTokenParser
 {
     /**
      * @inheritdoc
      */
     protected function getOperatorName()
     {
-        return 'in';
+        return 'out';
     }
 
     /**
@@ -21,6 +21,6 @@ class InTokenParser extends AbstractArrayOperatorTokenParser
      */
     protected function createNode($field, array $values)
     {
-        return new InNode($field, $values);
+        return new OutNode($field, $values);
     }
 }

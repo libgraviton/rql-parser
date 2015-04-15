@@ -1,19 +1,19 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\ScalarQuery;
+namespace Mrix\Rql\Parser\TokenParser\Query\ScalarOperator;
 
 use Mrix\Rql\Parser\TokenParser\Query\AbstractScalarOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\ScalarQuery\LteNode;
+use Mrix\Rql\Parser\Node\Query\ScalarOperator\GtNode;
 
 /**
  */
-class LteTokenParser extends AbstractScalarOperatorTokenParser
+class GtTokenParser extends AbstractScalarOperatorTokenParser
 {
     /**
      * @inheritdoc
      */
     protected function getOperatorName()
     {
-        return 'lte';
+        return 'gt';
     }
 
     /**
@@ -21,6 +21,6 @@ class LteTokenParser extends AbstractScalarOperatorTokenParser
      */
     protected function createNode($field, $value)
     {
-        return new LteNode($field, $value);
+        return new GtNode($field, $value);
     }
 }

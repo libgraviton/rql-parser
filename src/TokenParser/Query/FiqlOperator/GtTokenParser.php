@@ -1,7 +1,7 @@
 <?php
 namespace Mrix\Rql\Parser\TokenParser\Query\FiqlOperator;
 
-use Mrix\Rql\Parser\Node\Query\ScalarQuery\GtNode;
+use Mrix\Rql\Parser\Node\Query\ScalarOperator\GtNode;
 
 /**
  */

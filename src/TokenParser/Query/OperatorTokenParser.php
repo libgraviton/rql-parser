@@ -71,19 +71,19 @@ class OperatorTokenParser implements TokenParserInterface
     protected function createOperatorParser($operator)
     {
         static $operatorMap = [
-            'eq'        => ScalarQuery\EqTokenParser::class,
-            'ne'        => ScalarQuery\NeTokenParser::class,
-            'lt'        => ScalarQuery\LtTokenParser::class,
-            'gt'        => ScalarQuery\GtTokenParser::class,
-            'lte'       => ScalarQuery\LteTokenParser::class,
-            'gte'       => ScalarQuery\GteTokenParser::class,
+            'eq'        => ScalarOperator\EqTokenParser::class,
+            'ne'        => ScalarOperator\NeTokenParser::class,
+            'lt'        => ScalarOperator\LtTokenParser::class,
+            'gt'        => ScalarOperator\GtTokenParser::class,
+            'lte'       => ScalarOperator\LteTokenParser::class,
+            'gte'       => ScalarOperator\GteTokenParser::class,
 
-            'in'        => ArrayQuery\InTokenParser::class,
-            'out'       => ArrayQuery\OutTokenParser::class,
+            'in'        => ArrayOperator\InTokenParser::class,
+            'out'       => ArrayOperator\OutTokenParser::class,
 
-            'and'       => LogicQuery\AndTokenParser::class,
-            'or'        => LogicQuery\OrTokenParser::class,
-            'not'       => LogicQuery\NotTokenParser::class,
+            'and'       => LogicOperator\AndTokenParser::class,
+            'or'        => LogicOperator\OrTokenParser::class,
+            'not'       => LogicOperator\NotTokenParser::class,
         ];
 
         if (!isset($operatorMap[$operator])) {

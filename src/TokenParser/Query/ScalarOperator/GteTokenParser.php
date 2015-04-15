@@ -1,8 +1,8 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\ScalarQuery;
+namespace Mrix\Rql\Parser\TokenParser\Query\ScalarOperator;
 
 use Mrix\Rql\Parser\TokenParser\Query\AbstractScalarOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\ScalarQuery\GteNode;
+use Mrix\Rql\Parser\Node\Query\ScalarOperator\GteNode;
 
 /**
  */

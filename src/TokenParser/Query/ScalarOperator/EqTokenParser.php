@@ -1,19 +1,19 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\ScalarQuery;
+namespace Mrix\Rql\Parser\TokenParser\Query\ScalarOperator;
 
 use Mrix\Rql\Parser\TokenParser\Query\AbstractScalarOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\ScalarQuery\NeNode;
+use Mrix\Rql\Parser\Node\Query\ScalarOperator\EqNode;
 
 /**
  */
-class NeTokenParser extends AbstractScalarOperatorTokenParser
+class EqTokenParser extends AbstractScalarOperatorTokenParser
 {
     /**
      * @inheritdoc
      */
     protected function getOperatorName()
     {
-        return 'ne';
+        return 'eq';
     }
 
     /**
@@ -21,6 +21,6 @@ class NeTokenParser extends AbstractScalarOperatorTokenParser
      */
     protected function createNode($field, $value)
     {
-        return new NeNode($field, $value);
+        return new EqNode($field, $value);
     }
 }

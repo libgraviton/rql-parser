@@ -1,19 +1,19 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\ScalarQuery;
+namespace Mrix\Rql\Parser\TokenParser\Query\ScalarOperator;
 
 use Mrix\Rql\Parser\TokenParser\Query\AbstractScalarOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\ScalarQuery\EqNode;
+use Mrix\Rql\Parser\Node\Query\ScalarOperator\LtNode;
 
 /**
  */
-class EqTokenParser extends AbstractScalarOperatorTokenParser
+class LtTokenParser extends AbstractScalarOperatorTokenParser
 {
     /**
      * @inheritdoc
      */
     protected function getOperatorName()
     {
-        return 'eq';
+        return 'lt';
     }
 
     /**
@@ -21,6 +21,6 @@ class EqTokenParser extends AbstractScalarOperatorTokenParser
      */
     protected function createNode($field, $value)
     {
-        return new EqNode($field, $value);
+        return new LtNode($field, $value);
     }
 }

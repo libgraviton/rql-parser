@@ -1,5 +1,5 @@
 <?php
-namespace Mrix\Rql\Parser\Node\Query\ArrayQuery;
+namespace Mrix\Rql\Parser\Node\Query\ArrayOperator;
 
 use Mrix\Rql\Parser\Node\Query\AbstractArrayOperatorNode;
 

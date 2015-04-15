@@ -7,8 +7,8 @@ use Mrix\Rql\Parser\TokenParserInterface;
 use Mrix\Rql\Parser\TokenParser\QueryTokenParser;
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
 use Mrix\Rql\Parser\Node\AbstractQueryNode;
-use Mrix\Rql\Parser\Node\Query\LogicQuery\AndNode;
-use Mrix\Rql\Parser\Node\Query\LogicQuery\OrNode;
+use Mrix\Rql\Parser\Node\Query\LogicOperator\AndNode;
+use Mrix\Rql\Parser\Node\Query\LogicOperator\OrNode;
 
 /**
  */
