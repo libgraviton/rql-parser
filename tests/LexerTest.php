@@ -39,12 +39,12 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             'primitives' => [
                 'eq(&eq&limit(limit,)date:empty(),null,1,+1,-1,0,1.5,-.4e12',
                 [
-                    ['eq', Token::T_QUERY_OPERATOR],
+                    ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['&', Token::T_AMPERSAND],
                     ['eq', Token::T_STRING],
                     ['&', Token::T_AMPERSAND],
-                    ['limit', Token::T_LIMIT_OPERATOR],
+                    ['limit', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['limit', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -71,7 +71,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             'simple eq' => [
                 'eq(name,value)',
                 [
-                    ['eq', Token::T_QUERY_OPERATOR],
+                    ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['name', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -82,7 +82,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             'array oprators' => [
                 'in(a,(1,b))&out(c,(2,d))',
                 [
-                    ['in', Token::T_QUERY_OPERATOR],
+                    ['in', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -95,7 +95,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['&', Token::T_AMPERSAND],
 
-                    ['out', Token::T_QUERY_OPERATOR],
+                    ['out', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['c', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -110,7 +110,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             'multiple query operators' => [
                 'eq(a,b)&lt(c,d)',
                 [
-                    ['eq', Token::T_QUERY_OPERATOR],
+                    ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -119,7 +119,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['&', Token::T_AMPERSAND],
 
-                    ['lt', Token::T_QUERY_OPERATOR],
+                    ['lt', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['c', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -130,10 +130,10 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             'logic operators' => [
                 'and(eq(a,b),lt(c,d),or(in(a,(1,f)),gte(g,2)))&not(ne(h,3))',
                 [
-                    ['and', Token::T_QUERY_OPERATOR],
+                    ['and', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
 
-                    ['eq', Token::T_QUERY_OPERATOR],
+                    ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -142,7 +142,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     [',', Token::T_COMMA],
 
-                    ['lt', Token::T_QUERY_OPERATOR],
+                    ['lt', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['c', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -151,10 +151,10 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     [',', Token::T_COMMA],
 
-                    ['or', Token::T_QUERY_OPERATOR],
+                    ['or', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
 
-                    ['in', Token::T_QUERY_OPERATOR],
+                    ['in', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -167,7 +167,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     [',', Token::T_COMMA],
 
-                    ['gte', Token::T_QUERY_OPERATOR],
+                    ['gte', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['g', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -179,9 +179,9 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['&', Token::T_AMPERSAND],
 
-                    ['not', Token::T_QUERY_OPERATOR],
+                    ['not', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
-                    ['ne', Token::T_QUERY_OPERATOR],
+                    ['ne', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['h', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -194,7 +194,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             'select, sort and limit operators' => [
                 'select(a,b,c)&sort(a,+b,-c)&limit(1)&limit(1,2)',
                 [
-                    ['select', Token::T_SELECT_OPERATOR],
+                    ['select', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -205,7 +205,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['&', Token::T_AMPERSAND],
 
-                    ['sort', Token::T_SORT_OPERATOR],
+                    ['sort', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -216,14 +216,14 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['&', Token::T_AMPERSAND],
 
-                    ['limit', Token::T_LIMIT_OPERATOR],
+                    ['limit', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['1', Token::T_INTEGER],
                     [')', Token::T_CLOSE_PARENTHESIS],
 
                     ['&', Token::T_AMPERSAND],
 
-                    ['limit', Token::T_LIMIT_OPERATOR],
+                    ['limit', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['1', Token::T_INTEGER],
                     [',', Token::T_COMMA],
@@ -235,7 +235,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             'string typecast' => [
                 'eq(a,string:3)&in(b,(string:true(),string:false,string:null,string:empty()))&out(c,(string:-1,string:+.5e10))',
                 [
-                    ['eq', Token::T_QUERY_OPERATOR],
+                    ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -245,7 +245,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['&', Token::T_AMPERSAND],
 
-                    ['in', Token::T_QUERY_OPERATOR],
+                    ['in', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['b', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -266,7 +266,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['&', Token::T_AMPERSAND],
 
-                    ['out', Token::T_QUERY_OPERATOR],
+                    ['out', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['c', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -283,7 +283,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             'constants' => [
                 'in(a,(null,null(),true,true(),false,false(),empty()))',
                 [
-                    ['in', Token::T_QUERY_OPERATOR],
+                    ['in', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -310,7 +310,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 [
                     ['(', Token::T_OPEN_PARENTHESIS],
 
-                    ['eq', Token::T_QUERY_OPERATOR],
+                    ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -319,7 +319,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['&', Token::T_AMPERSAND],
 
-                    ['lt', Token::T_QUERY_OPERATOR],
+                    ['lt', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['c', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -332,7 +332,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['(', Token::T_OPEN_PARENTHESIS],
 
-                    ['ne', Token::T_QUERY_OPERATOR],
+                    ['ne', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['e', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -341,7 +341,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['|', Token::T_VERTICAL_BAR],
 
-                    ['gt', Token::T_QUERY_OPERATOR],
+                    ['gt', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['g', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -356,7 +356,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 [
                     ['(', Token::T_OPEN_PARENTHESIS],
 
-                    ['eq', Token::T_QUERY_OPERATOR],
+                    ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -365,7 +365,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['|', Token::T_VERTICAL_BAR],
 
-                    ['lt', Token::T_QUERY_OPERATOR],
+                    ['lt', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['c', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -374,10 +374,10 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['|', Token::T_VERTICAL_BAR],
 
-                    ['and', Token::T_QUERY_OPERATOR],
+                    ['and', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
 
-                    ['gt', Token::T_QUERY_OPERATOR],
+                    ['gt', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['e', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -388,7 +388,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['(', Token::T_OPEN_PARENTHESIS],
 
-                    ['ne', Token::T_QUERY_OPERATOR],
+                    ['ne', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['g', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -397,7 +397,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['|', Token::T_VERTICAL_BAR],
 
-                    ['gte', Token::T_QUERY_OPERATOR],
+                    ['gte', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['i', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -406,7 +406,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['|', Token::T_VERTICAL_BAR],
 
-                    ['in', Token::T_QUERY_OPERATOR],
+                    ['in', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['k', Token::T_STRING],
                     [',', Token::T_COMMA],

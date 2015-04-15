@@ -27,7 +27,7 @@ abstract class AbstractQueryOperatorTokenParser implements TokenParserInterface
      */
     public function supports(Token $token)
     {
-        return $token->test(Token::T_QUERY_OPERATOR, $this->getOperatorName());
+        return $token->test(Token::T_OPERATOR, $this->getOperatorName());
     }
 
     /**

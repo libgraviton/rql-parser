@@ -17,7 +17,7 @@ class SortTokenParser implements TokenParserInterface
     {
         $fields = [];
 
-        $tokenStream->expect(Token::T_SORT_OPERATOR);
+        $tokenStream->expect(Token::T_OPERATOR, 'sort');
         $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
 
         do {
@@ -37,7 +37,7 @@ class SortTokenParser implements TokenParserInterface
      */
     public function supports(Token $token)
     {
-        return $token->test(Token::T_SORT_OPERATOR);
+        return $token->test(Token::T_OPERATOR, 'sort');
     }
 
     /**

@@ -18,7 +18,7 @@ class LimitTokenParser implements TokenParserInterface
         $limit = null;
         $offset = null;
 
-        $tokenStream->expect(Token::T_LIMIT_OPERATOR);
+        $tokenStream->expect(Token::T_OPERATOR, 'limit');
         $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
 
         $limit = (int)$tokenStream->expect(Token::T_INTEGER)->getValue();
@@ -36,6 +36,6 @@ class LimitTokenParser implements TokenParserInterface
      */
     public function supports(Token $token)
     {
-        return $token->test(Token::T_LIMIT_OPERATOR);
+        return $token->test(Token::T_OPERATOR, 'limit');
     }
 }

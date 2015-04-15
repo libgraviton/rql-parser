@@ -17,7 +17,7 @@ class SelectTokenParser implements TokenParserInterface
     {
         $fields = [];
 
-        $tokenStream->expect(Token::T_SELECT_OPERATOR);
+        $tokenStream->expect(Token::T_OPERATOR, 'select');
         $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
 
         do {
@@ -37,6 +37,6 @@ class SelectTokenParser implements TokenParserInterface
      */
     public function supports(Token $token)
     {
-        return $token->test(Token::T_SELECT_OPERATOR);
+        return $token->test(Token::T_OPERATOR, 'select');
     }
 }

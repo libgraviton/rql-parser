@@ -20,7 +20,7 @@ abstract class AbstractLogicOperatorTokenParser extends AbstractQueryOperatorTok
      */
     public function parse(TokenStream $tokenStream)
     {
-        $tokenStream->expect(Token::T_QUERY_OPERATOR, $this->getOperatorName());
+        $tokenStream->expect(Token::T_OPERATOR, $this->getOperatorName());
         $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
 
         $queries = [];

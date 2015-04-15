@@ -139,16 +139,7 @@ class Lexer
 
     protected function processOperator($operator)
     {
-        if ($operator === 'sort') {
-            $this->pushToken(Token::T_SORT_OPERATOR, $operator);
-        } elseif ($operator === 'limit') {
-            $this->pushToken(Token::T_LIMIT_OPERATOR, $operator);
-        } elseif ($operator === 'select') {
-            $this->pushToken(Token::T_SELECT_OPERATOR, $operator);
-        } else {
-            $this->pushToken(Token::T_QUERY_OPERATOR, $operator);
-        }
-
+        $this->pushToken(Token::T_OPERATOR, $operator);
         $this->moveCursor($operator);
     }
 

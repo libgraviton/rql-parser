@@ -22,10 +22,7 @@ class Token
 
     const T_TYPE                = 31;
 
-    const T_QUERY_OPERATOR      = 41;
-    const T_SORT_OPERATOR       = 42;
-    const T_LIMIT_OPERATOR      = 43;
-    const T_SELECT_OPERATOR     = 44;
+    const T_OPERATOR            = 41;
 
     const T_NULL                = 51;
     const T_EMPTY               = 52;
@@ -143,10 +140,7 @@ class Token
 
             self::T_TYPE              => 'T_TYPE',
 
-            self::T_QUERY_OPERATOR    => 'T_QUERY_OPERATOR',
-            self::T_SORT_OPERATOR     => 'T_SORT_OPERATOR',
-            self::T_LIMIT_OPERATOR    => 'T_LIMIT_OPERATOR',
-            self::T_SELECT_OPERATOR   => 'T_SELECT_OPERATOR',
+            self::T_OPERATOR          => 'T_OPERATOR',
 
             self::T_NULL              => 'T_NULL',
             self::T_EMPTY             => 'T_EMPTY',

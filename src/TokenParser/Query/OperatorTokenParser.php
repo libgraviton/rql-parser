@@ -43,7 +43,11 @@ class OperatorTokenParser implements TokenParserInterface
      */
     public function supports(Token $token)
     {
-        return $token->test(Token::T_QUERY_OPERATOR);
+        return $token->test(Token::T_OPERATOR, [
+            'eq', 'ne', 'lt', 'gt', 'lte', 'gte',
+            'in', 'out',
+            'and', 'or', 'not',
+        ]);
     }
 
     /**
