@@ -22,7 +22,9 @@ class LexerTest extends \PHPUnit_Framework_TestCase
         $lexer = new Lexer();
         $stream = $lexer->tokenize($rql);
 
-        foreach ($expected as list($value, $type)) {
+        foreach ($expected as $token) {
+            list($value, $type) = $token;
+
             $this->assertSame($value, $stream->getCurrent()->getValue());
             $this->assertSame($type, $stream->getCurrent()->getType());
 
