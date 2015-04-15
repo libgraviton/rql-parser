@@ -35,9 +35,9 @@ class SortTokenParser implements TokenParserInterface
     /**
      * @inheritdoc
      */
-    public function supports(Token $token)
+    public function supports(TokenStream $tokenStream)
     {
-        return $token->test(Token::T_OPERATOR, 'sort');
+        return $tokenStream->test(Token::T_OPERATOR, 'sort');
     }
 
     /**

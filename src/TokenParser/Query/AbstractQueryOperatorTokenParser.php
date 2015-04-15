@@ -2,6 +2,7 @@
 namespace Mrix\Rql\Parser\TokenParser\Query;
 
 use Mrix\Rql\Parser\Token;
+use Mrix\Rql\Parser\TokenStream;
 use Mrix\Rql\Parser\TokenParserInterface;
 use Mrix\Rql\Parser\TokenParser\QueryTokenParser;
 
@@ -25,9 +26,9 @@ abstract class AbstractQueryOperatorTokenParser implements TokenParserInterface
     /**
      * @inheritdoc
      */
-    public function supports(Token $token)
+    public function supports(TokenStream $tokenStream)
     {
-        return $token->test(Token::T_OPERATOR, $this->getOperatorName());
+        return $tokenStream->test(Token::T_OPERATOR, $this->getOperatorName());
     }
 
     /**

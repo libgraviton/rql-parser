@@ -12,8 +12,8 @@ interface TokenParserInterface
     public function parse(TokenStream $tokenStream);
 
     /**
-     * @param Token $token
+     * @param TokenStream $tokenStream
      * @return bool
      */
-    public function supports(Token $token);
+    public function supports(TokenStream $tokenStream);
 }

@@ -80,7 +80,7 @@ class Parser
     {
         $token = $tokenStream->getCurrent();
         foreach ($this->tokenParsers as $tokenParser) {
-            if ($tokenParser->supports($token)) {
+            if ($tokenParser->supports($tokenStream)) {
                 return $tokenParser->parse($tokenStream);
             }
         }

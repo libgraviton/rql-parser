@@ -34,8 +34,8 @@ class LimitTokenParser implements TokenParserInterface
     /**
      * @inheritdoc
      */
-    public function supports(Token $token)
+    public function supports(TokenStream $tokenStream)
     {
-        return $token->test(Token::T_OPERATOR, 'limit');
+        return $tokenStream->test(Token::T_OPERATOR, 'limit');
     }
 }

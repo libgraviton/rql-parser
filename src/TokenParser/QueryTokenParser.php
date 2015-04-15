@@ -1,7 +1,6 @@
 <?php
 namespace Mrix\Rql\Parser\TokenParser;
 
-use Mrix\Rql\Parser\Token;
 use Mrix\Rql\Parser\TokenStream;
 use Mrix\Rql\Parser\TokenParserInterface;
 use Mrix\Rql\Parser\ExpressionParserInterface;
@@ -54,7 +53,7 @@ class QueryTokenParser implements TokenParserInterface
     {
         $token = $tokenStream->getCurrent();
         foreach ($this->tokenParsers as $tokenParser) {
-            if ($tokenParser->supports($token)) {
+            if ($tokenParser->supports($tokenStream)) {
                 return $tokenParser->parse($tokenStream);
             }
         }
@@ -72,10 +71,10 @@ class QueryTokenParser implements TokenParserInterface
     /**
      * @inheritdoc
      */
-    public function supports(Token $token)
+    public function supports(TokenStream $tokenStream)
     {
         foreach ($this->tokenParsers as $tokenParser) {
-            if ($tokenParser->supports($token)) {
+            if ($tokenParser->supports($tokenStream)) {
                 return true;
             }
         }

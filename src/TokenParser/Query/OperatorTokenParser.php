@@ -41,9 +41,9 @@ class OperatorTokenParser implements TokenParserInterface
     /**
      * @inheritdoc
      */
-    public function supports(Token $token)
+    public function supports(TokenStream $tokenStream)
     {
-        return $token->test(Token::T_OPERATOR, [
+        return $tokenStream->test(Token::T_OPERATOR, [
             'eq', 'ne', 'lt', 'gt', 'lte', 'gte',
             'in', 'out',
             'and', 'or', 'not',

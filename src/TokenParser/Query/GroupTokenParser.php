@@ -72,8 +72,8 @@ class GroupTokenParser implements TokenParserInterface
     /**
      * @inheritdoc
      */
-    public function supports(Token $token)
+    public function supports(TokenStream $tokenStream)
     {
-        return $token->test(Token::T_OPEN_PARENTHESIS);
+        return $tokenStream->test(Token::T_OPEN_PARENTHESIS);
     }
 }
