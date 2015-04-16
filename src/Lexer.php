@@ -80,15 +80,15 @@ class Lexer
 
     protected function lexExpression()
     {
-        if (($match = $this->isMatch(self::REGEX_CONSTANT)) !== false) {
+        if (($match = $this->isMatch(static::REGEX_CONSTANT)) !== false) {
             $this->processConstant($match);
-        } elseif (($match = $this->isMatch(self::REGEX_OPERATOR)) !== false) {
+        } elseif (($match = $this->isMatch(static::REGEX_OPERATOR)) !== false) {
             $this->processOperator($match);
-        } elseif (($match = $this->isMatch(self::REGEX_TYPE)) !== false) {
+        } elseif (($match = $this->isMatch(static::REGEX_TYPE)) !== false) {
             $this->processType($match);
-        } elseif (($match = $this->isMatch(self::REGEX_PUNCTUATION)) !== false) {
+        } elseif (($match = $this->isMatch(static::REGEX_PUNCTUATION)) !== false) {
             $this->processPunctuation($match);
-        } elseif (($match = $this->isMatch(self::REGEX_VALUE)) !== false) {
+        } elseif (($match = $this->isMatch(static::REGEX_VALUE)) !== false) {
             $this->processValue($match);
         } else {
             throw new SyntaxErrorException(
