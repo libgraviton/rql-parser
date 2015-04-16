@@ -1,6 +1,7 @@
 <?php
 namespace Mrix\Rql\Parser;
 
+use Mrix\Rql\Parser\DataType\DateTime;
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
 
 /**
@@ -87,6 +88,8 @@ class ExpressionParser implements ExpressionParserInterface
             return null;
         } elseif ($token->test(Token::T_EMPTY)) {
             return '';
+        } elseif ($token->test(Token::T_DATE)) {
+            return DateTime::createFromRqlFormat($token->getValue());
         } elseif ($token->test(Token::T_STRING)) {
             return $token->getValue();
         } elseif ($token->test(Token::T_INTEGER)) {
