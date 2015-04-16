@@ -41,7 +41,7 @@ class QueryBuilder
             return $this->addLimit($node);
         }
 
-        throw new UnknownNodeException(sprintf('Unknown node type "%s"', get_class($node)));
+        throw new UnknownNodeException(sprintf('Unknown node type "%s" (%s)', $node->getNodeName(), get_class($node)));
     }
 
     /**

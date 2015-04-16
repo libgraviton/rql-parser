@@ -27,6 +27,14 @@ class LimitNode extends AbstractNode
     }
 
     /**
+     * @inheritdoc
+     */
+    public function getNodeName()
+    {
+        return 'limit';
+    }
+
+    /**
      * @return int|null
      */
     public function getLimit()

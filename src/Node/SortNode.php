@@ -24,6 +24,14 @@ class SortNode extends AbstractNode
     }
 
     /**
+     * @inheritdoc
+     */
+    public function getNodeName()
+    {
+        return 'sort';
+    }
+
+    /**
      * @param string $field
      * @param int $direction
      * @return void

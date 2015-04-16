@@ -21,6 +21,14 @@ class SelectNode extends AbstractNode
     }
 
     /**
+     * @inheritdoc
+     */
+    public function getNodeName()
+    {
+        return 'select';
+    }
+
+    /**
      * @param string $field
      * @param int|null $direction
      * @return void

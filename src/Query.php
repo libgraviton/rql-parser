@@ -28,6 +28,14 @@ class Query extends AbstractNode
     protected $limit;
 
     /**
+     * @inheritdoc
+     */
+    public function getNodeName()
+    {
+        return 'query';
+    }
+
+    /**
      * @return SelectNode
      */
     public function getSelect()
