@@ -3,7 +3,7 @@ namespace Mrix\Rql\Parser\DataType;
 
 /**
  */
-class DateTime extends \DateTimeImmutable
+class DateTime extends \DateTime
 {
     /**
      * @param string $dateTime
