@@ -49,7 +49,7 @@ class Glob
             $regex = '^' . $regex;
         }
         if ($anchorEnd) {
-            $regex = '$' . $regex;
+            $regex = $regex . '$';
         }
 
         return '/' . $regex . '/i';
