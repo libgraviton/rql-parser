@@ -90,13 +90,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             ],
 
             'select, sort and limit operators' => [
-                'select(a,b,c)&sort(a,+b,-c)&limit(1,2)',
+                'select(a,b,c)&sort(+a,-b)&limit(1,2)',
                 (new QueryBuilder())
                     ->addSelect(new Node\SelectNode(['a', 'b', 'c']))
                     ->addSort(new Node\SortNode([
                         'a' => Node\SortNode::SORT_ASC,
-                        'b' => Node\SortNode::SORT_ASC,
-                        'c' => Node\SortNode::SORT_DESC,
+                        'b' => Node\SortNode::SORT_DESC,
                     ]))
                     ->addLimit(new Node\LimitNode(1, 2))
                     ->getQuery(),

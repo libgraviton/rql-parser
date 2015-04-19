@@ -348,7 +348,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             ],
 
             'select, sort and limit operators' => [
-                'select(a,b,c)&sort(a,+b,-c)&limit(1)&limit(1,2)',
+                'select(a,b,c)&sort(+a,-b)&limit(1)&limit(1,2)',
                 [
                     ['select', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
@@ -363,11 +363,9 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['sort', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
-                    ['a', Token::T_STRING],
+                    ['+a', Token::T_STRING],
                     [',', Token::T_COMMA],
-                    ['+b', Token::T_STRING],
-                    [',', Token::T_COMMA],
-                    ['-c', Token::T_STRING],
+                    ['-b', Token::T_STRING],
                     [')', Token::T_CLOSE_PARENTHESIS],
 
                     ['&', Token::T_AMPERSAND],

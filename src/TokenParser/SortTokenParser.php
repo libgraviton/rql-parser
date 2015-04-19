@@ -5,6 +5,7 @@ use Mrix\Rql\Parser\Token;
 use Mrix\Rql\Parser\TokenStream;
 use Mrix\Rql\Parser\AbstractTokenParser;
 use Mrix\Rql\Parser\Node\SortNode;
+use Mrix\Rql\Parser\Exception\SyntaxErrorException;
 
 /**
  */
@@ -53,7 +54,7 @@ class SortTokenParser extends AbstractTokenParser
             } elseif ($field[0] === '-') {
                 $result[substr($field, 1)] = SortNode::SORT_DESC;
             } else {
-                $result[$field] = SortNode::SORT_ASC;
+                throw new SyntaxErrorException(sprintf('Invalid sort direction "%s"', $field[0]));
             }
         }
 

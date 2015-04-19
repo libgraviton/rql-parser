@@ -36,7 +36,7 @@ Usage
 require 'vendor/autoload.php';
 
 // RQL code
-$rql = '(eq(a,string:1)|lt(b,2)|(c<>3&d>=string:4&e=eq=boolean:1))&u!=5&not(or(u=6,ge(i,10)))&z=1&(a==2|b<-3|in(c,(2,float:3)))&select(a,b)&sort(a,+b,-c)&limit(1,2)';
+$rql = '(eq(a,string:1)|lt(b,2)|(c<>3&d>=string:4&e=eq=boolean:1))&u!=5&not(or(u=6,ge(i,10)))&z=1&(a==2|b<-3|in(c,(2,float:3)))&select(a,b)&sort(+a,-b)&limit(1,2)';
 
 // lexer
 $lexer = new Mrix\Rql\Parser\Lexer();
@@ -124,7 +124,7 @@ Current state
 ### Other ###
 
  - `select(a,b,c)`
- - `sort(a,+b,-c)`
+ - `sort(+a,-b)`
  - `limit(1,2)`
 
 All syntax variations may be used together.
