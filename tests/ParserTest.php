@@ -27,7 +27,10 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $lexer = new Lexer();
         $parser = Parser::createDefault();
 
-        $this->assertEquals($expected, $parser->parse($lexer->tokenize($rql)));
+        $this->assertSame(
+            var_export($expected, true),
+            var_export($parser->parse($lexer->tokenize($rql)), true)
+        );
     }
 
     /**
