@@ -47,7 +47,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'scalar operators' => [
-                'eq(a,1)&ne(b,2)&lt(c,3)&gt(d,4)&le(e,5)&ge(f,6)',
+                'eq(a,1)&ne(b,2)&lt(c,3)&gt(d,4)&le(e,5)&ge(f,6)&like(g,*abc?)',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('a', 1))
                     ->addQuery(new Node\Query\ScalarOperator\NeNode('b', 2))
@@ -55,6 +55,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->addQuery(new Node\Query\ScalarOperator\GtNode('d', 4))
                     ->addQuery(new Node\Query\ScalarOperator\LeNode('e', 5))
                     ->addQuery(new Node\Query\ScalarOperator\GeNode('f', 6))
+                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('g', new Glob('*abc?')))
                     ->getQuery(),
             ],
             'array operators' => [
@@ -165,7 +166,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'fiql operators' => [
-                'a=eq=1&b=ne=2&c=lt=3&d=gt=4&e=le=5&f=ge=6&g=in=(7,8)&h=out=(9,10)',
+                'a=eq=1&b=ne=2&c=lt=3&d=gt=4&e=le=5&f=ge=6&g=in=(7,8)&h=out=(9,10)&i=like=*abc?',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('a', 1))
                     ->addQuery(new Node\Query\ScalarOperator\NeNode('b', 2))
@@ -175,6 +176,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->addQuery(new Node\Query\ScalarOperator\GeNode('f', 6))
                     ->addQuery(new Node\Query\ArrayOperator\InNode('g', [7, 8]))
                     ->addQuery(new Node\Query\ArrayOperator\OutNode('h', [9, 10]))
+                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('i', new Glob('*abc?')))
                     ->getQuery(),
             ],
             'fiql operators (json compatible)' => [

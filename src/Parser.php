@@ -69,6 +69,7 @@ class Parser
             ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\GtTokenParser())
             ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\LeTokenParser())
             ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\GeTokenParser())
+            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\LikeTokenParser())
 
             ->addTokenParser(new TokenParser\Query\Fiql\ArrayOperator\InTokenParser())
             ->addTokenParser(new TokenParser\Query\Fiql\ArrayOperator\OutTokenParser())
@@ -78,7 +79,8 @@ class Parser
             ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LtTokenParser())
             ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\GtTokenParser())
             ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LeTokenParser())
-            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\GeTokenParser());
+            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\GeTokenParser())
+            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LikeTokenParser());
 
         return (new self(
             (new ExpressionParser())

@@ -171,7 +171,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'scalar operators' => [
-                'eq(a,1)&ne(b,2)&lt(c,3)&gt(d,4)&le(e,5)&ge(f,6)',
+                'eq(a,1)&ne(b,2)&lt(c,3)&gt(d,4)&le(e,5)&ge(f,6)&like(g,*abc?)',
                 [
                     ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
@@ -223,6 +223,15 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['f', Token::T_STRING],
                     [',', Token::T_COMMA],
                     ['6', Token::T_INTEGER],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['like', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['g', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['*abc?', Token::T_GLOB],
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
@@ -453,7 +462,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'fiql operators' => [
-                'a=eq=1&b=ne=2&c=lt=3&d=gt=4&e=le=5&f=ge=6&g=in=(7,8)&h=out=(9,10)',
+                'a=eq=1&b=ne=2&c=lt=3&d=gt=4&e=le=5&f=ge=6&g=in=(7,8)&h=out=(9,10)&i=like=*abc?',
                 [
                     ['a', Token::T_STRING],
                     ['eq', Token::T_OPERATOR],
@@ -508,6 +517,12 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     [',', Token::T_COMMA],
                     ['10', Token::T_INTEGER],
                     [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['i', Token::T_STRING],
+                    ['like', Token::T_OPERATOR],
+                    ['*abc?', Token::T_GLOB],
                 ],
             ],
             'fiql operators (json compatible)' => [
