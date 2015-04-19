@@ -7,6 +7,7 @@ use Mrix\Rql\Parser\Query;
 use Mrix\Rql\Parser\QueryBuilder;
 use Mrix\Rql\Parser\TokenParser;
 use Mrix\Rql\Parser\Node;
+use Mrix\Rql\Parser\DataType\DateTime;
 
 /**
  * @covers Parser
@@ -205,6 +206,28 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                                 ]),
                             ]),
                         ]),
+                    ]))
+                    ->getQuery(),
+            ],
+            'date support' => [
+                'in(a,(2015-04-19,2012-02-29,2015-02-29,2015-13-19))',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
+                        DateTime::createFromRqlFormat('2015-04-19'),
+                        DateTime::createFromRqlFormat('2012-02-29'),
+                        '2015-02-29',
+                        '2015-13-19',
+                    ]))
+                    ->getQuery(),
+            ],
+            'datetime support' => [
+                'in(a,(2015-04-16T17:40:32Z,2015-04-16T17:40:32,2015-04-16t17:40:32Z,2015-02-30T17:40:32Z))',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
+                        DateTime::createFromRqlFormat('2015-04-16T17:40:32Z'),
+                        '2015-04-16T17:40:32',
+                        '2015-04-16t17:40:32Z',
+                        '2015-02-30T17:40:32Z',
                     ]))
                     ->getQuery(),
             ],

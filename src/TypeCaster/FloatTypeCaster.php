@@ -3,6 +3,7 @@ namespace Mrix\Rql\Parser\TypeCaster;
 
 use Mrix\Rql\Parser\Token;
 use Mrix\Rql\Parser\TypeCasterInterface;
+use Mrix\Rql\Parser\DataType\DateTime;
 
 /**
  * Float type caster
@@ -22,6 +23,8 @@ class FloatTypeCaster implements TypeCasterInterface
             return 0.;
         } elseif ($token->test(Token::T_EMPTY)) {
             return 0.;
+        } elseif ($token->test(Token::T_DATE)) {
+            return (float)DateTime::createFromRqlFormat($token->getValue())->format('YmdHis');
         } else {
             return (float)$token->getValue();
         }

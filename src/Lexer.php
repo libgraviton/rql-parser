@@ -7,7 +7,7 @@ use Mrix\Rql\Parser\Exception\SyntaxErrorException;
  */
 class Lexer
 {
-    const REGEX_VALUE       = '/(\w|\-|\+|\*|\$|\.|\%[0-9a-f]{2})+/Ai';
+    const REGEX_VALUE       = '/(\w|\-|\+|\*|\$|\:|\.|\%[0-9a-f]{2})+/Ai';
     const REGEX_OPERATOR    = '/(?:[a-z]\w*(?=\()|\=[a-z]\w*\=|==|!=|<>|>=|<=|<|>|==|=)/Ai';
     const REGEX_TYPE        = '/[a-z]\w*\:/Ai';
     const REGEX_PUNCTUATION = '/[\(\)&,|]/A';
@@ -191,6 +191,19 @@ class Lexer
             return strpos($value, '.') !== false || strpos($value, 'e') !== false || strpos($value, 'E') !== false ?
                 Token::T_FLOAT :
                 Token::T_INTEGER;
+        } elseif (
+            strlen($value) === 10 && ctype_digit($value[0]) && strpos($value, '-') === 4 &&
+            preg_match('/^(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})$/', $value, $matches) &&
+            checkdate($matches['m'], $matches['d'], $matches['y'])
+        ) {
+            return Token::T_DATE;
+        } elseif (
+            strlen($value) === 20 && ctype_digit($value[0]) && strpos($value, '-') === 4 && strpos($value, ':') === 13 &&
+            preg_match('/^(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})T(?<h>\d{2}):(?<i>\d{2}):(?<s>\d{2})Z$/', $value, $matches) &&
+            checkdate($matches['m'], $matches['d'], $matches['y']) &&
+            $matches['h'] < 24 && $matches['i'] < 60 && $matches['s'] < 60
+        ) {
+            return Token::T_DATE;
         } else {
             return Token::T_STRING;
         }

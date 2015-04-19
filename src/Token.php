@@ -13,6 +13,7 @@ class Token
     const T_INTEGER             = 1;
     const T_FLOAT               = 2;
     const T_STRING              = 3;
+    const T_DATE                = 4;
 
     const T_CLOSE_PARENTHESIS   = 11;
     const T_OPEN_PARENTHESIS    = 12;
@@ -131,6 +132,7 @@ class Token
             self::T_INTEGER           => 'T_INTEGER',
             self::T_FLOAT             => 'T_FLOAT',
             self::T_STRING            => 'T_STRING',
+            self::T_DATE              => 'T_DATE',
 
             self::T_CLOSE_PARENTHESIS => 'T_CLOSE_PARENTHESIS',
             self::T_OPEN_PARENTHESIS  => 'T_OPEN_PARENTHESIS',

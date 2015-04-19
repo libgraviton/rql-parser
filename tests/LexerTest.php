@@ -39,7 +39,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
     {
         return [
             'primitives' => [
-                'eq(&eq&limit(limit,)date:empty(),null,1,+1,-1,0,1.5,-.4e12',
+                'eq(&eq&limit(limit,)date:empty(),null,1,+1,-1,0,1.5,-.4e12,2015-04-19,2015-04-16T17:40:32Z',
                 [
                     ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
@@ -67,6 +67,47 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['1.5', Token::T_FLOAT],
                     [',', Token::T_COMMA],
                     ['-.4e12', Token::T_FLOAT],
+                    [',', Token::T_COMMA],
+                    ['2015-04-19', Token::T_DATE],
+                    [',', Token::T_COMMA],
+                    ['2015-04-16T17:40:32Z', Token::T_DATE],
+                ],
+            ],
+
+            'date support' => [
+                'in(a,(2015-04-19,2012-02-29,2015-02-29,2015-13-19))',
+                [
+                    ['in', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['a', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['2015-04-19', Token::T_DATE],
+                    [',', Token::T_COMMA],
+                    ['2012-02-29', Token::T_DATE],
+                    [',', Token::T_COMMA],
+                    ['2015-02-29', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['2015-13-19', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+                ],
+            ],
+            'datetime support' => [
+                'in(a,(2015-04-16T17:40:32Z,2015-04-16T17:40:32,2015-04-16t17:40:32Z,2015-02-30T17:40:32Z))',
+                [
+                    ['in', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['a', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['2015-04-16T17:40:32Z', Token::T_DATE],
+                    [',', Token::T_COMMA],
+                    ['2015-04-16T17:40:32', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['2015-04-16t17:40:32Z', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['2015-02-30T17:40:32Z', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
 
