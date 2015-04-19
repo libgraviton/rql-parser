@@ -22,6 +22,8 @@ class LexerTest extends \PHPUnit_Framework_TestCase
         $lexer = new Lexer();
         $stream = $lexer->tokenize($rql);
 
+        $this->assertSame(count($stream), count($expected) + 1);
+
         foreach ($expected as $token) {
             list($value, $type) = $token;
 
@@ -90,6 +92,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     [',', Token::T_COMMA],
                     ['2015-13-19', Token::T_STRING],
                     [')', Token::T_CLOSE_PARENTHESIS],
+                    [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
             'datetime support' => [
@@ -107,6 +110,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['2015-04-16t17:40:32Z', Token::T_STRING],
                     [',', Token::T_COMMA],
                     ['2015-02-30T17:40:32Z', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
