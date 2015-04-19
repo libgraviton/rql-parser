@@ -192,9 +192,10 @@ class Lexer
                 Token::T_FLOAT :
                 Token::T_INTEGER;
         } elseif (
-            preg_match('/^(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})T(?<h>\d{2}):(?<i>\d{2}):(?<s>\d{2})Z$/', $value, $matches)
-            && checkdate($matches['m'], $matches['d'], $matches['y'])
-            && $matches['h'] < 24 && $matches['i'] < 60 && $matches['s'] < 60
+            strlen($value) === 20 && ctype_digit($value[0]) && strpos($value, '-') === 4 && strpos($value, ':') === 13 &&
+            preg_match('/^(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})T(?<h>\d{2}):(?<i>\d{2}):(?<s>\d{2})Z$/', $value, $matches) &&
+            checkdate($matches['m'], $matches['d'], $matches['y']) &&
+            $matches['h'] < 24 && $matches['i'] < 60 && $matches['s'] < 60
         ) {
             return Token::T_DATE;
         } else {
