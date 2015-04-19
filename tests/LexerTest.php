@@ -41,7 +41,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
     {
         return [
             'primitives' => [
-                'eq(&eq&limit(limit,)date:empty(),null,1,+1,-1,0,1.5,-.4e12,2015-04-19,2015-04-16T17:40:32Z',
+                'eq(&eq&limit(limit,)date:empty(),null,1,+1,-1,0,1.5,-.4e12,2015-04-19,2015-04-16T17:40:32Z,*abc?',
                 [
                     ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
@@ -73,10 +73,12 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['2015-04-19', Token::T_DATE],
                     [',', Token::T_COMMA],
                     ['2015-04-16T17:40:32Z', Token::T_DATE],
+                    [',', Token::T_COMMA],
+                    ['*abc?', Token::T_GLOB],
                 ],
             ],
             'string encoding' => [
-                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s))', [
+                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s))', [
                     'null()',
                     rawurlencode('null()'),
                     'a+b+c',
@@ -85,6 +87,8 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     rawurlencode('2015-04-19T21:00:00Z'),
                     '1.1e+3',
                     rawurlencode('1.1e+3'),
+                    '*abc?',
+                    rawurlencode('*abc?'),
                 ]),
                 [
                     ['in', Token::T_OPERATOR],
@@ -107,6 +111,10 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['1.1e+3', Token::T_FLOAT],
                     [',', Token::T_COMMA],
                     ['1.1e+3', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['*abc?', Token::T_GLOB],
+                    [',', Token::T_COMMA],
+                    ['*abc?', Token::T_STRING],
                     [')', Token::T_CLOSE_PARENTHESIS],
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],

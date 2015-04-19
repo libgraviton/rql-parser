@@ -14,6 +14,7 @@ class Token
     const T_FLOAT               = 2;
     const T_STRING              = 3;
     const T_DATE                = 4;
+    const T_GLOB                = 5;
 
     const T_CLOSE_PARENTHESIS   = 11;
     const T_OPEN_PARENTHESIS    = 12;
@@ -133,6 +134,7 @@ class Token
             self::T_FLOAT             => 'T_FLOAT',
             self::T_STRING            => 'T_STRING',
             self::T_DATE              => 'T_DATE',
+            self::T_GLOB              => 'T_GLOB',
 
             self::T_CLOSE_PARENTHESIS => 'T_CLOSE_PARENTHESIS',
             self::T_OPEN_PARENTHESIS  => 'T_OPEN_PARENTHESIS',

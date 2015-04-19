@@ -2,6 +2,7 @@
 namespace Mrix\Rql\Parser;
 
 use Mrix\Rql\Parser\DataType\DateTime;
+use Mrix\Rql\Parser\DataType\Glob;
 use Mrix\Rql\Parser\Exception\SyntaxErrorException;
 
 /**
@@ -90,6 +91,8 @@ class ExpressionParser implements ExpressionParserInterface
             return '';
         } elseif ($token->test(Token::T_DATE)) {
             return DateTime::createFromRqlFormat($token->getValue());
+        } elseif ($token->test(Token::T_GLOB)) {
+            return new Glob($token->getValue());
         } elseif ($token->test(Token::T_STRING)) {
             return $token->getValue();
         } elseif ($token->test(Token::T_INTEGER)) {

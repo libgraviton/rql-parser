@@ -22,6 +22,8 @@ class StringTypeCaster implements TypeCasterInterface
             return 'false';
         } elseif ($token->test(Token::T_EMPTY)) {
             return '';
+        } elseif ($token->test(Token::T_GLOB)) {
+            return rawurldecode($token->getValue());
         } else {
             return $token->getValue();
         }

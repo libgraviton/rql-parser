@@ -8,6 +8,7 @@ use Mrix\Rql\Parser\QueryBuilder;
 use Mrix\Rql\Parser\TokenParser;
 use Mrix\Rql\Parser\Node;
 use Mrix\Rql\Parser\DataType\DateTime;
+use Mrix\Rql\Parser\DataType\Glob;
 
 /**
  * @covers Parser
@@ -235,7 +236,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'string encoding' => [
-                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s))', [
+                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s))', [
                     'null()',
                     rawurlencode('null()'),
                     'a+b+c',
@@ -244,6 +245,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     rawurlencode('2015-04-19T21:00:00Z'),
                     '1.1e+3',
                     rawurlencode('1.1e+3'),
+                    '*abc?',
+                    rawurlencode('*abc?'),
                 ]),
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
@@ -255,6 +258,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         '2015-04-19T21:00:00Z',
                         1.1e+3,
                         '1.1e+3',
+                        new Glob('*abc?'),
+                        '*abc?',
                     ]))
                     ->getQuery(),
             ],
