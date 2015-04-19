@@ -234,6 +234,30 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ]))
                     ->getQuery(),
             ],
+            'string encoding' => [
+                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s))', [
+                    'null()',
+                    rawurlencode('null()'),
+                    'a+b+c',
+                    rawurlencode('a+b+c'),
+                    '2015-04-19T21:00:00Z',
+                    rawurlencode('2015-04-19T21:00:00Z'),
+                    '1.1e+3',
+                    rawurlencode('1.1e+3'),
+                ]),
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
+                        null,
+                        'null()',
+                        'a+b+c',
+                        'a+b+c',
+                        DateTime::createFromRqlFormat('2015-04-19T21:00:00Z'),
+                        '2015-04-19T21:00:00Z',
+                        1.1e+3,
+                        '1.1e+3',
+                    ]))
+                    ->getQuery(),
+            ],
         ];
     }
 }

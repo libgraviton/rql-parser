@@ -173,13 +173,13 @@ class Lexer
 
     protected function processValue($value)
     {
-        $decoded = rawurldecode($value);
+        $raw = $value;
 
-        $this->pushToken($this->detectValueType($decoded), $decoded);
-        $this->moveCursor($value);
+        $this->pushToken($this->detectValueType($value), $value);
+        $this->moveCursor($raw);
     }
 
-    protected function detectValueType($value)
+    protected function detectValueType(&$value)
     {
         if ($value === 'true') {
             return Token::T_TRUE;
@@ -205,6 +205,7 @@ class Lexer
         ) {
             return Token::T_DATE;
         } else {
+            $value = rawurldecode($value);
             return Token::T_STRING;
         }
     }
