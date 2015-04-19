@@ -226,7 +226,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
-            'array oprators' => [
+            'array operators' => [
                 'in(a,(1,b))&out(c,(2,d))',
                 [
                     ['in', Token::T_OPERATOR],
