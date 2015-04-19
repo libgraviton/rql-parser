@@ -170,6 +170,62 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
+            'scalar operators' => [
+                'eq(a,1)&ne(b,2)&lt(c,3)&gt(d,4)&le(e,5)&ge(f,6)',
+                [
+                    ['eq', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['a', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['1', Token::T_INTEGER],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['ne', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['b', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['2', Token::T_INTEGER],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['lt', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['c', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['3', Token::T_INTEGER],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['gt', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['d', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['4', Token::T_INTEGER],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['le', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['e', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['5', Token::T_INTEGER],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['ge', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['f', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['6', Token::T_INTEGER],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+                ],
+            ],
             'array oprators' => [
                 'in(a,(1,b))&out(c,(2,d))',
                 [

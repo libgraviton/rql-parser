@@ -46,6 +46,17 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('name', 'value'))
                     ->getQuery(),
             ],
+            'scalar operators' => [
+                'eq(a,1)&ne(b,2)&lt(c,3)&gt(d,4)&le(e,5)&ge(f,6)',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('a', 1))
+                    ->addQuery(new Node\Query\ScalarOperator\NeNode('b', 2))
+                    ->addQuery(new Node\Query\ScalarOperator\LtNode('c', 3))
+                    ->addQuery(new Node\Query\ScalarOperator\GtNode('d', 4))
+                    ->addQuery(new Node\Query\ScalarOperator\LeNode('e', 5))
+                    ->addQuery(new Node\Query\ScalarOperator\GeNode('f', 6))
+                    ->getQuery(),
+            ],
             'array operators' => [
                 'in(a,(1,b))&out(c,(2,d))',
                 (new QueryBuilder())
