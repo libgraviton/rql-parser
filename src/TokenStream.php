@@ -6,7 +6,7 @@ use Mrix\Rql\Parser\Exception\SyntaxErrorException;
 /**
  * Token stream
  */
-class TokenStream
+class TokenStream implements \Countable
 {
     /**
      * @var Token[]
@@ -24,6 +24,14 @@ class TokenStream
     {
         $this->tokens  = $tokens;
         $this->current = 0;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function count()
+    {
+        return count($this->tokens);
     }
 
     /**
