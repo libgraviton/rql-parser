@@ -11,6 +11,10 @@ class DateTime extends \DateTimeImmutable
      */
     public static function createFromRqlFormat($dateTime)
     {
-        return (new static($dateTime))->setTimezone(new \DateTimeZone('UTC'));
+        if (strlen($dateTime) === 20) {
+            $dateTime = strtr($dateTime, ['Z' => 'UTC']);
+        }
+
+        return new static($dateTime, new \DateTimeZone('UTC'));
     }
 }
