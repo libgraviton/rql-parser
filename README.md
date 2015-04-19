@@ -22,7 +22,7 @@ composer require mrix/rql-parser
 or add
 
 ```json
-"mrix/rql-parser": "~0.0.0",
+"mrix/rql-parser": "*",
 ```
 
 to the require section of your `composer.json`.
