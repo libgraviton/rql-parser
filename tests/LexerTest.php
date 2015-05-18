@@ -27,8 +27,16 @@ class LexerTest extends \PHPUnit_Framework_TestCase
         foreach ($expected as $token) {
             list($value, $type) = $token;
 
-            $this->assertSame($value, $stream->getCurrent()->getValue());
-            $this->assertSame($type, $stream->getCurrent()->getType());
+            $this->assertSame(
+                $value,
+                $stream->getCurrent()->getValue(),
+                sprintf('"%s" != "%s"', $value, $stream->getCurrent()->getValue())
+            );
+            $this->assertSame(
+                $type,
+                $stream->getCurrent()->getType(),
+                sprintf('"%s" != "%s"', Token::getTypeName($type), Token::getTypeName($stream->getCurrent()->getType()))
+            );
 
             $stream->next();
         }
