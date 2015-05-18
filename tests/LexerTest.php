@@ -43,6 +43,22 @@ class LexerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $rql
+     * @param string $exceptionMessage
+     * @return void
+     *
+     * @covers Lexer::tokenize()
+     * @dataProvider dataSyntaxError()
+     */
+    public function testSyntaxError($rql, $exceptionMessage)
+    {
+        $this->setExpectedException('Mrix\Rql\Parser\Exception\SyntaxErrorException', $exceptionMessage);
+
+        $lexer = new Lexer();
+        $lexer->tokenize($rql);
+    }
+
+    /**
      * @return array
      */
     public function dataTokenize()
@@ -129,7 +145,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             ],
 
             'date support' => [
-                'in(a,(2015-04-19,2012-02-29,2015-02-29,2015-13-19))',
+                'in(a,(2015-04-19,2012-02-29))',
                 [
                     ['in', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
@@ -139,16 +155,12 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['2015-04-19', Token::T_DATE],
                     [',', Token::T_COMMA],
                     ['2012-02-29', Token::T_DATE],
-                    [',', Token::T_COMMA],
-                    ['2015-02-29', Token::T_STRING],
-                    [',', Token::T_COMMA],
-                    ['2015-13-19', Token::T_STRING],
                     [')', Token::T_CLOSE_PARENTHESIS],
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
             'datetime support' => [
-                'in(a,(2015-04-16T17:40:32Z,2015-04-16T17:40:32,2015-04-16t17:40:32Z,2015-02-30T17:40:32Z))',
+                'in(a,(2015-04-16T17:40:32Z,2012-02-29T17:40:32Z))',
                 [
                     ['in', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
@@ -157,11 +169,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['2015-04-16T17:40:32Z', Token::T_DATE],
                     [',', Token::T_COMMA],
-                    ['2015-04-16T17:40:32', Token::T_STRING],
-                    [',', Token::T_COMMA],
-                    ['2015-04-16t17:40:32Z', Token::T_STRING],
-                    [',', Token::T_COMMA],
-                    ['2015-02-30T17:40:32Z', Token::T_STRING],
+                    ['2012-02-29T17:40:32Z', Token::T_DATE],
                     [')', Token::T_CLOSE_PARENTHESIS],
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
@@ -715,5 +723,36 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function dataSyntaxError()
+    {
+        return [
+            'invalid date 1' => [
+                'in(a,(2012-02-29,2015-02-29))',
+                sprintf('Invalid date value "%s"', '2015-02-29'),
+            ],
+            'invalid date 2' => [
+                'in(a,(2015-12-19,2015-13-19))',
+                sprintf('Invalid date value "%s"', '2015-13-19'),
+            ],
+
+            'invalid datetime 1' => [
+                'in(a,(2015-04-16T17:40:32Z,2015-02-30T17:40:32Z))',
+                sprintf('Invalid datetime value "%s"', '2015-02-30T17:40:32Z'),
+            ],
+            'invalid datetime 2' => [
+                'in(a,(2015-12-19T17:40:32Z,2015-13-19T17:40:32Z))',
+                sprintf('Invalid datetime value "%s"', '2015-13-19T17:40:32Z'),
+            ],
+        ];
+    }
+
+    private function encodeString($value)
+    {
+        return strtr(rawurlencode($value), ['-' => '%2D']);
     }
 }

@@ -195,16 +195,22 @@ class Lexer
             return Token::T_GLOB;
         } elseif (
             strlen($value) === 10 && ctype_digit($value[0]) && strpos($value, '-') === 4 &&
-            preg_match('/^(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})$/', $value, $matches) &&
-            checkdate($matches['m'], $matches['d'], $matches['y'])
+            preg_match('/^(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})$/', $value, $matches)
         ) {
+            if (!checkdate($matches['m'], $matches['d'], $matches['y'])) {
+                throw new SyntaxErrorException(sprintf('Invalid date value "%s"', $value));
+            }
+
             return Token::T_DATE;
         } elseif (
             strlen($value) === 20 && ctype_digit($value[0]) && strpos($value, '-') === 4 && strpos($value, ':') === 13 &&
-            preg_match('/^(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})T(?<h>\d{2}):(?<i>\d{2}):(?<s>\d{2})Z$/', $value, $matches) &&
-            checkdate($matches['m'], $matches['d'], $matches['y']) &&
-            $matches['h'] < 24 && $matches['i'] < 60 && $matches['s'] < 60
+            preg_match('/^(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})T(?<h>\d{2}):(?<i>\d{2}):(?<s>\d{2})Z$/', $value, $matches)
         ) {
+            if (!checkdate($matches['m'], $matches['d'], $matches['y']) ||
+                !($matches['h'] < 24 && $matches['i'] < 60 && $matches['s'] < 60)) {
+                throw new SyntaxErrorException(sprintf('Invalid datetime value "%s"', $value));
+            }
+
             return Token::T_DATE;
         } else {
             $value = rawurldecode($value);
