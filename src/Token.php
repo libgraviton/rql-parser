@@ -69,20 +69,16 @@ class Token
     }
 
     /**
-     * @param int $type
+     * @param int|array $type
      * @param string|array $value
      * @return bool
      */
     public function test($type, $value = null)
     {
-        if ($this->type !== $type) {
+        if (!in_array($this->type, (array)$type, true)) {
             return false;
         } elseif ($value !== null) {
-            if (is_array($value)) {
-                return in_array($this->value, $value, true);
-            } else {
-                return $this->value === $value;
-            }
+            return in_array($this->value, (array)$value, true);
         } else {
             return true;
         }
