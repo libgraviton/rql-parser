@@ -132,6 +132,59 @@ Current state
 All syntax variations may be used together.
 
 
+Encoding rules
+--------------
+
+### String values ###
+
+In string values all non-alphanumeric characters must be encoded with a percent (%) sign followed by two hex digits.
+
+Examples:
+
+```
+eq(string,2015%2D05%2D30T15%3A10%3A00Z)
+in(string,(%2B1%2E5,%2D1%2E5))
+in(string,(null%28%29,empty%28%29,true%28%29,false%28%29))
+```
+
+#### String encoding in PHP: ####
+
+```php
+function encodeString($value)
+{
+    return strtr(rawurlencode($value), [
+        '-' => '%2D',
+        '_' => '%5F',
+        '.' => '%2E',
+        '~' => '%7E',
+    ]);
+}
+```
+
+#### String encoding in JavaScript: ####
+
+```js
+function encodeString(value) {
+    return encodeURIComponent(value).replace(/[\-_\.~!\\'\*\(\)]/g, function (char) {
+        return '%' + char.charCodeAt(0).toString(16).toUpperCase();
+    });
+}
+```
+
+
+### Other values ###
+
+Date, number and const-function values must not be encoded.
+
+Examples:
+
+```
+eq(date,2015-05-30T15:10:00Z)
+in(number,(+1.5,-1.5))
+in(const,(null(),empty(),true(),false()))
+```
+
+
 Resources
 ---------
  * [RQL Rules](https://github.com/persvr/rql)
