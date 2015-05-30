@@ -48,7 +48,7 @@ class TokenStream implements \Countable
     }
 
     /**
-     * @param int $type
+     * @param int|array $type
      * @param string $value
      * @return Token|null
      */
@@ -76,7 +76,7 @@ class TokenStream implements \Countable
     }
 
     /**
-     * @param int $type
+     * @param int|array $type
      * @param string $value
      * @return Token
      * @throws SyntaxErrorException
@@ -91,8 +91,20 @@ class TokenStream implements \Countable
                     $token->getValue(),
                     $token->getName(),
                     $value === null ?
-                        sprintf('expected %s', Token::getTypeName($type)) :
-                        sprintf('expected "%s" (%s)', $value, Token::getTypeName($type))
+                        sprintf(
+                            'expected %s',
+                            implode('|', array_map(function ($type) {
+                                return Token::getTypeName($type);
+                            }, (array)$type))
+                        ) :
+                        sprintf('expected %s (%s)',
+                            implode('|', array_map(function ($value) {
+                                return '"' . $value . '"';
+                            }, (array)$type)),
+                            implode('|', array_map(function ($type) {
+                                return Token::getTypeName($type);
+                            }, (array)$type))
+                        )
                 )
             );
         }
@@ -120,7 +132,7 @@ class TokenStream implements \Countable
     }
 
     /**
-     * @param int $type
+     * @param int|array $type
      * @param string|array $value
      * @return bool
      */

@@ -21,6 +21,8 @@ class Token
     const T_COMMA               = 13;
     const T_AMPERSAND           = 14;
     const T_VERTICAL_BAR        = 15;
+    const T_PLUS                = 16;
+    const T_MINUS               = 17;
 
     const T_TYPE                = 31;
 
@@ -69,20 +71,16 @@ class Token
     }
 
     /**
-     * @param int $type
+     * @param int|array $type
      * @param string|array $value
      * @return bool
      */
     public function test($type, $value = null)
     {
-        if ($this->type !== $type) {
+        if (!in_array($this->type, (array)$type, true)) {
             return false;
         } elseif ($value !== null) {
-            if (is_array($value)) {
-                return in_array($this->value, $value, true);
-            } else {
-                return $this->value === $value;
-            }
+            return in_array($this->value, (array)$value, true);
         } else {
             return true;
         }
@@ -141,6 +139,8 @@ class Token
             self::T_COMMA             => 'T_COMMA',
             self::T_AMPERSAND         => 'T_AMPERSAND',
             self::T_VERTICAL_BAR      => 'T_VERTICAL_BAR',
+            self::T_PLUS              => 'T_PLUS',
+            self::T_MINUS             => 'T_MINUS',
 
             self::T_TYPE              => 'T_TYPE',
 
