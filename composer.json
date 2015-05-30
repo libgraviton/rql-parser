@@ -14,5 +14,8 @@
   "require-dev": {
     "phpunit/phpunit": "*"
   },
+  "suggest": {
+    "mrix/rql-command": "Console commands to visualize your RQL code"
+  },
   "minimum-stability": "stable"
 }
