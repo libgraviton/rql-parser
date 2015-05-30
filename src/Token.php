@@ -21,6 +21,8 @@ class Token
     const T_COMMA               = 13;
     const T_AMPERSAND           = 14;
     const T_VERTICAL_BAR        = 15;
+    const T_PLUS                = 16;
+    const T_MINUS               = 17;
 
     const T_TYPE                = 31;
 
@@ -137,6 +139,8 @@ class Token
             self::T_COMMA             => 'T_COMMA',
             self::T_AMPERSAND         => 'T_AMPERSAND',
             self::T_VERTICAL_BAR      => 'T_VERTICAL_BAR',
+            self::T_PLUS              => 'T_PLUS',
+            self::T_MINUS             => 'T_MINUS',
 
             self::T_TYPE              => 'T_TYPE',
 

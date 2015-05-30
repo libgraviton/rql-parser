@@ -102,17 +102,19 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'string encoding' => [
-                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s))', [
+                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s))', [
+                    '+abc',
+                    $this->encodeString('+abc'),
+                    '-abc',
+                    $this->encodeString('-abc'),
                     'null()',
-                    rawurlencode('null()'),
-                    'a+b+c',
-                    rawurlencode('a+b+c'),
+                    $this->encodeString('null()'),
                     '2015-04-19T21:00:00Z',
-                    rawurlencode('2015-04-19T21:00:00Z'),
+                    $this->encodeString('2015-04-19T21:00:00Z'),
                     '1.1e+3',
-                    rawurlencode('1.1e+3'),
+                    $this->encodeString('1.1e+3'),
                     '*abc?',
-                    rawurlencode('*abc?'),
+                    $this->encodeString('*abc?'),
                 ]),
                 [
                     ['in', Token::T_OPERATOR],
@@ -120,13 +122,19 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
                     ['(', Token::T_OPEN_PARENTHESIS],
+                    ['+', Token::T_PLUS],
+                    ['abc', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['+abc', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['-', Token::T_MINUS],
+                    ['abc', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['-abc', Token::T_STRING],
+                    [',', Token::T_COMMA],
                     ['null()', Token::T_NULL],
                     [',', Token::T_COMMA],
                     ['null()', Token::T_STRING],
-                    [',', Token::T_COMMA],
-                    ['a+b+c', Token::T_STRING],
-                    [',', Token::T_COMMA],
-                    ['a+b+c', Token::T_STRING],
                     [',', Token::T_COMMA],
                     ['2015-04-19T21:00:00Z', Token::T_DATE],
                     [',', Token::T_COMMA],
@@ -379,9 +387,11 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['sort', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
-                    ['+a', Token::T_STRING],
+                    ['+', Token::T_PLUS],
+                    ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
-                    ['-b', Token::T_STRING],
+                    ['-', Token::T_MINUS],
+                    ['b', Token::T_STRING],
                     [')', Token::T_CLOSE_PARENTHESIS],
 
                     ['&', Token::T_AMPERSAND],
@@ -748,11 +758,29 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 'in(a,(2015-12-19T17:40:32Z,2015-13-19T17:40:32Z))',
                 sprintf('Invalid datetime value "%s"', '2015-13-19T17:40:32Z'),
             ],
+
+            'invalid string 1' => [
+                'eq(a,+a+b)',
+                sprintf('String value "%s" contains unencoded character "%s"', 'a+b', '+'),
+            ],
+            'invalid string 2' => [
+                'eq(a,-a-b)',
+                sprintf('String value "%s" contains unencoded character "%s"', 'a-b', '-'),
+            ],
+            'invalid string 3' => [
+                'eq(a,2:b)',
+                sprintf('String value "%s" contains unencoded character "%s"', '2:b', ':'),
+            ],
         ];
     }
 
     private function encodeString($value)
     {
-        return strtr(rawurlencode($value), ['-' => '%2D']);
+        return strtr(rawurlencode($value), [
+            '-' => '%2D',
+            '_' => '%5F',
+            '.' => '%2E',
+            '~' => '%7E',
+        ]);
     }
 }

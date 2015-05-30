@@ -244,24 +244,22 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'string encoding' => [
-                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s))', [
+                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s,%s))', [
+                    $this->encodeString('+a-b:c'),
                     'null()',
-                    rawurlencode('null()'),
-                    'a+b+c',
-                    rawurlencode('a+b+c'),
+                    $this->encodeString('null()'),
                     '2015-04-19T21:00:00Z',
-                    rawurlencode('2015-04-19T21:00:00Z'),
+                    $this->encodeString('2015-04-19T21:00:00Z'),
                     '1.1e+3',
-                    rawurlencode('1.1e+3'),
+                    $this->encodeString('1.1e+3'),
                     '*abc?',
-                    rawurlencode('*abc?'),
+                    $this->encodeString('*abc?'),
                 ]),
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
+                        '+a-b:c',
                         null,
                         'null()',
-                        'a+b+c',
-                        'a+b+c',
                         DateTime::createFromRqlFormat('2015-04-19T21:00:00Z'),
                         '2015-04-19T21:00:00Z',
                         1.1e+3,
@@ -272,5 +270,15 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
         ];
+    }
+
+    private function encodeString($value)
+    {
+        return strtr(rawurlencode($value), [
+            '-' => '%2D',
+            '_' => '%5F',
+            '.' => '%2E',
+            '~' => '%7E',
+        ]);
     }
 }
