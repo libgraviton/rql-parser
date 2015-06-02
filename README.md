@@ -30,8 +30,8 @@ or add
 to the require section of your `composer.json`.
 
 
-Usage
------
+Basic usage
+-----------
 
 ```php
 <?php
@@ -55,6 +55,15 @@ var_dump($parser->parse($tokens));
 
 See also [rql-command library](https://github.com/mrix/rql-command).
 This is a console application to debug RQL lexing and parsing.
+
+
+Advanced usage
+--------------
+
+See examples:
+
+ - [Enable only FIQL operators](examples/01-only-fiql.php)
+ - [Add support for aggregate functions and `between` operator](examples/02-extending.php)
 
 
 Current state
