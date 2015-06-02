@@ -69,7 +69,9 @@ See examples:
 Current state
 -------------
 
-### Basic syntax ###
+### Operators ###
+
+#### Basic syntax ####
 
  - scalar operators
     - `eq(a,b)`
@@ -86,12 +88,12 @@ Current state
     - `or(eq(a,b),ne(c,d))`
     - `not(eq(a,b))`
 
-### Short logic syntax ###
+#### Short logic syntax ####
 
  - `(eq(a,b)&ne(b,c))`
  - `(eq(a,b)|ne(b,c))`
 
-### FIQL syntax ###
+#### FIQL syntax ####
 
  - scalar operators
     - `a=eq=b`
@@ -104,7 +106,7 @@ Current state
     - `a=in=(b,c)`
     - `a=out=(b,c)`
 
-### Simplified FIQL syntax ###
+#### Simplified FIQL syntax ####
 
  - `a=b`
  - `a==b`
@@ -115,15 +117,43 @@ Current state
  - `a<=b`
  - `a>=b`
 
-### Constants ###
+#### Other ####
 
- - `true`
- - `true()`
- - `false`
- - `false()`
- - `null`
- - `null()`
- - `empty()`
+ - `select(a,b,c)`
+ - `sort(+a,-b)`
+ - `limit(1,2)`
+
+All syntax variations may be used together.
+
+
+### Value types ###
+ 
+ - string
+    - `abc`
+    - `abc%20def`
+ - integer
+    - `1`, `+1`, `-1`
+ - float
+    - `1.`, `+1.`, `-1.`
+    - `0.1`, `+0.1`, `-0.1`,
+    - `0.1e5`, `+0.1e+5`, `-0.1e-5`
+    - `.1`, `+.1`, `-.1`
+    - `.1e5`, `+.1e+5`, `-.1e-5`
+ - boolean
+    - `true`, `true()`
+    - `false`, `false()`
+ - null
+    - `null`, `null()`
+ - empty
+    - `empty()`
+ - date
+    - `2015-06-02`
+    - `2015-06-02T20:00:00Z`
+ - glob
+    - `abc*`
+    - `?abc`
+    - `abc*def?`
+
 
 ### Type casting ###
 
@@ -131,14 +161,6 @@ Current state
  - `boolean:0`
  - `integer:a`
  - `float:1`
-
-### Other ###
-
- - `select(a,b,c)`
- - `sort(+a,-b)`
- - `limit(1,2)`
-
-All syntax variations may be used together.
 
 
 Encoding rules
