@@ -1,12 +1,12 @@
 <?php
-namespace Mrix\Rql\Parser;
+namespace Xiag\Rql\Parser;
 
-use Mrix\Rql\Parser\Exception\UnknownNodeException;
-use Mrix\Rql\Parser\Node\SelectNode;
-use Mrix\Rql\Parser\Node\AbstractQueryNode;
-use Mrix\Rql\Parser\Node\SortNode;
-use Mrix\Rql\Parser\Node\LimitNode;
-use Mrix\Rql\Parser\Node\Query\LogicOperator\AndNode;
+use Xiag\Rql\Parser\Exception\UnknownNodeException;
+use Xiag\Rql\Parser\Node\SelectNode;
+use Xiag\Rql\Parser\Node\AbstractQueryNode;
+use Xiag\Rql\Parser\Node\SortNode;
+use Xiag\Rql\Parser\Node\LimitNode;
+use Xiag\Rql\Parser\Node\Query\LogicOperator\AndNode;
 
 /**
  */

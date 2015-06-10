@@ -1,12 +1,12 @@
 {
-  "name": "mrix/rql-parser",
+  "name": "xiag/rql-parser",
   "keywords": ["rest", "rql", "resource", "query", "language", "parser"],
   "license": "MIT",
   "autoload": {
-    "psr-4": { "Mrix\\Rql\\Parser\\": "src/"}
+    "psr-4": { "Xiag\\Rql\\Parser\\": "src/"}
   },
   "autoload-dev": {
-    "psr-4": { "Mrix\\Rql\\ParserTests\\": "test/"}
+    "psr-4": { "Xiag\\Rql\\ParserTests\\": "test/"}
   },
   "require": {
     "php": ">=5.4"
@@ -15,7 +15,7 @@
     "phpunit/phpunit": "*"
   },
   "suggest": {
-    "mrix/rql-command": "Console commands to visualize your RQL code"
+    "xiag/rql-command": "Console commands to visualize your RQL code"
   },
   "minimum-stability": "stable"
 }

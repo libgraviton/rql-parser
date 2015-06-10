@@ -1,7 +1,7 @@
 RQL parser
 ==========
 
-[![Build Status](https://travis-ci.org/mrix/rql-parser.svg?branch=master)](https://travis-ci.org/mrix/rql-parser)
+[![Build Status](https://travis-ci.org/xiag-ag/rql-parser.svg?branch=master)](https://travis-ci.org/xiag-ag/rql-parser)
 
 This is a RQL parsing library written in PHP.
 
@@ -18,13 +18,13 @@ The preferred way to install library is through [composer](http://getcomposer.or
 Either run
 
 ```
-composer require mrix/rql-parser
+composer require xiag/rql-parser
 ```
 
 or add
 
 ```json
-"mrix/rql-parser": "*",
+"xiag/rql-parser": "*",
 ```
 
 to the require section of your `composer.json`.
@@ -41,19 +41,19 @@ require 'vendor/autoload.php';
 $rql = '(eq(a,string:1)|lt(b,2)|(c<>3&d>=string:4&e=eq=boolean:1))&u!=5&not(or(u=6,ge(i,10)))&z=1&(a==2|b<-3|in(c,(2,float:3)))&select(a,b)&sort(+a,-b)&limit(1,2)';
 
 // lexer
-$lexer = new Mrix\Rql\Parser\Lexer();
+$lexer = new Xiag\Rql\Parser\Lexer();
 
 // tokenize RQL
 $tokens = $lexer->tokenize($rql);
 
 // default parser contains all parsing strategies
-$parser = Mrix\Rql\Parser\Parser::createDefault();
+$parser = Xiag\Rql\Parser\Parser::createDefault();
 
 // parsing
 var_dump($parser->parse($tokens));
 ```
 
-See also [rql-command library](https://github.com/mrix/rql-command).
+See also [rql-command library](https://github.com/xiag-ag/rql-command).
 This is a console application to debug RQL lexing and parsing.
 
 

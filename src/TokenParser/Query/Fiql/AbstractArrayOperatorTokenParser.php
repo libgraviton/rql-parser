@@ -1,10 +1,10 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\Fiql;
+namespace Xiag\Rql\Parser\TokenParser\Query\Fiql;
 
-use Mrix\Rql\Parser\Token;
-use Mrix\Rql\Parser\TokenStream;
-use Mrix\Rql\Parser\TokenParser\Query\AbstractFiqlTokenParser;
-use Mrix\Rql\Parser\Node\Query\AbstractArrayOperatorNode;
+use Xiag\Rql\Parser\Token;
+use Xiag\Rql\Parser\TokenStream;
+use Xiag\Rql\Parser\TokenParser\Query\AbstractFiqlTokenParser;
+use Xiag\Rql\Parser\Node\Query\AbstractArrayOperatorNode;
 
 /**
  */

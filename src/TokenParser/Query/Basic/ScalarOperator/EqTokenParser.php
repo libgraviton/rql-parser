@@ -1,8 +1,8 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\Basic\ScalarOperator;
+namespace Xiag\Rql\Parser\TokenParser\Query\Basic\ScalarOperator;
 
-use Mrix\Rql\Parser\TokenParser\Query\Basic\AbstractScalarOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\ScalarOperator\EqNode;
+use Xiag\Rql\Parser\TokenParser\Query\Basic\AbstractScalarOperatorTokenParser;
+use Xiag\Rql\Parser\Node\Query\ScalarOperator\EqNode;
 
 /**
  */

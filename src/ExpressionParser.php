@@ -1,9 +1,9 @@
 <?php
-namespace Mrix\Rql\Parser;
+namespace Xiag\Rql\Parser;
 
-use Mrix\Rql\Parser\DataType\DateTime;
-use Mrix\Rql\Parser\DataType\Glob;
-use Mrix\Rql\Parser\Exception\SyntaxErrorException;
+use Xiag\Rql\Parser\DataType\DateTime;
+use Xiag\Rql\Parser\DataType\Glob;
+use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 
 /**
  * Expresssion parser

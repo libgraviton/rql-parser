@@ -1,7 +1,7 @@
 <?php
-namespace Mrix\Rql\Parser\Node\Query\ArrayOperator;
+namespace Xiag\Rql\Parser\Node\Query\ArrayOperator;
 
-use Mrix\Rql\Parser\Node\Query\AbstractArrayOperatorNode;
+use Xiag\Rql\Parser\Node\Query\AbstractArrayOperatorNode;
 
 /**
  */

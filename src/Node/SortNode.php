@@ -1,7 +1,7 @@
 <?php
-namespace Mrix\Rql\Parser\Node;
+namespace Xiag\Rql\Parser\Node;
 
-use Mrix\Rql\Parser\AbstractNode;
+use Xiag\Rql\Parser\AbstractNode;
 
 /**
  */

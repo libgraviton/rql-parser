@@ -1,10 +1,10 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser;
+namespace Xiag\Rql\Parser\TokenParser;
 
-use Mrix\Rql\Parser\Token;
-use Mrix\Rql\Parser\TokenStream;
-use Mrix\Rql\Parser\AbstractTokenParser;
-use Mrix\Rql\Parser\Node\LimitNode;
+use Xiag\Rql\Parser\Token;
+use Xiag\Rql\Parser\TokenStream;
+use Xiag\Rql\Parser\AbstractTokenParser;
+use Xiag\Rql\Parser\Node\LimitNode;
 
 /**
  */

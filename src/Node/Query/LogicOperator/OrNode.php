@@ -1,7 +1,7 @@
 <?php
-namespace Mrix\Rql\Parser\Node\Query\LogicOperator;
+namespace Xiag\Rql\Parser\Node\Query\LogicOperator;
 
-use Mrix\Rql\Parser\Node\Query\AbstractLogicOperatorNode;
+use Xiag\Rql\Parser\Node\Query\AbstractLogicOperatorNode;
 
 /**
  */

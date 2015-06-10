@@ -1,14 +1,14 @@
 <?php
-namespace Mrix\Rql\ParserTests;
+namespace Xiag\Rql\ParserTests;
 
-use Mrix\Rql\Parser\Lexer;
-use Mrix\Rql\Parser\Parser;
-use Mrix\Rql\Parser\Query;
-use Mrix\Rql\Parser\QueryBuilder;
-use Mrix\Rql\Parser\TokenParser;
-use Mrix\Rql\Parser\Node;
-use Mrix\Rql\Parser\DataType\DateTime;
-use Mrix\Rql\Parser\DataType\Glob;
+use Xiag\Rql\Parser\Lexer;
+use Xiag\Rql\Parser\Parser;
+use Xiag\Rql\Parser\Query;
+use Xiag\Rql\Parser\QueryBuilder;
+use Xiag\Rql\Parser\TokenParser;
+use Xiag\Rql\Parser\Node;
+use Xiag\Rql\Parser\DataType\DateTime;
+use Xiag\Rql\Parser\DataType\Glob;
 
 /**
  * @covers Parser

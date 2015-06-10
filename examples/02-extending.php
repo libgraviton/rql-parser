@@ -1,20 +1,20 @@
 <?php
-namespace Mrix\Rql\ParserExample02;
+namespace Xiag\Rql\ParserExample02;
 
-use Mrix\Rql\Parser\Lexer;
-use Mrix\Rql\Parser\Parser;
-use Mrix\Rql\Parser\Query;
-use Mrix\Rql\Parser\QueryBuilder;
-use Mrix\Rql\Parser\ExpressionParser;
-use Mrix\Rql\Parser\Token;
-use Mrix\Rql\Parser\TokenParserGroup;
-use Mrix\Rql\Parser\TokenStream;
-use Mrix\Rql\Parser\AbstractNode;
-use Mrix\Rql\Parser\Node\AbstractQueryNode;
-use Mrix\Rql\Parser\Node\SelectNode;
-use Mrix\Rql\Parser\AbstractTokenParser;
-use Mrix\Rql\Parser\TokenParser\Query\AbstractBasicTokenParser;
-use Mrix\Rql\Parser\TokenParser\Query\Basic\ScalarOperator\EqTokenParser;
+use Xiag\Rql\Parser\Lexer;
+use Xiag\Rql\Parser\Parser;
+use Xiag\Rql\Parser\Query;
+use Xiag\Rql\Parser\QueryBuilder;
+use Xiag\Rql\Parser\ExpressionParser;
+use Xiag\Rql\Parser\Token;
+use Xiag\Rql\Parser\TokenParserGroup;
+use Xiag\Rql\Parser\TokenStream;
+use Xiag\Rql\Parser\AbstractNode;
+use Xiag\Rql\Parser\Node\AbstractQueryNode;
+use Xiag\Rql\Parser\Node\SelectNode;
+use Xiag\Rql\Parser\AbstractTokenParser;
+use Xiag\Rql\Parser\TokenParser\Query\AbstractBasicTokenParser;
+use Xiag\Rql\Parser\TokenParser\Query\Basic\ScalarOperator\EqTokenParser;
 
 require __DIR__ . '/../vendor/autoload.php';
 

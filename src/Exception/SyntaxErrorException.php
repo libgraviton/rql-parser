@@ -1,7 +1,7 @@
 <?php
-namespace Mrix\Rql\Parser\Exception;
+namespace Xiag\Rql\Parser\Exception;
 
-use Mrix\Rql\Parser\Exception;
+use Xiag\Rql\Parser\Exception;
 
 /**
  */

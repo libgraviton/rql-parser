@@ -1,8 +1,8 @@
 <?php
-namespace Mrix\Rql\Parser\TypeCaster;
+namespace Xiag\Rql\Parser\TypeCaster;
 
-use Mrix\Rql\Parser\Token;
-use Mrix\Rql\Parser\TypeCasterInterface;
+use Xiag\Rql\Parser\Token;
+use Xiag\Rql\Parser\TypeCasterInterface;
 
 /**
  * Boolean type caster

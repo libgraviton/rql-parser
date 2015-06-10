@@ -1,12 +1,12 @@
 <?php
-namespace Mrix\Rql\Parser\DataType;
+namespace Xiag\Rql\Parser\DataType;
 
 /**
  */
 class Glob
 {
-    const REPLACE_ASTERISK = '___mrix_re_asterisk_3_1415926535_8979323846___';
-    const REPLACE_QUESTION = '___mrix_re_question_3_1415926535_8979323846___';
+    const REPLACE_ASTERISK = '___xiag_re_asterisk_3_1415926535_8979323846___';
+    const REPLACE_QUESTION = '___xiag_re_question_3_1415926535_8979323846___';
 
     /**
      * @var string

@@ -1,8 +1,8 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\Fiql\ArrayOperator;
+namespace Xiag\Rql\Parser\TokenParser\Query\Fiql\ArrayOperator;
 
-use Mrix\Rql\Parser\TokenParser\Query\Fiql\AbstractArrayOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\ArrayOperator\OutNode;
+use Xiag\Rql\Parser\TokenParser\Query\Fiql\AbstractArrayOperatorTokenParser;
+use Xiag\Rql\Parser\Node\Query\ArrayOperator\OutNode;
 
 /**
  */

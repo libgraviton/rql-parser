@@ -1,8 +1,8 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\Fiql\ScalarOperator;
+namespace Xiag\Rql\Parser\TokenParser\Query\Fiql\ScalarOperator;
 
-use Mrix\Rql\Parser\TokenParser\Query\Fiql\AbstractScalarOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\ScalarOperator\GeNode;
+use Xiag\Rql\Parser\TokenParser\Query\Fiql\AbstractScalarOperatorTokenParser;
+use Xiag\Rql\Parser\Node\Query\ScalarOperator\GeNode;
 
 /**
  */

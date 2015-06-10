@@ -1,5 +1,5 @@
 <?php
-namespace Mrix\Rql\Parser\DataType;
+namespace Xiag\Rql\Parser\DataType;
 
 /**
  */

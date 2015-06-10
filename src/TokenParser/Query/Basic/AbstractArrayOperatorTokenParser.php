@@ -1,10 +1,10 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\Basic;
+namespace Xiag\Rql\Parser\TokenParser\Query\Basic;
 
-use Mrix\Rql\Parser\Token;
-use Mrix\Rql\Parser\TokenStream;
-use Mrix\Rql\Parser\TokenParser\Query\AbstractBasicTokenParser;
-use Mrix\Rql\Parser\Node\Query\AbstractArrayOperatorNode;
+use Xiag\Rql\Parser\Token;
+use Xiag\Rql\Parser\TokenStream;
+use Xiag\Rql\Parser\TokenParser\Query\AbstractBasicTokenParser;
+use Xiag\Rql\Parser\Node\Query\AbstractArrayOperatorNode;
 
 /**
  */

@@ -1,8 +1,8 @@
 <?php
-namespace Mrix\Rql\ParserTests;
+namespace Xiag\Rql\ParserTests;
 
-use Mrix\Rql\Parser\Lexer;
-use Mrix\Rql\Parser\Token;
+use Xiag\Rql\Parser\Lexer;
+use Xiag\Rql\Parser\Token;
 
 /**
  * @covers Lexer
@@ -52,7 +52,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSyntaxError($rql, $exceptionMessage)
     {
-        $this->setExpectedException('Mrix\Rql\Parser\Exception\SyntaxErrorException', $exceptionMessage);
+        $this->setExpectedException('Xiag\Rql\Parser\Exception\SyntaxErrorException', $exceptionMessage);
 
         $lexer = new Lexer();
         $lexer->tokenize($rql);

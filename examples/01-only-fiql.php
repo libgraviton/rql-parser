@@ -1,12 +1,12 @@
 <?php
-namespace Mrix\Rql\ParserExample01;
+namespace Xiag\Rql\ParserExample01;
 
-use Mrix\Rql\Parser\Lexer;
-use Mrix\Rql\Parser\Parser;
-use Mrix\Rql\Parser\ExpressionParser;
-use Mrix\Rql\Parser\TokenParserGroup;
-use Mrix\Rql\Parser\TokenParser\Query\GroupTokenParser;
-use Mrix\Rql\Parser\TokenParser\Query\Fiql;
+use Xiag\Rql\Parser\Lexer;
+use Xiag\Rql\Parser\Parser;
+use Xiag\Rql\Parser\ExpressionParser;
+use Xiag\Rql\Parser\TokenParserGroup;
+use Xiag\Rql\Parser\TokenParser\Query\GroupTokenParser;
+use Xiag\Rql\Parser\TokenParser\Query\Fiql;
 
 require __DIR__ . '/../vendor/autoload.php';
 

@@ -1,8 +1,8 @@
 <?php
-namespace Mrix\Rql\Parser\TokenParser\Query\Basic\ArrayOperator;
+namespace Xiag\Rql\Parser\TokenParser\Query\Basic\ArrayOperator;
 
-use Mrix\Rql\Parser\TokenParser\Query\Basic\AbstractArrayOperatorTokenParser;
-use Mrix\Rql\Parser\Node\Query\ArrayOperator\InNode;
+use Xiag\Rql\Parser\TokenParser\Query\Basic\AbstractArrayOperatorTokenParser;
+use Xiag\Rql\Parser\Node\Query\ArrayOperator\InNode;
 
 /**
  */

@@ -1,7 +1,7 @@
 <?php
-namespace Mrix\Rql\Parser;
+namespace Xiag\Rql\Parser;
 
-use Mrix\Rql\Parser\Exception\UnknownTokenException;
+use Xiag\Rql\Parser\Exception\UnknownTokenException;
 
 /**
  * Token

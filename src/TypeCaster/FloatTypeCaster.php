@@ -1,9 +1,9 @@
 <?php
-namespace Mrix\Rql\Parser\TypeCaster;
+namespace Xiag\Rql\Parser\TypeCaster;
 
-use Mrix\Rql\Parser\Token;
-use Mrix\Rql\Parser\TypeCasterInterface;
-use Mrix\Rql\Parser\DataType\DateTime;
+use Xiag\Rql\Parser\Token;
+use Xiag\Rql\Parser\TypeCasterInterface;
+use Xiag\Rql\Parser\DataType\DateTime;
 
 /**
  * Float type caster
