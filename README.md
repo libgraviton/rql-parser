@@ -1,8 +1,6 @@
 RQL parser
 ==========
 
-[![Build Status](https://travis-ci.org/xiag-ag/rql-parser.svg?branch=master)](https://travis-ci.org/xiag-ag/rql-parser)
-
 This is a RQL parsing library written in PHP.
 
 This library consists of the following parts:
