@@ -35,6 +35,24 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $rql
+     * @param string $exceptionMessage
+     * @return void
+     *
+     * @covers Parser::parse()
+     * @dataProvider dataSyntaxError()
+     */
+    public function testSyntaxError($rql, $exceptionMessage)
+    {
+        $this->setExpectedException('Xiag\Rql\Parser\Exception\SyntaxErrorException', $exceptionMessage);
+
+        $lexer = new Lexer();
+        $parser = Parser::createDefault();
+
+        $parser->parse($lexer->tokenize($rql));
+    }
+
+    /**
      * @return array
      */
     public function dataParse()
@@ -268,6 +286,31 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         '*abc?',
                     ]))
                     ->getQuery(),
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function dataSyntaxError()
+    {
+        return [
+            'limit: no args' => [
+                'limit()',
+                sprintf('Unexpected token "%s" (%s)', ')', 'T_CLOSE_PARENTHESIS'),
+            ],
+            'limit: many args' => [
+                'limit(1,2,3)',
+                sprintf('Unexpected token "%s" (%s)', ',', 'T_COMMA'),
+            ],
+            'limit: string limit' => [
+                'limit(limit)',
+                sprintf('Unexpected token "%s" (%s)', 'limit', 'T_STRING'),
+            ],
+            'limit: string offset' => [
+                'limit(1,offset)',
+                sprintf('Unexpected token "%s" (%s)', 'offset', 'T_STRING'),
             ],
         ];
     }
