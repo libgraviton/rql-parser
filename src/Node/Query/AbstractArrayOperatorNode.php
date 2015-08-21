@@ -1,16 +1,10 @@
 <?php
 namespace Xiag\Rql\Parser\Node\Query;
 
-use Xiag\Rql\Parser\Node\AbstractQueryNode;
-
 /**
  */
-abstract class AbstractArrayOperatorNode extends AbstractQueryNode
+abstract class AbstractArrayOperatorNode extends AbstractComparisonOperatorNode
 {
-    /**
-     * @var string
-     */
-    protected $field;
     /**
      * @var array
      */
@@ -24,23 +18,6 @@ abstract class AbstractArrayOperatorNode extends AbstractQueryNode
     {
         $this->field = $field;
         $this->values = $values;
-    }
-
-    /**
-     * @return string
-     */
-    public function getField()
-    {
-        return $this->field;
-    }
-
-    /**
-     * @param string $field
-     * @return void
-     */
-    public function setField($field)
-    {
-        $this->field = $field;
     }
 
     /**
