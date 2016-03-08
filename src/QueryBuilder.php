@@ -2,6 +2,7 @@
 namespace Xiag\Rql\Parser;
 
 use Xiag\Rql\Parser\Exception\UnknownNodeException;
+use Xiag\Rql\Parser\Node\SearchNode;
 use Xiag\Rql\Parser\Node\SelectNode;
 use Xiag\Rql\Parser\Node\AbstractQueryNode;
 use Xiag\Rql\Parser\Node\SortNode;
@@ -39,6 +40,8 @@ class QueryBuilder
             return $this->addSort($node);
         } elseif ($node instanceof LimitNode) {
             return $this->addLimit($node);
+        } elseif ($node instanceof SearchNode) {
+            return $this->addSearch($node);
         }
 
         throw new UnknownNodeException(sprintf('Unknown node type "%s" (%s)', $node->getNodeName(), get_class($node)));
@@ -99,6 +102,17 @@ class QueryBuilder
     public function addLimit(LimitNode $limit)
     {
         $this->query->setLimit($limit);
+
+        return $this;
+    }
+
+    /**
+     * @param SearchNode $search
+     * @return $this
+     */
+    public function addSearch(SearchNode $search)
+    {
+        $this->query->setSearch($search);
 
         return $this;
     }
