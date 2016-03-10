@@ -1,6 +1,7 @@
 <?php
 namespace Xiag\Rql\Parser;
 
+use Xiag\Rql\Parser\Node\SearchNode;
 use Xiag\Rql\Parser\Node\SelectNode;
 use Xiag\Rql\Parser\Node\AbstractQueryNode;
 use Xiag\Rql\Parser\Node\SortNode;
@@ -26,6 +27,10 @@ class Query extends AbstractNode
      * @var LimitNode
      */
     protected $limit;
+    /**
+     * @var SearchNode
+     */
+    protected $search;
 
     /**
      * @inheritdoc
@@ -101,5 +106,21 @@ class Query extends AbstractNode
     public function setLimit(LimitNode $limit)
     {
         $this->limit = $limit;
+    }
+
+    /**
+     * @return SearchNode
+     */
+    public function getSearch()
+    {
+        return $this->search;
+    }
+
+    /**
+     * @param SearchNode $search
+     */
+    public function setSearch($search)
+    {
+        $this->search = $search;
     }
 }

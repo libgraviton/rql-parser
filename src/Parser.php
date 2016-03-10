@@ -2,6 +2,7 @@
 namespace Xiag\Rql\Parser;
 
 use Xiag\Rql\Parser\Exception\SyntaxErrorException;
+use Xiag\Rql\Parser\TokenParser\SearchTokenParser;
 
 /**
  * Parser
@@ -92,7 +93,8 @@ class Parser
             ->addTokenParser(new TokenParser\SelectTokenParser())
             ->addTokenParser($queryTokenParser)
             ->addTokenParser(new TokenParser\SortTokenParser())
-            ->addTokenParser(new TokenParser\LimitTokenParser());
+            ->addTokenParser(new TokenParser\LimitTokenParser())
+            ->addTokenParser(new TokenParser\SearchTokenParser());
     }
 
     /**
