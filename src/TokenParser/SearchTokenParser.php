@@ -22,7 +22,7 @@ class SearchTokenParser extends AbstractTokenParser
         $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
 
         $searchTermsImploded = $tokenStream->expect(Token::T_STRING)->getValue();
-        $searchTerms[] = explode(" ", $searchTermsImploded);
+        $searchTerms = explode(" ", $searchTermsImploded);
 
         $tokenStream->expect(Token::T_CLOSE_PARENTHESIS);
 
