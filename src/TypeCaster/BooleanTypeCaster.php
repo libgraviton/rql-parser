@@ -4,9 +4,6 @@ namespace Xiag\Rql\Parser\TypeCaster;
 use Xiag\Rql\Parser\Token;
 use Xiag\Rql\Parser\TypeCasterInterface;
 
-/**
- * Boolean type caster
- */
 class BooleanTypeCaster implements TypeCasterInterface
 {
     /**

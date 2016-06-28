@@ -5,9 +5,6 @@ use Xiag\Rql\Parser\Token;
 use Xiag\Rql\Parser\TypeCasterInterface;
 use Xiag\Rql\Parser\DataType\DateTime;
 
-/**
- * Float type caster
- */
 class FloatTypeCaster implements TypeCasterInterface
 {
     /**

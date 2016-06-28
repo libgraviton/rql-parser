@@ -3,9 +3,6 @@ namespace Xiag\Rql\Parser;
 
 use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 
-/**
- * Token stream
- */
 class TokenStream implements \Countable
 {
     /**

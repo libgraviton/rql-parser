@@ -1,8 +1,6 @@
 <?php
 namespace Xiag\Rql\Parser\DataType;
 
-/**
- */
 class Glob
 {
     const REPLACE_ASTERISK = '___xiag_re_asterisk_3_1415926535_8979323846___';

@@ -8,8 +8,6 @@ use Xiag\Rql\Parser\Node\SortNode;
 use Xiag\Rql\Parser\Node\LimitNode;
 use Xiag\Rql\Parser\Node\Query\LogicalOperator\AndNode;
 
-/**
- */
 class QueryBuilder
 {
     /**
@@ -17,9 +15,6 @@ class QueryBuilder
      */
     protected $query;
 
-    /**
-     *
-     */
     public function __construct()
     {
         $this->query = new Query();

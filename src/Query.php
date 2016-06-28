@@ -6,8 +6,6 @@ use Xiag\Rql\Parser\Node\AbstractQueryNode;
 use Xiag\Rql\Parser\Node\SortNode;
 use Xiag\Rql\Parser\Node\LimitNode;
 
-/**
- */
 class Query extends AbstractNode
 {
     /**

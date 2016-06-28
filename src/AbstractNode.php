@@ -1,8 +1,6 @@
 <?php
 namespace Xiag\Rql\Parser;
 
-/**
- */
 abstract class AbstractNode
 {
     /**

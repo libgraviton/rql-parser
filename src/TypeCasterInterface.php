@@ -1,9 +1,6 @@
 <?php
 namespace Xiag\Rql\Parser;
 
-/**
- * Type caster interface
- */
 interface TypeCasterInterface
 {
     /**

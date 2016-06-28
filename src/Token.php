@@ -3,9 +3,6 @@ namespace Xiag\Rql\Parser;
 
 use Xiag\Rql\Parser\Exception\UnknownTokenException;
 
-/**
- * Token
- */
 class Token
 {
     const T_END                 = -1;

@@ -1,8 +1,6 @@
 <?php
 namespace Xiag\Rql\Parser\DataType;
 
-/**
- */
 class DateTime extends \DateTime
 {
     /**
