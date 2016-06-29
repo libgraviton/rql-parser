@@ -61,7 +61,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
     {
         return [
             'primitives' => [
-                'eq(&eq&limit(limit,)date:empty(),null,1,+1,-1,0,1.5,-.4e12,2015-04-19,2015-04-16T17:40:32Z,*abc?',
+                'eq(&eq&limit(limit,)date:empty(),null(),1,+1,-1,0,1.5,-.4e12,2015-04-19,2015-04-16T17:40:32Z,*abc?',
                 [
                     ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
@@ -76,7 +76,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['date', Token::T_TYPE],
                     ['empty()', Token::T_EMPTY],
                     [',', Token::T_COMMA],
-                    ['null', Token::T_NULL],
+                    ['null()', Token::T_NULL],
                     [',', Token::T_COMMA],
                     ['1', Token::T_INTEGER],
                     [',', Token::T_COMMA],
@@ -409,7 +409,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             ],
 
             'string typecast' => [
-                'eq(a,string:3)&in(b,(string:true(),string:false,string:null,string:empty()))&out(c,(string:-1,string:+.5e10))',
+                'eq(a,string:3)&in(b,(string:true(),string:false(),string:null(),string:empty()))&out(c,(string:-1,string:+.5e10))',
                 [
                     ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
@@ -430,10 +430,10 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['true()', Token::T_TRUE],
                     [',', Token::T_COMMA],
                     ['string', Token::T_TYPE],
-                    ['false', Token::T_FALSE],
+                    ['false()', Token::T_FALSE],
                     [',', Token::T_COMMA],
                     ['string', Token::T_TYPE],
-                    ['null', Token::T_NULL],
+                    ['null()', Token::T_NULL],
                     [',', Token::T_COMMA],
                     ['string', Token::T_TYPE],
                     ['empty()', Token::T_EMPTY],
@@ -457,22 +457,16 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'constants' => [
-                'in(a,(null,null(),true,true(),false,false(),empty()))',
+                'in(a,(null(),true(),false(),empty()))',
                 [
                     ['in', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
                     ['(', Token::T_OPEN_PARENTHESIS],
-                    ['null', Token::T_NULL],
-                    [',', Token::T_COMMA],
                     ['null()', Token::T_NULL],
                     [',', Token::T_COMMA],
-                    ['true', Token::T_TRUE],
-                    [',', Token::T_COMMA],
                     ['true()', Token::T_TRUE],
-                    [',', Token::T_COMMA],
-                    ['false', Token::T_FALSE],
                     [',', Token::T_COMMA],
                     ['false()', Token::T_FALSE],
                     [',', Token::T_COMMA],
