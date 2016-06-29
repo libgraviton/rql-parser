@@ -145,14 +145,13 @@ All syntax variations may be used together.
     - `.1`, `+.1`, `-.1`
     - `.1e5`, `+.1e+5`, `-.1e-5`
  - boolean
-    - `true`, `true()`
-    - `false`, `false()`
+    - `true()`
+    - `false()`
  - null
-    - `null`, `null()`
+    - `null()`
  - empty
     - `empty()`
  - date
-    - `2015-06-02`
     - `2015-06-02T20:00:00Z`
  - glob
     - `abc*`
