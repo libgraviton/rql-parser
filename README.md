@@ -42,17 +42,19 @@ Basic usage
 <?php
 require 'vendor/autoload.php';
 
+// default lexer supports all RQL rules
+$lexer = new Xiag\Rql\Parser\Lexer();
+
+// default parser contains all parsing strategies
+$parser = new Xiag\Rql\Parser\Parser();
+
+
 // RQL code
 $rql = '(eq(a,string:1)|lt(b,2)|(c<>3&d>=string:4&e=eq=boolean:1))&u!=5&not(or(u=6,ge(i,10)))&z=1&(a==2|b<-3|in(c,(2,float:3)))&select(a,b)&sort(+a,-b)&limit(1,2)';
-
-// lexer
-$lexer = new Xiag\Rql\Parser\Lexer();
 
 // tokenize RQL
 $tokens = $lexer->tokenize($rql);
 
-// default parser contains all parsing strategies
-$parser = Xiag\Rql\Parser\Parser::createDefault();
 
 // parsing
 var_dump($parser->parse($tokens));
@@ -67,9 +69,14 @@ Advanced usage
 
 See examples:
 
- - [Enable only FIQL operators](examples/01-only-fiql.php)
- - [Add support for aggregate functions and `between` operator](examples/02-extending.php)
-
+ - [Enable only FIQL operators](examples/01-only-fiql-operator.php)
+ - [Add new query operators](examples/02-new-query-operator.php)
+ - [Add support for aggregate functions](examples/03-new-top-operator.php)
+ - [Convert RQL to SQL](examples/04-convert-to-sql.php)
+ - [Add date support](examples/05-date-support.php)
+ - [Use scalars in array nodes](examples/06-improve-array-parser.php)
+ - [Add `timestamp` caster](examples/07-timestamp-caster.php)
+ - [Wrap strings with quotes](examples/08-string-quoting.php)
 
 Current state
 -------------

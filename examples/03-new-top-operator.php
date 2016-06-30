@@ -1,27 +1,26 @@
 <?php
-namespace Xiag\Rql\ParserExample02;
+namespace Xiag\Rql\ParserExample03;
 
+use Xiag\Rql\Parser\Parser as BaseParser;
+use Xiag\Rql\Parser\Query as BaseQuery;
+use Xiag\Rql\Parser\QueryBuilder as BaseQueryBuilder;
 use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Parser;
-use Xiag\Rql\Parser\Query;
-use Xiag\Rql\Parser\QueryBuilder;
-use Xiag\Rql\Parser\ExpressionParser;
 use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\TokenParserGroup;
+use Xiag\Rql\Parser\NodeParserInterface;
 use Xiag\Rql\Parser\TokenStream;
+use Xiag\Rql\Parser\NodeParserChain;
 use Xiag\Rql\Parser\AbstractNode;
-use Xiag\Rql\Parser\Node\AbstractQueryNode;
 use Xiag\Rql\Parser\Node\SelectNode;
-use Xiag\Rql\Parser\AbstractTokenParser;
-use Xiag\Rql\Parser\TokenParser\Query\AbstractBasicTokenParser;
-use Xiag\Rql\Parser\TokenParser\Query\Basic\ScalarOperator\EqTokenParser;
+use Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator\Rql\EqNodeParser;
+use Xiag\Rql\Parser\ValueParser\FieldParser;
+use Xiag\Rql\Parser\ValueParser\ScalarParser;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 /**
- * AST node for aggregate function
+ * aggregate(fieldName)
  */
-class AgregateFunctionNode extends AbstractNode
+class AggregateFunctionNode extends AbstractNode
 {
     private $function;
     private $field;
@@ -54,16 +53,9 @@ class AgregateFunctionNode extends AbstractNode
 }
 
 /**
- * node "select(...)"
+ * select(field1,count(field2),sum(field3),...)
  */
-class XSelectNode extends SelectNode
-{
-}
-
-/**
- * parser for expression "select(field1,count(field2),sum(field3),...)"
- */
-class SelectTokenParser extends AbstractTokenParser
+class SelectTokenParser implements NodeParserInterface
 {
     private $allowedFunctions;
 
@@ -83,7 +75,7 @@ class SelectTokenParser extends AbstractTokenParser
             if (($agregate = $tokenStream->nextIf(Token::T_OPERATOR, $this->allowedFunctions)) !== null) {
                 $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
 
-                $fields[] = new AgregateFunctionNode(
+                $fields[] = new AggregateFunctionNode(
                     $agregate->getValue(),
                     $tokenStream->expect(Token::T_STRING)->getValue()
                 );
@@ -100,7 +92,7 @@ class SelectTokenParser extends AbstractTokenParser
 
         $tokenStream->expect(Token::T_CLOSE_PARENTHESIS);
 
-        return new XSelectNode($fields);
+        return new SelectNode($fields);
     }
 
     public function supports(TokenStream $tokenStream)
@@ -110,7 +102,7 @@ class SelectTokenParser extends AbstractTokenParser
 }
 
 /**
- * node "groupby(...)"
+ * groupby(field1,field2,...)
  */
 class GroupbyNode extends AbstractNode
 {
@@ -132,10 +124,7 @@ class GroupbyNode extends AbstractNode
     }
 }
 
-/**
- * parser for expression "groupby(field1,field2,...)"
- */
-class GroupbyTokenParser extends AbstractTokenParser
+class GroupbyTokenParser implements NodeParserInterface
 {
     public function parse(TokenStream $tokenStream)
     {
@@ -163,75 +152,11 @@ class GroupbyTokenParser extends AbstractTokenParser
 }
 
 /**
- * node "between(...)"
- */
-class BetweenNode extends AbstractQueryNode
-{
-    private $field;
-    private $from;
-    private $to;
-
-    public function __construct($field, $from, $to)
-    {
-        $this->field = $field;
-        $this->from = $from;
-        $this->to = $to;
-    }
-
-    public function getField()
-    {
-        return $this->field;
-    }
-
-    public function getFrom()
-    {
-        return $this->from;
-    }
-
-    public function getTo()
-    {
-        return $this->to;
-    }
-
-    public function getNodeName()
-    {
-        return 'between';
-    }
-}
-
-/**
- * parser for expression "between(field,from,to)"
- */
-class BetweenTokenParser extends AbstractBasicTokenParser
-{
-    public function parse(TokenStream $tokenStream)
-    {
-        $tokenStream->expect(Token::T_OPERATOR, $this->getOperatorName());
-        $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
-
-        $field = $tokenStream->expect(Token::T_STRING)->getValue();
-        $tokenStream->expect(Token::T_COMMA);
-        $from = $this->getParser()->getExpressionParser()->parseScalar($tokenStream);
-        $tokenStream->expect(Token::T_COMMA);
-        $to = $this->getParser()->getExpressionParser()->parseScalar($tokenStream);
-
-        $tokenStream->expect(Token::T_CLOSE_PARENTHESIS);
-
-        return new BetweenNode($field, $from, $to);
-    }
-
-    public function getOperatorName()
-    {
-        return 'between';
-    }
-}
-
-/**
  * add supports for "groupby"
  */
-class XQuery extends Query
+class Query extends BaseQuery
 {
-    protected $groupby;
+    private $groupby;
 
     public function getGroupby()
     {
@@ -245,11 +170,12 @@ class XQuery extends Query
     }
 }
 
-class XQueryBuilder extends QueryBuilder
+class QueryBuilder extends BaseQueryBuilder
 {
     public function __construct()
     {
-        $this->query = new XQuery();
+        parent::__construct();
+        $this->query = new Query();
     }
 
     public function addNode(AbstractNode $node)
@@ -262,29 +188,27 @@ class XQueryBuilder extends QueryBuilder
     }
 }
 
-class XParser extends Parser
+class Parser extends BaseParser
 {
     protected function createQueryBuilder()
     {
-        return new XQueryBuilder();
+        return new QueryBuilder();
     }
 }
 
+$nodeParser = (new NodeParserChain())
+    ->addNodeParser(new SelectTokenParser(['count', 'sum', 'avg', 'min', 'max']))
+    ->addNodeParser(new GroupbyTokenParser())
+    ->addNodeParser(new EqNodeParser(new FieldParser(), new ScalarParser()));
 
 
 // parse
-$parser = (new XParser(new ExpressionParser()))
-    ->addTokenParser(new SelectTokenParser(['count', 'sum', 'avg', 'min', 'max']))
-    ->addTokenParser(
-        (new TokenParserGroup())
-            ->addTokenParser(new EqTokenParser())
-            ->addTokenParser(new BetweenTokenParser())
-    )
-    ->addTokenParser(new GroupbyTokenParser());
+$lexer = new Lexer();
+$parser = new Parser($nodeParser);
 
-$tokenStream = (new Lexer())->tokenize(implode('&', [
+$tokenStream = $lexer->tokenize(implode('&', [
     'select(type,avg(age),min(age),max(age))',
-    'eq(type,customer)&between(age,20,50)',
-    'groupby(type)'
+    'eq(type,customer)',
+    'groupby(type)',
 ]));
 var_dump($parser->parse($tokenStream));
