@@ -5,7 +5,6 @@ use Xiag\Rql\Parser\Token;
 use Xiag\Rql\Parser\TokenStream;
 use Xiag\Rql\Parser\TypeCasterInterface;
 use Xiag\Rql\Parser\SubParserInterface;
-use Xiag\Rql\Parser\DataType\DateTime;
 use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 
 class ScalarParser implements SubParserInterface
@@ -69,7 +68,7 @@ class ScalarParser implements SubParserInterface
         } elseif ($token->test(Token::T_EMPTY)) {
             return '';
         } elseif ($token->test(Token::T_DATE)) {
-            return DateTime::createFromRqlFormat($token->getValue());
+            return new \DateTime($token->getValue());
         } elseif ($token->test(Token::T_STRING)) {
             return $token->getValue();
         } elseif ($token->test(Token::T_INTEGER)) {

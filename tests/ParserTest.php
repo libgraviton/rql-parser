@@ -7,7 +7,6 @@ use Xiag\Rql\Parser\Query;
 use Xiag\Rql\Parser\QueryBuilder;
 use Xiag\Rql\Parser\NodeParser;
 use Xiag\Rql\Parser\Node;
-use Xiag\Rql\Parser\DataType\DateTime;
 use Xiag\Rql\Parser\DataType\Glob;
 use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 
@@ -240,8 +239,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 'in(a,(2015-04-16T17:40:32Z,2012-02-29T17:40:32Z))',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
-                        DateTime::createFromRqlFormat('2015-04-16T17:40:32Z'),
-                        DateTime::createFromRqlFormat('2012-02-29T17:40:32Z'),
+                        new \DateTime('2015-04-16T17:40:32Z'),
+                        new \DateTime('2012-02-29T17:40:32Z'),
                     ]))
                     ->getQuery(),
             ],
@@ -262,7 +261,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         '+a-b:c',
                         null,
                         'null()',
-                        DateTime::createFromRqlFormat('2015-04-19T21:00:00Z'),
+                        new \DateTime('2015-04-19T21:00:00Z'),
                         '2015-04-19T21:00:00Z',
                         1.1e+3,
                         '1.1e+3',

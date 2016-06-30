@@ -3,7 +3,6 @@ namespace Xiag\Rql\Parser\TypeCaster;
 
 use Xiag\Rql\Parser\Token;
 use Xiag\Rql\Parser\TypeCasterInterface;
-use Xiag\Rql\Parser\DataType\DateTime;
 
 class FloatTypeCaster implements TypeCasterInterface
 {
@@ -21,7 +20,7 @@ class FloatTypeCaster implements TypeCasterInterface
         } elseif ($token->test(Token::T_EMPTY)) {
             return 0.;
         } elseif ($token->test(Token::T_DATE)) {
-            return (float)DateTime::createFromRqlFormat($token->getValue())->format('YmdHis');
+            return (float)(new \DateTime($token->getValue()))->format('YmdHis');
         } else {
             return (float)$token->getValue();
         }
