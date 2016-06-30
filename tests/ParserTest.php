@@ -7,7 +7,7 @@ use Xiag\Rql\Parser\Query;
 use Xiag\Rql\Parser\QueryBuilder;
 use Xiag\Rql\Parser\NodeParser;
 use Xiag\Rql\Parser\Node;
-use Xiag\Rql\Parser\DataType\Glob;
+use Xiag\Rql\Parser\Glob;
 use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 
 class ParserTest extends \PHPUnit_Framework_TestCase

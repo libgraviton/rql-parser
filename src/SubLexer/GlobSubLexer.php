@@ -3,6 +3,7 @@ namespace Xiag\Rql\Parser\SubLexer;
 
 use Xiag\Rql\Parser\Token;
 use Xiag\Rql\Parser\SubLexerInterface;
+use Xiag\Rql\Parser\Glob;
 
 class GlobSubLexer implements SubLexerInterface
 {
@@ -19,9 +20,20 @@ class GlobSubLexer implements SubLexerInterface
 
         return new Token(
             Token::T_GLOB,
-            $matches[0],
+            $this->decodeGlob($matches[0]),
             $cursor,
             $cursor + strlen($matches[0])
+        );
+    }
+
+    private function decodeGlob($glob)
+    {
+        return preg_replace_callback(
+            '/[^\*\?]+/i',
+            function ($encoded) {
+                return Glob::encode(rawurldecode($encoded[0]));
+            },
+            $glob
         );
     }
 }

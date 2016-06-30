@@ -4,7 +4,7 @@ namespace Xiag\Rql\Parser\ValueParser;
 use Xiag\Rql\Parser\Token;
 use Xiag\Rql\Parser\TokenStream;
 use Xiag\Rql\Parser\SubParserInterface;
-use Xiag\Rql\Parser\DataType\Glob;
+use Xiag\Rql\Parser\Glob;
 
 class GlobParser implements SubParserInterface
 {
@@ -28,6 +28,6 @@ class GlobParser implements SubParserInterface
         }
 
         $tokenStream->nextIf(Token::T_TYPE, 'glob');
-        return new Glob(rawurlencode($tokenStream->expect(static::$allowedTypes)->getValue()));
+        return new Glob(Glob::encode($tokenStream->expect(static::$allowedTypes)->getValue()));
     }
 }
