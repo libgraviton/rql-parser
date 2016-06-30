@@ -6,16 +6,10 @@ php:
   - 5.6
   - 7.0
   - hhvm
-  - hhvm-nightly
 
-before_script:
+install:
   - composer self-update
-  - composer install --dev
+  - composer install
 
 script:
-  ./vendor/bin/phpunit -v
-
-matrix:
-  allow_failures:
-    - php: 7.0
-    - php: hhvm-nightly
+  - ./vendor/bin/phpunit -v
