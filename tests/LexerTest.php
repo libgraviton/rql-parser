@@ -3,6 +3,7 @@ namespace Xiag\Rql\ParserTests;
 
 use Xiag\Rql\Parser\Lexer;
 use Xiag\Rql\Parser\Token;
+use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 
 class LexerTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,7 +48,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSyntaxError($rql, $exceptionMessage)
     {
-        $this->setExpectedException('Xiag\Rql\Parser\Exception\SyntaxErrorException', $exceptionMessage);
+        $this->setExpectedException(SyntaxErrorException::class, $exceptionMessage);
 
         $lexer = new Lexer();
         $lexer->tokenize($rql);

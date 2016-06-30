@@ -9,6 +9,7 @@ use Xiag\Rql\Parser\TokenParser;
 use Xiag\Rql\Parser\Node;
 use Xiag\Rql\Parser\DataType\DateTime;
 use Xiag\Rql\Parser\DataType\Glob;
+use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +40,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testSyntaxError($rql, $exceptionMessage)
     {
-        $this->setExpectedException('Xiag\Rql\Parser\Exception\SyntaxErrorException', $exceptionMessage);
+        $this->setExpectedException(SyntaxErrorException::class, $exceptionMessage);
 
         $lexer = new Lexer();
         $parser = Parser::createDefault();
