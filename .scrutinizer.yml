@@ -24,8 +24,8 @@ coding_style:
         concatenation: true
       other:
         after_type_cast: false
-      upper_lower_casing:
-        keywords:
-          general: lower
-        constants:
-          true_false_null: lower
+    upper_lower_casing:
+      keywords:
+        general: lower
+      constants:
+        true_false_null: lower
