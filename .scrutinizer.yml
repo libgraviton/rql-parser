@@ -1,0 +1,31 @@
+filter:
+  paths:
+    - src/*
+  excluded_paths:
+    - tests/*
+    - examples/*
+    - vendor/*
+
+checks:
+  php: {  }
+
+tools:
+  external_code_coverage:
+    timeout: 3600
+  php_code_coverage:
+    enabled: true
+
+coding_style:
+  php:
+    spaces:
+      before_parentheses:
+        closure_definition: true
+      around_operators:
+        concatenation: true
+      other:
+        after_type_cast: false
+      upper_lower_casing:
+        keywords:
+          general: lower
+        constants:
+          true_false_null: lower
