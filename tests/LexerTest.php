@@ -4,9 +4,6 @@ namespace Xiag\Rql\ParserTests;
 use Xiag\Rql\Parser\Lexer;
 use Xiag\Rql\Parser\Token;
 
-/**
- * @covers Lexer
- */
 class LexerTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -14,7 +11,6 @@ class LexerTest extends \PHPUnit_Framework_TestCase
      * @param array $expected
      * @return void
      *
-     * @covers Lexer::tokenize()
      * @dataProvider dataTokenize()
      */
     public function testTokenize($rql, $expected)
@@ -47,7 +43,6 @@ class LexerTest extends \PHPUnit_Framework_TestCase
      * @param string $exceptionMessage
      * @return void
      *
-     * @covers Lexer::tokenize()
      * @dataProvider dataSyntaxError()
      */
     public function testSyntaxError($rql, $exceptionMessage)

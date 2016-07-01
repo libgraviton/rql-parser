@@ -10,9 +10,6 @@ use Xiag\Rql\Parser\Node;
 use Xiag\Rql\Parser\DataType\DateTime;
 use Xiag\Rql\Parser\DataType\Glob;
 
-/**
- * @covers Parser
- */
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -20,7 +17,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @param Query $expected
      * @return void
      *
-     * @covers Parser::parse()
      * @dataProvider dataParse()
      */
     public function testParse($rql, Query $expected)
@@ -39,7 +35,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @param string $exceptionMessage
      * @return void
      *
-     * @covers Parser::parse()
      * @dataProvider dataSyntaxError()
      */
     public function testSyntaxError($rql, $exceptionMessage)
