@@ -23,7 +23,7 @@ class BooleanTypeCaster implements TypeCasterInterface
         } elseif ($token->test(Token::T_EMPTY)) {
             return false;
         } elseif ($token->test(Token::T_DATE)) {
-            return $token->getValue() === '0000-00-00T00:00:00Z';
+            return $token->getValue() !== '0000-00-00T00:00:00Z';
         } else {
             return (bool)$token->getValue();
         }
