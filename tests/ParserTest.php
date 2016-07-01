@@ -115,10 +115,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             ],
 
             'string typecast' => [
+                'ne(x,string:*)&' .
                 'eq(a,string:3)&' .
                 'in(b,(string:true(),string:false(),string:null(),string:empty()))&' .
                 'out(c,(string:-1,string:+.5e10))',
                 (new QueryBuilder())
+                    ->addQuery(new Node\Query\ScalarOperator\NeNode('x', '*'))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('a', '3'))
                     ->addQuery(new Node\Query\ArrayOperator\InNode('b', [
                         'true',
@@ -138,7 +140,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 'eq(c,integer:null())&' .
                 'eq(d,integer:true())&' .
                 'eq(e,integer:a)&' .
-                'eq(f,integer:empty())',
+                'eq(f,integer:empty())' .
+                'eq(g,integer:false())&' .
+                'eq(h,integer:2016-07-01T09:48:55Z)',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('a', 0))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('b', 1))
@@ -146,6 +150,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('d', 1))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('e', 0))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('f', 0))
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('g', 0))
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('h', 20160701094855))
                     ->getQuery(),
             ],
             'float typecast' => [
@@ -154,7 +160,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 'eq(c,float:null())&' .
                 'eq(d,float:true())&' .
                 'eq(e,float:a)&' .
-                'eq(f,float:empty())',
+                'eq(f,float:empty())' .
+                'eq(g,float:false())&' .
+                'eq(h,float:2016-07-01T09:48:55Z)',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('a', 0.))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('b', 1.5))
@@ -162,6 +170,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('d', 1.))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('e', 0.))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('f', 0.))
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('g', 0.))
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('h', 20160701094855.))
                     ->getQuery(),
             ],
             'boolean typecast' => [
@@ -170,7 +180,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 'eq(c,boolean:null())&' .
                 'eq(d,boolean:true())&' .
                 'eq(e,boolean:a)&' .
-                'eq(f,boolean:empty())',
+                'eq(f,boolean:empty())' .
+                'eq(g,boolean:false())&' .
+                'eq(h,boolean:2016-07-01T09:48:55Z)',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('a', false))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('b', true))
@@ -178,6 +190,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('d', true))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('e', true))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('f', false))
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('g', false))
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('h', true))
                     ->getQuery(),
             ],
             'constants' => [
@@ -216,6 +230,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->addQuery(new Node\Query\ScalarOperator\GtNode('f', 6))
                     ->addQuery(new Node\Query\ScalarOperator\LeNode('g', 7))
                     ->addQuery(new Node\Query\ScalarOperator\GeNode('h', 8))
+                    ->getQuery(),
+            ],
+            'group with one operator' => [
+                '(eq(a,b))',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('a', 'b'))
                     ->getQuery(),
             ],
             'simple groups' => [
@@ -324,6 +344,60 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function dataSyntaxError()
     {
         return [
+            'unexpected token' => [
+                '1',
+                sprintf('Unexpected token "%s" (%s) at position %d', '1', 'T_INTEGER', 0),
+            ],
+
+            'unknown typecaster' => [
+                'eq(field,unknown:value)',
+                sprintf('Unknown type "%s"', 'unknown'),
+            ],
+
+            'mix group operators 1' => [
+                '(a=b|c=d&e=f)',
+                sprintf('Cannot mix "%s" and "%s" within a group', '&', '|'),
+            ],
+            'mix group operators 2' => [
+                '(a=b&c=d|e=f)',
+                sprintf('Cannot mix "%s" and "%s" within a group', '&', '|'),
+            ],
+
+            'invalid scalar value 1 ' => [
+                'eq(field,*glob?)',
+                sprintf('Invalid scalar token "%s" (%s)', '*glob?', 'T_GLOB'),
+            ],
+            'invalid scalar value 2' => [
+                'eq(field,(1,2))',
+                sprintf('Invalid scalar token "%s" (%s)', '(', 'T_OPEN_PARENTHESIS'),
+            ],
+
+            'invalid array value 1 ' => [
+                'in(field,1)',
+                sprintf('Unexpected token "%s" (%s) (expected %s)', '1', 'T_INTEGER', 'T_OPEN_PARENTHESIS'),
+            ],
+            'invalid array value 2' => [
+                'in(field,(1,(2)))',
+                sprintf('Invalid scalar token "%s" (%s)', '(', 'T_OPEN_PARENTHESIS'),
+            ],
+            'invalid array value 3' => [
+                'in(field,(1,*glob?))',
+                sprintf('Invalid scalar token "%s" (%s)', '*glob?', 'T_GLOB'),
+            ],
+
+            'invalid "and" node' => [
+                'and(a=b)',
+                sprintf('"%s" operator expects at least %d parameters, %d given', 'and', 2, 1),
+            ],
+            'invalid "or" node' => [
+                'or(a=b)',
+                sprintf('"%s" operator expects at least %d parameters, %d given', 'or', 2, 1),
+            ],
+            'invalid "not" node' => [
+                'not(a=b,c=d)',
+                sprintf('"%s" operator expects %d parameter, %d given', 'not', 1, 2),
+            ],
+
             'limit: no args' => [
                 'limit()',
                 sprintf('Unexpected token "%s" (%s)', ')', 'T_CLOSE_PARENTHESIS'),
