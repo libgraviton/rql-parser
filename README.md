@@ -2,6 +2,8 @@ RQL parser
 ==========
 
 [![Build Status](https://travis-ci.org/xiag-ag/rql-parser.svg?branch=master)](https://travis-ci.org/xiag-ag/rql-parser)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xiag-ag/rql-parser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xiag-ag/rql-parser/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/xiag-ag/rql-parser/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/xiag-ag/rql-parser/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/xiag/rql-parser/v/stable)](https://packagist.org/packages/xiag/rql-parser)
 [![Total Downloads](https://poser.pugx.org/xiag/rql-parser/downloads)](https://packagist.org/packages/xiag/rql-parser)
 [![License](https://poser.pugx.org/xiag/rql-parser/license)](https://packagist.org/packages/xiag/rql-parser)
