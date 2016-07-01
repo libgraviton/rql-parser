@@ -3,6 +3,9 @@ namespace Xiag\Rql\Parser\Node\Query;
 
 use Xiag\Rql\Parser\Node\AbstractQueryNode;
 
+/**
+ * @codeCoverageIgnore
+ */
 abstract class AbstractLogicalOperatorNode extends AbstractQueryNode
 {
     /**

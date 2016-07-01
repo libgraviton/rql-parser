@@ -3,6 +3,9 @@ namespace Xiag\Rql\Parser\Node;
 
 use Xiag\Rql\Parser\AbstractNode;
 
+/**
+ * @codeCoverageIgnore
+ */
 class LimitNode extends AbstractNode
 {
     /**

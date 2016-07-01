@@ -1,6 +1,9 @@
 <?php
 namespace Xiag\Rql\Parser\Node\Query;
 
+/**
+ * @codeCoverageIgnore
+ */
 abstract class AbstractArrayOperatorNode extends AbstractComparisonOperatorNode
 {
     /**

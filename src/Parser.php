@@ -23,6 +23,7 @@ class Parser
     /**
      * @param NodeParserInterface $nodeParser
      * @return $this
+     * @codeCoverageIgnore
      */
     public function setNodeParser(NodeParserInterface $nodeParser)
     {
@@ -32,6 +33,7 @@ class Parser
 
     /**
      * @return NodeParserInterface
+     * @codeCoverageIgnore
      */
     public function getNodeParser()
     {

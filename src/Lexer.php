@@ -21,6 +21,7 @@ class Lexer
     /**
      * @param SubLexerInterface $subLexer
      * @return $this
+     * @codeCoverageIgnore
      */
     public function setSubLexer(SubLexerInterface $subLexer)
     {
@@ -30,6 +31,7 @@ class Lexer
 
     /**
      * @return SubLexerInterface
+     * @codeCoverageIgnore
      */
     public function getSubLexer()
     {

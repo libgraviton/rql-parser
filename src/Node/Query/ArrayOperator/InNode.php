@@ -3,6 +3,9 @@ namespace Xiag\Rql\Parser\Node\Query\ArrayOperator;
 
 use Xiag\Rql\Parser\Node\Query\AbstractArrayOperatorNode;
 
+/**
+ * @codeCoverageIgnore
+ */
 class InNode extends AbstractArrayOperatorNode
 {
     /**
