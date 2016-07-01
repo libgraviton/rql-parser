@@ -5,7 +5,7 @@ use Xiag\Rql\Parser\Lexer;
 use Xiag\Rql\Parser\Parser;
 use Xiag\Rql\Parser\Query;
 use Xiag\Rql\Parser\QueryBuilder;
-use Xiag\Rql\Parser\TokenParser;
+use Xiag\Rql\Parser\NodeParser;
 use Xiag\Rql\Parser\Node;
 use Xiag\Rql\Parser\DataType\DateTime;
 use Xiag\Rql\Parser\DataType\Glob;
@@ -23,7 +23,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testParse($rql, Query $expected)
     {
         $lexer = new Lexer();
-        $parser = Parser::createDefault();
+        $parser = new Parser();
 
         $this->assertSame(
             var_export($expected, true),
@@ -43,7 +43,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(SyntaxErrorException::class, $exceptionMessage);
 
         $lexer = new Lexer();
-        $parser = Parser::createDefault();
+        $parser = new Parser();
 
         $parser->parse($lexer->tokenize($rql));
     }
@@ -89,15 +89,15 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             'logic operators' => [
                 'and(eq(a,b),lt(c,d),or(in(a,(1,f)),gt(g,2)))&not(ne(h,3))',
                 (new QueryBuilder())
-                    ->addQuery(new Node\Query\LogicOperator\AndNode([
+                    ->addQuery(new Node\Query\LogicalOperator\AndNode([
                         new Node\Query\ScalarOperator\EqNode('a', 'b'),
                         new Node\Query\ScalarOperator\LtNode('c', 'd'),
-                        new Node\Query\LogicOperator\OrNode([
+                        new Node\Query\LogicalOperator\OrNode([
                             new Node\Query\ArrayOperator\InNode('a', [1, 'f']),
                             new Node\Query\ScalarOperator\GtNode('g', 2),
                         ])
                     ]))
-                    ->addQuery(new Node\Query\LogicOperator\NotNode([
+                    ->addQuery(new Node\Query\LogicalOperator\NotNode([
                         new Node\Query\ScalarOperator\NeNode('h', 3),
                     ]))
                     ->getQuery(),
@@ -205,11 +205,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             'simple groups' => [
                 '(eq(a,b)&lt(c,d))&(ne(e,f)|gt(g,h))',
                 (new QueryBuilder())
-                    ->addQuery(new Node\Query\LogicOperator\AndNode([
+                    ->addQuery(new Node\Query\LogicalOperator\AndNode([
                         new Node\Query\ScalarOperator\EqNode('a', 'b'),
                         new Node\Query\ScalarOperator\LtNode('c', 'd'),
                     ]))
-                    ->addQuery(new Node\Query\LogicOperator\OrNode([
+                    ->addQuery(new Node\Query\LogicalOperator\OrNode([
                         new Node\Query\ScalarOperator\NeNode('e', 'f'),
                         new Node\Query\ScalarOperator\GtNode('g', 'h'),
                     ]))
@@ -218,16 +218,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             'deep groups & mix groups with operators' => [
                 '(eq(a,b)|lt(c,d)|and(gt(e,f),(ne(g,h)|ge(i,j)|in(k,(l,m,n))|(o<>p&q=le=r))))',
                 (new QueryBuilder())
-                    ->addQuery(new Node\Query\LogicOperator\OrNode([
+                    ->addQuery(new Node\Query\LogicalOperator\OrNode([
                         new Node\Query\ScalarOperator\EqNode('a', 'b'),
                         new Node\Query\ScalarOperator\LtNode('c', 'd'),
-                        new Node\Query\LogicOperator\AndNode([
+                        new Node\Query\LogicalOperator\AndNode([
                             new Node\Query\ScalarOperator\GtNode('e', 'f'),
-                            new Node\Query\LogicOperator\OrNode([
+                            new Node\Query\LogicalOperator\OrNode([
                                 new Node\Query\ScalarOperator\NeNode('g', 'h'),
                                 new Node\Query\ScalarOperator\GeNode('i', 'j'),
                                 new Node\Query\ArrayOperator\InNode('k', ['l', 'm', 'n']),
-                                new Node\Query\LogicOperator\AndNode([
+                                new Node\Query\LogicalOperator\AndNode([
                                     new Node\Query\ScalarOperator\NeNode('o', 'p'),
                                     new Node\Query\ScalarOperator\LeNode('q', 'r'),
                                 ]),
@@ -246,7 +246,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'string encoding' => [
-                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s,%s))', [
+                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s))&like(b,%s)&eq(c,%s)', [
                     $this->encodeString('+a-b:c'),
                     'null()',
                     $this->encodeString('null()'),
@@ -266,9 +266,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         '2015-04-19T21:00:00Z',
                         1.1e+3,
                         '1.1e+3',
-                        new Glob('*abc?'),
-                        '*abc?',
                     ]))
+                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('b', new Glob('*abc?')))
+                    ->addQuery(new Node\Query\ScalarOperator\EqNode('c', '*abc?'))
                     ->getQuery(),
             ],
             'long integers' => [

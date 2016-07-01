@@ -1,8 +1,6 @@
 <?php
 namespace Xiag\Rql\Parser\Node\Query;
 
-/**
- */
 abstract class AbstractArrayOperatorNode extends AbstractComparisonOperatorNode
 {
     /**
@@ -29,7 +27,7 @@ abstract class AbstractArrayOperatorNode extends AbstractComparisonOperatorNode
     }
 
     /**
-     * @param mixed $values
+     * @param array $values
      * @return void
      */
     public function setValues(array $values)

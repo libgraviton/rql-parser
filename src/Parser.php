@@ -2,97 +2,90 @@
 namespace Xiag\Rql\Parser;
 
 use Xiag\Rql\Parser\Exception\SyntaxErrorException;
+use Xiag\Rql\Parser\NodeParser\Query\LogicalOperator;
+use Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator;
 
-/**
- * Parser
- */
 class Parser
 {
     /**
-     * @var TokenParserGroup
+     * @var NodeParserInterface
      */
-    protected $tokenParserGroup;
-    /**
-     * @var ExpressionParserInterface
-     */
-    protected $expressionParser;
+    protected $nodeParser;
 
     /**
-     * @param ExpressionParserInterface $expressionParser
+     * @param NodeParserInterface $nodeParser
      */
-    public function __construct(ExpressionParserInterface $expressionParser)
+    public function __construct(NodeParserInterface $nodeParser = null)
     {
-        $this->expressionParser = $expressionParser;
-
-        $this->tokenParserGroup = new TokenParserGroup();
-        $this->tokenParserGroup->setParser($this);
+        $this->nodeParser = $nodeParser ?: static::createDefaultNodeParser();
     }
 
     /**
-     * @return ExpressionParserInterface
-     */
-    public function getExpressionParser()
-    {
-        return $this->expressionParser;
-    }
-
-    /**
-     * @param TokenParserInterface $tokenParser
+     * @param NodeParserInterface $nodeParser
      * @return $this
      */
-    public function addTokenParser(TokenParserInterface $tokenParser)
+    public function setNodeParser(NodeParserInterface $nodeParser)
     {
-        $this->tokenParserGroup->addTokenParser($tokenParser);
-
+        $this->nodeParser = $nodeParser;
         return $this;
     }
 
     /**
-     * @return Parser
+     * @return NodeParserInterface
      */
-    public static function createDefault()
+    public function getNodeParser()
     {
-        $queryTokenParser = new TokenParserGroup();
-        $queryTokenParser
-            ->addTokenParser(new TokenParser\Query\GroupTokenParser($queryTokenParser))
+        return $this->nodeParser;
+    }
 
-            ->addTokenParser(new TokenParser\Query\Basic\LogicOperator\AndTokenParser($queryTokenParser))
-            ->addTokenParser(new TokenParser\Query\Basic\LogicOperator\OrTokenParser($queryTokenParser))
-            ->addTokenParser(new TokenParser\Query\Basic\LogicOperator\NotTokenParser($queryTokenParser))
+    /**
+     * @return NodeParserInterface
+     */
+    public static function createDefaultNodeParser()
+    {
+        $scalarParser = (new ValueParser\ScalarParser())
+            ->registerTypeCaster('string', new TypeCaster\StringTypeCaster())
+            ->registerTypeCaster('integer', new TypeCaster\IntegerTypeCaster())
+            ->registerTypeCaster('float', new TypeCaster\FloatTypeCaster())
+            ->registerTypeCaster('boolean', new TypeCaster\BooleanTypeCaster());
+        $arrayParser = new ValueParser\ArrayParser($scalarParser);
+        $globParser = new ValueParser\GlobParser();
+        $fieldParser = new ValueParser\FieldParser();
+        $integerParser = new ValueParser\IntegerParser();
 
-            ->addTokenParser(new TokenParser\Query\Basic\ArrayOperator\InTokenParser())
-            ->addTokenParser(new TokenParser\Query\Basic\ArrayOperator\OutTokenParser())
+        $queryNodeParser = new NodeParser\QueryNodeParser();
+        $queryNodeParser
+            ->addNodeParser(new NodeParser\Query\GroupNodeParser($queryNodeParser))
 
-            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\EqTokenParser())
-            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\NeTokenParser())
-            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\LtTokenParser())
-            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\GtTokenParser())
-            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\LeTokenParser())
-            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\GeTokenParser())
-            ->addTokenParser(new TokenParser\Query\Basic\ScalarOperator\LikeTokenParser())
+            ->addNodeParser(new LogicalOperator\AndNodeParser($queryNodeParser))
+            ->addNodeParser(new LogicalOperator\OrNodeParser($queryNodeParser))
+            ->addNodeParser(new LogicalOperator\NotNodeParser($queryNodeParser))
 
-            ->addTokenParser(new TokenParser\Query\Fiql\ArrayOperator\InTokenParser())
-            ->addTokenParser(new TokenParser\Query\Fiql\ArrayOperator\OutTokenParser())
+            ->addNodeParser(new ComparisonOperator\Rql\InNodeParser($fieldParser, $arrayParser))
+            ->addNodeParser(new ComparisonOperator\Rql\OutNodeParser($fieldParser, $arrayParser))
+            ->addNodeParser(new ComparisonOperator\Rql\EqNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Rql\NeNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Rql\LtNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Rql\GtNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Rql\LeNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Rql\GeNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Rql\LikeNodeParser($fieldParser, $globParser))
 
-            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\EqTokenParser())
-            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\NeTokenParser())
-            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LtTokenParser())
-            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\GtTokenParser())
-            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LeTokenParser())
-            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\GeTokenParser())
-            ->addTokenParser(new TokenParser\Query\Fiql\ScalarOperator\LikeTokenParser());
+            ->addNodeParser(new ComparisonOperator\Fiql\InNodeParser($fieldParser, $arrayParser))
+            ->addNodeParser(new ComparisonOperator\Fiql\OutNodeParser($fieldParser, $arrayParser))
+            ->addNodeParser(new ComparisonOperator\Fiql\EqNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Fiql\NeNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Fiql\LtNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Fiql\GtNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Fiql\LeNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Fiql\GeNodeParser($fieldParser, $scalarParser))
+            ->addNodeParser(new ComparisonOperator\Fiql\LikeNodeParser($fieldParser, $globParser));
 
-        return (new self(
-            (new ExpressionParser())
-                ->registerTypeCaster('string', new TypeCaster\StringTypeCaster())
-                ->registerTypeCaster('integer', new TypeCaster\IntegerTypeCaster())
-                ->registerTypeCaster('float', new TypeCaster\FloatTypeCaster())
-                ->registerTypeCaster('boolean', new TypeCaster\BooleanTypeCaster())
-        ))
-            ->addTokenParser(new TokenParser\SelectTokenParser())
-            ->addTokenParser($queryTokenParser)
-            ->addTokenParser(new TokenParser\SortTokenParser())
-            ->addTokenParser(new TokenParser\LimitTokenParser());
+        return (new NodeParserChain())
+            ->addNodeParser($queryNodeParser)
+            ->addNodeParser(new NodeParser\SelectNodeParser($fieldParser))
+            ->addNodeParser(new NodeParser\SortNodeParser($fieldParser))
+            ->addNodeParser(new NodeParser\LimitNodeParser($integerParser));
     }
 
     /**
@@ -104,7 +97,7 @@ class Parser
     {
         $queryBuilder = $this->createQueryBuilder();
         while (!$tokenStream->isEnd()) {
-            $queryBuilder->addNode($this->tokenParserGroup->parse($tokenStream));
+            $queryBuilder->addNode($this->nodeParser->parse($tokenStream));
             $tokenStream->nextIf(Token::T_AMPERSAND);
         }
 

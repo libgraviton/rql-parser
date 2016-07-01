@@ -3,8 +3,6 @@ namespace Xiag\Rql\Parser\Node;
 
 use Xiag\Rql\Parser\AbstractNode;
 
-/**
- */
 class LimitNode extends AbstractNode
 {
     /**

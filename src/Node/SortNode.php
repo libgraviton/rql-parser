@@ -3,8 +3,6 @@ namespace Xiag\Rql\Parser\Node;
 
 use Xiag\Rql\Parser\AbstractNode;
 
-/**
- */
 class SortNode extends AbstractNode
 {
     const SORT_ASC = 1;

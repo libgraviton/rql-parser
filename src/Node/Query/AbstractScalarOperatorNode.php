@@ -1,8 +1,6 @@
 <?php
 namespace Xiag\Rql\Parser\Node\Query;
 
-/**
- */
 abstract class AbstractScalarOperatorNode extends AbstractComparisonOperatorNode
 {
     /**
