@@ -406,7 +406,9 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             ],
 
             'string typecast' => [
-                'eq(a,string:3)&in(b,(string:true(),string:false(),string:null(),string:empty()))&out(c,(string:-1,string:+.5e10))',
+                'eq(a,string:3)&' .
+                'in(b,(string:true(),string:false(),string:null(),string:empty()))&' .
+                'out(c,(string:-1,string:+.5e10))',
                 [
                     ['eq', Token::T_OPERATOR],
                     ['(', Token::T_OPEN_PARENTHESIS],

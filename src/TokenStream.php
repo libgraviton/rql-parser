@@ -91,17 +91,36 @@ class TokenStream implements \Countable
                     $value === null ?
                         sprintf(
                             'expected %s',
-                            implode('|', array_map(function ($type) {
-                                return Token::getTypeName($type);
-                            }, (array)$type))
+                            implode(
+                                '|',
+                                array_map(
+                                    function ($type) {
+                                        return Token::getTypeName($type);
+                                    },
+                                    (array)$type
+                                )
+                            )
                         ) :
-                        sprintf('expected %s (%s)',
-                            implode('|', array_map(function ($value) {
-                                return '"' . $value . '"';
-                            }, (array)$type)),
-                            implode('|', array_map(function ($type) {
-                                return Token::getTypeName($type);
-                            }, (array)$type))
+                        sprintf(
+                            'expected %s (%s)',
+                            implode(
+                                '|',
+                                array_map(
+                                    function ($value) {
+                                        return '"' . $value . '"';
+                                    },
+                                    (array)$type
+                                )
+                            ),
+                            implode(
+                                '|',
+                                array_map(
+                                    function ($type) {
+                                        return Token::getTypeName($type);
+                                    },
+                                    (array)$type
+                                )
+                            )
                         )
                 )
             );

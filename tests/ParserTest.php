@@ -115,7 +115,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             ],
 
             'string typecast' => [
-                'eq(a,string:3)&in(b,(string:true(),string:false(),string:null(),string:empty()))&out(c,(string:-1,string:+.5e10))',
+                'eq(a,string:3)&' .
+                'in(b,(string:true(),string:false(),string:null(),string:empty()))&' .
+                'out(c,(string:-1,string:+.5e10))',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('a', '3'))
                     ->addQuery(new Node\Query\ArrayOperator\InNode('b', [
@@ -131,7 +133,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'integer typecast' => [
-                'eq(a,integer:0)&eq(b,integer:1.5)&eq(c,integer:null())&eq(d,integer:true())&eq(e,integer:a)&eq(f,integer:empty())',
+                'eq(a,integer:0)&' .
+                'eq(b,integer:1.5)&' .
+                'eq(c,integer:null())&' .
+                'eq(d,integer:true())&' .
+                'eq(e,integer:a)&' .
+                'eq(f,integer:empty())',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('a', 0))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('b', 1))
@@ -142,7 +149,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'float typecast' => [
-                'eq(a,float:0)&eq(b,float:1.5)&eq(c,float:null())&eq(d,float:true())&eq(e,float:a)&eq(f,float:empty())',
+                'eq(a,float:0)&' .
+                'eq(b,float:1.5)&' .
+                'eq(c,float:null())&' .
+                'eq(d,float:true())&' .
+                'eq(e,float:a)&' .
+                'eq(f,float:empty())',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('a', 0.))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('b', 1.5))
@@ -153,7 +165,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'boolean typecast' => [
-                'eq(a,boolean:0)&eq(b,boolean:1.5)&eq(c,boolean:null())&eq(d,boolean:true())&eq(e,boolean:a)&eq(f,boolean:empty())',
+                'eq(a,boolean:0)&' .
+                'eq(b,boolean:1.5)&' .
+                'eq(c,boolean:null())&' .
+                'eq(d,boolean:true())&' .
+                'eq(e,boolean:a)&' .
+                'eq(f,boolean:empty())',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('a', false))
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('b', true))

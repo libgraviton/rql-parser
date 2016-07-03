@@ -17,10 +17,8 @@ class DatetimeSubLexer implements SubLexerInterface
             return null;
         }
 
-        if (
-            !checkdate($matches['m'], $matches['d'], $matches['y']) ||
-            !($matches['h'] < 24 && $matches['i'] < 60 && $matches['s'] < 60)
-        ) {
+        if (!checkdate($matches['m'], $matches['d'], $matches['y']) ||
+            !($matches['h'] < 24 && $matches['i'] < 60 && $matches['s'] < 60)) {
             throw new SyntaxErrorException(sprintf('Invalid datetime value "%s"', $matches[0]));
         }
 

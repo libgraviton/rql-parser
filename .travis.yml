@@ -11,6 +11,7 @@ install:
   - composer install
 
 script:
+  - composer run cs
   - ./vendor/bin/phpunit --verbose --coverage-clover=coverage.clover
 
 after_script:
