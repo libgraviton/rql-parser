@@ -727,6 +727,53 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
+            'long integers' => [
+                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s))', [
+                    '9223372036854775806',
+                    '-9223372036854775807',
+
+                    '9223372036854775807',
+                    '-9223372036854775808',
+
+                    '9223372036854775808',
+                    '-9223372036854775809',
+
+                    '9223372036854775809',
+                    '-9223372036854775810',
+                ]),
+                [
+                    ['in', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['a', Token::T_STRING],
+                    [',', Token::T_COMMA],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+
+                    ['9223372036854775806', Token::T_INTEGER],
+                    [',', Token::T_COMMA],
+                    ['-9223372036854775807', Token::T_INTEGER],
+
+                    [',', Token::T_COMMA],
+
+                    ['9223372036854775807', Token::T_INTEGER],
+                    [',', Token::T_COMMA],
+                    ['-9223372036854775808', Token::T_INTEGER],
+
+                    [',', Token::T_COMMA],
+
+                    ['9223372036854775808', Token::T_FLOAT],
+                    [',', Token::T_COMMA],
+                    ['-9223372036854775809', Token::T_FLOAT],
+
+                    [',', Token::T_COMMA],
+
+                    ['9223372036854775809', Token::T_FLOAT],
+                    [',', Token::T_COMMA],
+                    ['-9223372036854775810', Token::T_FLOAT],
+
+                    [')', Token::T_CLOSE_PARENTHESIS],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+                ],
+            ],
         ];
     }
 

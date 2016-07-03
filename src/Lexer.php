@@ -183,7 +183,7 @@ class Lexer
             $this->pushToken(Token::T_NULL, $value);
             $this->moveCursor($value);
         } elseif (is_numeric($value)) {
-            if (strpos($value, '.') !== false || strpos($value, 'e') !== false || strpos($value, 'E') !== false) {
+            if (filter_var($value, FILTER_VALIDATE_INT) === false) {
                 $this->pushToken(Token::T_FLOAT, $value);
                 $this->moveCursor($value);
             } else {
