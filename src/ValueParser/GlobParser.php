@@ -27,7 +27,9 @@ class GlobParser implements SubParserInterface
             return new Glob($tokenStream->next()->getValue());
         }
 
-        $tokenStream->nextIf(Token::T_TYPE, 'glob');
+        if ($tokenStream->nextIf(Token::T_TYPE, 'glob')) {
+            $tokenStream->expect(Token::T_COLON);
+        }
         return new Glob(Glob::encode($tokenStream->expect(static::$allowedTypes)->getValue()));
     }
 }

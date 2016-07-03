@@ -11,13 +11,13 @@ class TypeSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        if (!preg_match('/[a-z]\w*\:/Ai', $code, $matches, null, $cursor)) {
+        if (!preg_match('/[a-z]\w*(?=:)/Ai', $code, $matches, null, $cursor)) {
             return null;
         }
 
         return new Token(
             Token::T_TYPE,
-            substr($matches[0], 0, -1),
+            $matches[0],
             $cursor,
             $cursor + strlen($matches[0])
         );

@@ -194,6 +194,18 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->addQuery(new Node\Query\ScalarOperator\EqNode('h', true))
                     ->getQuery(),
             ],
+            'glob typecast' => [
+                'like(a,glob:0)&' .
+                'like(b,glob:1.5)&' .
+                'like(c,glob:a)&' .
+                'like(d,glob:2016-07-01T09:48:55Z)',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('a', new Glob('0')))
+                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('b', new Glob('1.5')))
+                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('c', new Glob('a')))
+                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('d', new Glob('2016-07-01T09:48:55Z')))
+                    ->getQuery(),
+            ],
             'constants' => [
                 'in(a,(null(),true(),false(),empty()))',
                 (new QueryBuilder())

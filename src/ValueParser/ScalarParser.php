@@ -20,6 +20,7 @@ class ScalarParser implements SubParserInterface
     public function parse(TokenStream $tokenStream)
     {
         if (($typeToken = $tokenStream->nextIf(Token::T_TYPE)) !== null) {
+            $tokenStream->expect(Token::T_COLON);
             $value = $this->getTypeCaster($typeToken->getValue())->typeCast($tokenStream->next());
         } else {
             $value = $this->getScalarValue($tokenStream->next());

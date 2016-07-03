@@ -22,6 +22,8 @@ class PunctuationSubLexer implements SubLexerInterface
             return new Token(Token::T_OPEN_PARENTHESIS, $test, $cursor, $cursor + 1);
         } elseif ($test === ')') {
             return new Token(Token::T_CLOSE_PARENTHESIS, $test, $cursor, $cursor + 1);
+        } elseif ($test === ':') {
+            return new Token(Token::T_COLON, $test, $cursor, $cursor + 1);
         } else {
             return null;
         }

@@ -20,6 +20,7 @@ class Token
     const T_VERTICAL_BAR        = 15;
     const T_PLUS                = 16;
     const T_MINUS               = 17;
+    const T_COLON               = 18;
 
     const T_TYPE                = 31;
 
@@ -49,6 +50,7 @@ class Token
         self::T_VERTICAL_BAR      => 'T_VERTICAL_BAR',
         self::T_PLUS              => 'T_PLUS',
         self::T_MINUS             => 'T_MINUS',
+        self::T_COLON             => 'T_COLON',
 
         self::T_TYPE              => 'T_TYPE',
 
