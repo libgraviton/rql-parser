@@ -1,0 +1,48 @@
+<?php
+namespace Xiag\Rql\Parser\SubLexer;
+
+use Xiag\Rql\Parser\Token;
+use Xiag\Rql\Parser\SubLexerInterface;
+
+class FiqlOperatorSubLexer implements SubLexerInterface
+{
+    private static $operatorMap = [
+        '='  => 'eq',
+        '==' => 'eq',
+
+        '!=' => 'ne',
+        '<>' => 'ne',
+
+        '>'  => 'gt',
+        '<'  => 'lt',
+
+        '>=' => 'ge',
+        '<=' => 'le',
+    ];
+
+    /**
+     * @inheritdoc
+     */
+    public function getTokenAt($code, $cursor)
+    {
+        if (!preg_match('/(=[a-z]\w*=|==|!=|<>|>=|<=|<|>|==|=)/Ai', $code, $matches, null, $cursor)) {
+            return null;
+        }
+
+        return new Token(
+            Token::T_OPERATOR,
+            $this->getValue($matches[0]),
+            $cursor,
+            $cursor + strlen($matches[0])
+        );
+    }
+
+    private function getValue($match)
+    {
+        if (isset(self::$operatorMap[$match])) {
+            return self::$operatorMap[$match];
+        } else {
+            return substr($match, 1, -1);
+        }
+    }
+}

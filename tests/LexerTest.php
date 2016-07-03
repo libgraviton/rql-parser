@@ -96,7 +96,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
             'string encoding' => [
-                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s))', [
+                vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s))&like(b,%s)&eq(c,%s)', [
                     '+abc',
                     $this->encodeString('+abc'),
                     '-abc',
@@ -137,11 +137,25 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['1.1e+3', Token::T_FLOAT],
                     [',', Token::T_COMMA],
                     ['1.1e+3', Token::T_STRING],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['like', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['b', Token::T_STRING],
                     [',', Token::T_COMMA],
                     ['*abc?', Token::T_GLOB],
+                    [')', Token::T_CLOSE_PARENTHESIS],
+
+                    ['&', Token::T_AMPERSAND],
+
+                    ['eq', Token::T_OPERATOR],
+                    ['(', Token::T_OPEN_PARENTHESIS],
+                    ['c', Token::T_STRING],
                     [',', Token::T_COMMA],
                     ['*abc?', Token::T_STRING],
-                    [')', Token::T_CLOSE_PARENTHESIS],
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
             ],
@@ -526,49 +540,49 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 'a=1&b==2&c<>3&d!=4&e<5&f>6&g<=7&h>=8',
                 [
                     ['a', Token::T_STRING],
-                    ['=', Token::T_OPERATOR],
+                    ['eq', Token::T_OPERATOR],
                     ['1', Token::T_INTEGER],
 
                     ['&', Token::T_AMPERSAND],
 
                     ['b', Token::T_STRING],
-                    ['==', Token::T_OPERATOR],
+                    ['eq', Token::T_OPERATOR],
                     ['2', Token::T_INTEGER],
 
                     ['&', Token::T_AMPERSAND],
 
                     ['c', Token::T_STRING],
-                    ['<>', Token::T_OPERATOR],
+                    ['ne', Token::T_OPERATOR],
                     ['3', Token::T_INTEGER],
 
                     ['&', Token::T_AMPERSAND],
 
                     ['d', Token::T_STRING],
-                    ['!=', Token::T_OPERATOR],
+                    ['ne', Token::T_OPERATOR],
                     ['4', Token::T_INTEGER],
 
                     ['&', Token::T_AMPERSAND],
 
                     ['e', Token::T_STRING],
-                    ['<', Token::T_OPERATOR],
+                    ['lt', Token::T_OPERATOR],
                     ['5', Token::T_INTEGER],
 
                     ['&', Token::T_AMPERSAND],
 
                     ['f', Token::T_STRING],
-                    ['>', Token::T_OPERATOR],
+                    ['gt', Token::T_OPERATOR],
                     ['6', Token::T_INTEGER],
 
                     ['&', Token::T_AMPERSAND],
 
                     ['g', Token::T_STRING],
-                    ['<=', Token::T_OPERATOR],
+                    ['le', Token::T_OPERATOR],
                     ['7', Token::T_INTEGER],
 
                     ['&', Token::T_AMPERSAND],
 
                     ['h', Token::T_STRING],
-                    ['>=', Token::T_OPERATOR],
+                    ['ge', Token::T_OPERATOR],
                     ['8', Token::T_INTEGER],
                 ],
             ],
@@ -690,7 +704,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
 
                     ['(', Token::T_OPEN_PARENTHESIS],
                     ['o', Token::T_STRING],
-                    ['<>', Token::T_OPERATOR],
+                    ['ne', Token::T_OPERATOR],
                     ['p', Token::T_STRING],
                     ['&', Token::T_AMPERSAND],
                     ['q', Token::T_STRING],
@@ -771,16 +785,12 @@ class LexerTest extends \PHPUnit_Framework_TestCase
             ],
 
             'invalid string 1' => [
-                'eq(a,+a+b)',
-                sprintf('String value "%s" contains unencoded character "%s"', 'a+b', '+'),
+                'eq(a,2:b)',
+                sprintf('Invalid character "%s" at position %d', ':', 6),
             ],
             'invalid string 2' => [
-                'eq(a,-a-b)',
-                sprintf('String value "%s" contains unencoded character "%s"', 'a-b', '-'),
-            ],
-            'invalid string 3' => [
-                'eq(a,2:b)',
-                sprintf('String value "%s" contains unencoded character "%s"', '2:b', ':'),
+                'eq(a,2.b)',
+                sprintf('Invalid character "%s" at position %d', '.', 6),
             ],
         ];
     }

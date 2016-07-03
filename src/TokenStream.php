@@ -36,7 +36,7 @@ class TokenStream implements \Countable
 
     /**
      * @return Token
-     * @throws SyntaxErrorException
+     * @throws SyntaxErrorException If the stream ends
      */
     public function next()
     {
@@ -48,13 +48,14 @@ class TokenStream implements \Countable
     }
 
     /**
-     * @param int|array $type
-     * @param string $value
+     * @param int|int[] $type
+     * @param string|string[] $value
      * @return Token|null
+     * @throws SyntaxErrorException If the stream ends
      */
     public function nextIf($type, $value = null)
     {
-        if ($this->tokens[$this->current]->test($type, $value)) {
+        if ($this->test($type, $value)) {
             return $this->next();
         }
 
@@ -64,7 +65,7 @@ class TokenStream implements \Countable
     /**
      * @param int $number
      * @return Token
-     * @throws SyntaxErrorException
+     * @throws SyntaxErrorException If the stream ends
      */
     public function lookAhead($number = 1)
     {
@@ -76,15 +77,15 @@ class TokenStream implements \Countable
     }
 
     /**
-     * @param int|array $type
-     * @param string $value
+     * @param int|int[] $type
+     * @param string|string[] $value
      * @return Token
-     * @throws SyntaxErrorException
+     * @throws SyntaxErrorException If the current token isn't expected
      */
     public function expect($type, $value = null)
     {
-        $token = $this->tokens[$this->current];
-        if (!$token->test($type, $value)) {
+        $token = $this->getCurrent();
+        if (!$this->test($type, $value)) {
             throw new SyntaxErrorException(
                 sprintf(
                     'Unexpected token "%s" (%s) (%s)',
@@ -114,6 +115,8 @@ class TokenStream implements \Countable
     }
 
     /**
+     * Checks whether is end of stream
+     *
      * @return bool
      */
     public function isEnd()
@@ -132,8 +135,8 @@ class TokenStream implements \Countable
     }
 
     /**
-     * @param int|array $type
-     * @param string|array $value
+     * @param int|int[] $type
+     * @param string|string[] $value
      * @return bool
      */
     public function test($type, $value = null)

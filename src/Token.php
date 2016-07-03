@@ -34,28 +34,64 @@ class Token
     const T_FALSE               = 54;
 
     /**
+     * @var array Type<->Name mapping
+     */
+    public static $typeNameMap = [
+        self::T_END               => 'T_END',
+
+        self::T_INTEGER           => 'T_INTEGER',
+        self::T_FLOAT             => 'T_FLOAT',
+        self::T_STRING            => 'T_STRING',
+        self::T_DATE              => 'T_DATE',
+        self::T_GLOB              => 'T_GLOB',
+
+        self::T_CLOSE_PARENTHESIS => 'T_CLOSE_PARENTHESIS',
+        self::T_OPEN_PARENTHESIS  => 'T_OPEN_PARENTHESIS',
+        self::T_COMMA             => 'T_COMMA',
+        self::T_AMPERSAND         => 'T_AMPERSAND',
+        self::T_VERTICAL_BAR      => 'T_VERTICAL_BAR',
+        self::T_PLUS              => 'T_PLUS',
+        self::T_MINUS             => 'T_MINUS',
+
+        self::T_TYPE              => 'T_TYPE',
+
+        self::T_OPERATOR          => 'T_OPERATOR',
+
+        self::T_NULL              => 'T_NULL',
+        self::T_EMPTY             => 'T_EMPTY',
+        self::T_TRUE              => 'T_TRUE',
+        self::T_FALSE             => 'T_FALSE',
+    ];
+
+    /**
      * @var string
      */
-    protected $value;
+    private $value;
     /**
      * @var int
      */
-    protected $type;
+    private $type;
     /**
      * @var int
      */
-    protected $position;
+    private $start;
+    /**
+     * @var int
+     */
+    private $end;
 
     /**
      * @param int $type
      * @param string $value
-     * @param int $position
+     * @param int $start
+     * @param int $end
      */
-    public function __construct($type, $value, $position)
+    public function __construct($type, $value, $start, $end)
     {
-        $this->type     = $type;
-        $this->value    = $value;
-        $this->position = $position;
+        $this->type  = $type;
+        $this->value = $value;
+        $this->start = $start;
+        $this->end   = $end;
     }
 
     /**
@@ -71,8 +107,8 @@ class Token
     }
 
     /**
-     * @param int|array $type
-     * @param string|array $value
+     * @param int|int[] $type
+     * @param string|string[] $value
      * @return bool
      */
     public function test($type, $value = null)
@@ -105,9 +141,17 @@ class Token
     /**
      * @return int
      */
-    public function getPosition()
+    public function getStart()
     {
-        return $this->position;
+        return $this->start;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEnd()
+    {
+        return $this->end;
     }
 
     /**
@@ -125,37 +169,10 @@ class Token
      */
     public static function getTypeName($type)
     {
-        static $typeMap = [
-            self::T_END               => 'T_END',
-
-            self::T_INTEGER           => 'T_INTEGER',
-            self::T_FLOAT             => 'T_FLOAT',
-            self::T_STRING            => 'T_STRING',
-            self::T_DATE              => 'T_DATE',
-            self::T_GLOB              => 'T_GLOB',
-
-            self::T_CLOSE_PARENTHESIS => 'T_CLOSE_PARENTHESIS',
-            self::T_OPEN_PARENTHESIS  => 'T_OPEN_PARENTHESIS',
-            self::T_COMMA             => 'T_COMMA',
-            self::T_AMPERSAND         => 'T_AMPERSAND',
-            self::T_VERTICAL_BAR      => 'T_VERTICAL_BAR',
-            self::T_PLUS              => 'T_PLUS',
-            self::T_MINUS             => 'T_MINUS',
-
-            self::T_TYPE              => 'T_TYPE',
-
-            self::T_OPERATOR          => 'T_OPERATOR',
-
-            self::T_NULL              => 'T_NULL',
-            self::T_EMPTY             => 'T_EMPTY',
-            self::T_TRUE              => 'T_TRUE',
-            self::T_FALSE             => 'T_FALSE',
-        ];
-
-        if (!isset($typeMap[$type])) {
+        if (!isset(static::$typeNameMap[$type])) {
             throw new UnknownTokenException(sprintf('Token of type "%s" does not exist', $type));
         }
 
-        return $typeMap[$type];
+        return static::$typeNameMap[$type];
     }
 }
