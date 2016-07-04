@@ -19,6 +19,7 @@ class ArrayParser extends ValueParser\ArrayParser
     public function parse(TokenStream $tokenStream)
     {
         if ($tokenStream->nextIf(Token::T_TYPE, 'array')) {
+            $tokenStream->expect(Token::T_COLON);
             return [$this->itemParser->parse($tokenStream)];
         } else {
             return parent::parse($tokenStream);
