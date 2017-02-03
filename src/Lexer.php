@@ -51,9 +51,9 @@ class Lexer
             ->addSubLexer(new SubLexer\TypeSubLexer())
 
             ->addSubLexer(new SubLexer\GlobSubLexer())
-            ->addSubLexer(new SubLexer\StringSubLexer())
             ->addSubLexer(new SubLexer\DatetimeSubLexer())
-            ->addSubLexer(new SubLexer\NumberSubLexer())
+            ->addSubLexer(new SubLexer\StringSubLexer())
+            ->addSubLexer(new SubLexer\NumberSubLexer()) //this might also be run by the StringSubLexer
 
             ->addSubLexer(new SubLexer\SortSubLexer());
     }

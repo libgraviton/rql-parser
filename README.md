@@ -139,7 +139,7 @@ All syntax variations may be used together.
 
 
 ### Value types ###
- 
+
  - string
     - `abc`
     - `abc%20def`
@@ -196,8 +196,6 @@ function encodeString($value)
 {
     return strtr(rawurlencode($value), [
         '-' => '%2D',
-        '_' => '%5F',
-        '.' => '%2E',
         '~' => '%7E',
     ]);
 }

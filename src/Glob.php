@@ -50,8 +50,6 @@ class Glob
             function ($char) {
                 return strtr(rawurlencode($char), [
                     '-' => '%2D',
-                    '_' => '%5F',
-                    '.' => '%2E',
                     '~' => '%7E',
                 ]);
             }

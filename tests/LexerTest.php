@@ -908,10 +908,6 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                 'eq(a,2"b)',
                 sprintf('Invalid character "%s" at position %d', '"', 6),
             ],
-            'invalid string 2' => [
-                'eq(a,2.b)',
-                sprintf('Invalid character "%s" at position %d', '.', 6),
-            ],
         ];
     }
 
@@ -919,8 +915,6 @@ class LexerTest extends \PHPUnit_Framework_TestCase
     {
         return strtr(rawurlencode($value), [
             '-' => '%2D',
-            '_' => '%5F',
-            '.' => '%2E',
             '~' => '%7E',
         ]);
     }

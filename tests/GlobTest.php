@@ -288,8 +288,6 @@ class GlobTest extends \PHPUnit_Framework_TestCase
     {
         return strtr(rawurlencode($value), [
             '-' => '%2D',
-            '_' => '%5F',
-            '.' => '%2E',
             '~' => '%7E',
         ]);
     }
