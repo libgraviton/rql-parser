@@ -11,19 +11,21 @@ class PunctuationSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        $test = substr($code, $cursor, 1);
-        if ($test === '&') {
-            return new Token(Token::T_AMPERSAND, $test, $cursor, $cursor + 1);
-        } elseif ($test === '|') {
-            return new Token(Token::T_VERTICAL_BAR, $test, $cursor, $cursor + 1);
-        } elseif ($test === ',') {
-            return new Token(Token::T_COMMA, $test, $cursor, $cursor + 1);
-        } elseif ($test === '(') {
-            return new Token(Token::T_OPEN_PARENTHESIS, $test, $cursor, $cursor + 1);
-        } elseif ($test === ')') {
-            return new Token(Token::T_CLOSE_PARENTHESIS, $test, $cursor, $cursor + 1);
-        } elseif ($test === ':') {
-            return new Token(Token::T_COLON, $test, $cursor, $cursor + 1);
+        //define matches for safety sake
+        $matches = [''];
+
+        if (preg_match('/ *\\& */A', $code, $matches, null, $cursor)) {
+            return new Token(Token::T_AMPERSAND, $matches[0], $cursor, $cursor + strlen($matches[0]));
+        } elseif (preg_match('/ *\\| */A', $code, $matches, null, $cursor)) {
+            return new Token(Token::T_VERTICAL_BAR, $matches[0], $cursor, $cursor + strlen($matches[0]));
+        } elseif (preg_match('/ *\\, */A', $code, $matches, null, $cursor)) {
+            return new Token(Token::T_COMMA, $matches[0], $cursor, $cursor + strlen($matches[0]));
+        } elseif (preg_match('/ *\\( */A', $code, $matches, null, $cursor)) {
+            return new Token(Token::T_OPEN_PARENTHESIS, $matches[0], $cursor, $cursor + strlen($matches[0]));
+        } elseif (preg_match('/ *\\) */A', $code, $matches, null, $cursor)) {
+            return new Token(Token::T_CLOSE_PARENTHESIS, $matches[0], $cursor, $cursor + strlen($matches[0]));
+        } elseif (preg_match('/ *\\: */A', $code, $matches, null, $cursor)) {
+            return new Token(Token::T_COLON, $matches[0], $cursor, $cursor + strlen($matches[0]));
         } else {
             return null;
         }
