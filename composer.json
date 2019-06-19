@@ -1,7 +1,7 @@
 {
   "name": "xiag/rql-parser",
   "keywords": ["rest", "rql", "resource", "query", "language", "parser"],
-  "license": "GPL-2.0",
+  "license": "MIT",
   "autoload": {
     "psr-4": { "Xiag\\Rql\\Parser\\": "src/"}
   },
