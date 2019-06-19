@@ -2,6 +2,7 @@
 namespace Xiag\Rql\Parser;
 
 use Xiag\Rql\Parser\Exception\UnknownNodeException;
+use Xiag\Rql\Parser\Node\DeselectNode;
 use Xiag\Rql\Parser\Node\SelectNode;
 use Xiag\Rql\Parser\Node\AbstractQueryNode;
 use Xiag\Rql\Parser\Node\SortNode;
@@ -28,6 +29,8 @@ class QueryBuilder
     {
         if ($node instanceof SelectNode) {
             return $this->addSelect($node);
+        } elseif ($node instanceof DeselectNode) {
+            return $this->addDeselect($node);
         } elseif ($node instanceof AbstractQueryNode) {
             return $this->addQuery($node);
         } elseif ($node instanceof SortNode) {
@@ -54,7 +57,16 @@ class QueryBuilder
     public function addSelect(SelectNode $select)
     {
         $this->query->setSelect($select);
+        return $this;
+    }
 
+    /**
+     * @param DeselectNode $deselectNode
+     * @return $this
+     */
+    public function addDeselect(DeselectNode $deselectNode)
+    {
+        $this->query->setDeselect($deselectNode);
         return $this;
     }
 
