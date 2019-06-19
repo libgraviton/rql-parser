@@ -6,7 +6,8 @@ use Xiag\Rql\Parser\NodeParser\Query\AbstractValueListNodeParser;
 
 class SelectNodeParser extends AbstractValueListNodeParser
 {
-    public function getOperatorName() {
+    public function getOperatorName()
+    {
         return 'select';
     }
 
