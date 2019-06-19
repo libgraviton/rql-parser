@@ -1,12 +1,13 @@
 <?php
 namespace Xiag\Rql\ParserTests;
 
+use PHPUnit\Framework\TestCase;
 use Xiag\Rql\Parser\Glob;
 use Xiag\Rql\Parser\Lexer;
 use Xiag\Rql\Parser\Parser;
 use Xiag\Rql\Parser\Node\Query\ScalarOperator\LikeNode;
 
-class GlobTest extends \PHPUnit_Framework_TestCase
+class GlobTest extends TestCase
 {
     /**
      * @param string $glob
