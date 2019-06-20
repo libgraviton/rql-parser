@@ -9,6 +9,12 @@ use Xiag\Rql\Parser\Exception\SyntaxErrorException;
 
 class ScalarParser implements SubParserInterface
 {
+
+    /**
+     * @var string
+     */
+    public const DATETIME_FORMAT = 'Y-m-d\TH:i:sO';
+
     /**
      * @var TypeCasterInterface[]
      */
@@ -69,7 +75,7 @@ class ScalarParser implements SubParserInterface
         } elseif ($token->test(Token::T_EMPTY)) {
             return '';
         } elseif ($token->test(Token::T_DATE)) {
-            return new \DateTime($token->getValue());
+            return \DateTime::createFromFormat(self::DATETIME_FORMAT, $token->getValue());
         } elseif ($token->test(Token::T_STRING)) {
             return $token->getValue();
         } elseif ($token->test(Token::T_INTEGER)) {

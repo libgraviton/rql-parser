@@ -12,7 +12,7 @@ class DatetimeSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        $regExp = '/(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})T(?<h>\d{2}):(?<i>\d{2}):(?<s>\d{2})Z/A';
+        $regExp = '/(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})T(?<h>\d{2}):(?<i>\d{2}):(?<s>\d{2})(?<tz>(Z|\+\d{4}))/A';
         if (!preg_match($regExp, $code, $matches, null, $cursor)) {
             return null;
         }
