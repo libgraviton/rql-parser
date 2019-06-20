@@ -1,5 +1,5 @@
 {
-  "name": "libgraviton/rql-parser",
+  "name": "graviton/rql-parser",
   "keywords": ["rest", "rql", "resource", "query", "language", "parser"],
   "license": "MIT",
   "autoload": {
