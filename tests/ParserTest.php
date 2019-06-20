@@ -15,19 +15,34 @@ class ParserTest extends TestCase
     /**
      * @param string $rql
      * @param Query $expected
+     * @param bool $explicitComparison if false, we don't fully compare backwards (only for long integers)
      * @return void
      *
      * @dataProvider dataParse()
      */
-    public function testParse($rql, Query $expected)
+    public function testParse($rql, Query $expected, $explicitComparison = true)
     {
         $lexer = new Lexer();
         $parser = new Parser();
 
-        $this->assertSame(
-            var_export($expected, true),
-            var_export($parser->parse($lexer->tokenize($rql)), true)
+        // see if the query parses as expected
+        $query = $parser->parse($lexer->tokenize($rql));
+
+        $this->assertEquals(
+            $expected,
+            $query
         );
+
+        // now we call toRql() on the query -> parse that again -> see if it's indeed the same query
+        if ($explicitComparison) {
+            $backToRql = $query->toRql();
+            $backToRqlQuery = $parser->parse($lexer->tokenize($backToRql));
+
+            $this->assertEquals(
+                $expected,
+                $backToRqlQuery
+            );
+        }
     }
 
     /**
@@ -286,11 +301,11 @@ class ParserTest extends TestCase
                     ->getQuery(),
             ],
             'datetime support' => [
-                'in(a,(2015-04-16T17:40:32Z,2012-02-29T17:40:32Z))',
+                'in(a,(2015-04-16T17:40:32+0000,2012-02-29T17:40:32+0000))',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
-                        new \DateTime('2015-04-16T17:40:32Z'),
-                        new \DateTime('2012-02-29T17:40:32Z'),
+                        new \DateTime('2015-04-16T17:40:32+0000'),
+                        new \DateTime('2012-02-29T17:40:32+0000'),
                     ]))
                     ->getQuery(),
             ],
@@ -299,8 +314,8 @@ class ParserTest extends TestCase
                     $this->encodeString('+a-b:c'),
                     'null()',
                     $this->encodeString('null()'),
-                    '2015-04-19T21:00:00Z',
-                    $this->encodeString('2015-04-19T21:00:00Z'),
+                    '2015-04-19T21:00:00+0000',
+                    $this->encodeString('2015-04-19T21:00:00+0000'),
                     '1.1e+3',
                     $this->encodeString('1.1e+3'),
                     '*abc?',
@@ -311,8 +326,8 @@ class ParserTest extends TestCase
                         '+a-b:c',
                         null,
                         'null()',
-                        new \DateTime('2015-04-19T21:00:00Z'),
-                        '2015-04-19T21:00:00Z',
+                        new \DateTime('2015-04-19T21:00:00+0000'),
+                        '2015-04-19T21:00:00+0000',
                         1.1e+3,
                         '1.1e+3',
                     ]))
@@ -347,6 +362,7 @@ class ParserTest extends TestCase
                         (float)-9223372036854775810,
                     ]))
                     ->getQuery(),
+                false // these never fully match back when converting them again
             ],
         ];
     }
