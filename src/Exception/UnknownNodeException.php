@@ -1,7 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser\Exception;
+namespace Graviton\RqlParser\Exception;
 
-use Xiag\Rql\Parser\Exception;
+use Graviton\RqlParser\Exception;
 
 class UnknownNodeException extends \LogicException implements Exception
 {

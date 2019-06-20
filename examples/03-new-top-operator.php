@@ -1,19 +1,19 @@
 <?php
-namespace Xiag\Rql\ParserExample03;
+namespace Graviton\RqlParserExample03;
 
-use Xiag\Rql\Parser\Parser as BaseParser;
-use Xiag\Rql\Parser\Query as BaseQuery;
-use Xiag\Rql\Parser\QueryBuilder as BaseQueryBuilder;
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\NodeParserInterface;
-use Xiag\Rql\Parser\TokenStream;
-use Xiag\Rql\Parser\NodeParserChain;
-use Xiag\Rql\Parser\AbstractNode;
-use Xiag\Rql\Parser\Node\SelectNode;
-use Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator\Rql\EqNodeParser;
-use Xiag\Rql\Parser\ValueParser\FieldParser;
-use Xiag\Rql\Parser\ValueParser\ScalarParser;
+use Graviton\RqlParser\Parser as BaseParser;
+use Graviton\RqlParser\Query as BaseQuery;
+use Graviton\RqlParser\QueryBuilder as BaseQueryBuilder;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\NodeParserInterface;
+use Graviton\RqlParser\TokenStream;
+use Graviton\RqlParser\NodeParserChain;
+use Graviton\RqlParser\AbstractNode;
+use Graviton\RqlParser\Node\SelectNode;
+use Graviton\RqlParser\NodeParser\Query\ComparisonOperator\Rql\EqNodeParser;
+use Graviton\RqlParser\ValueParser\FieldParser;
+use Graviton\RqlParser\ValueParser\ScalarParser;
 
 require __DIR__ . '/../vendor/autoload.php';
 

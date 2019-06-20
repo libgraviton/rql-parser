@@ -1,5 +1,5 @@
 <?php
-namespace Xiag\Rql\Parser;
+namespace Graviton\RqlParser;
 
 interface Exception
 {

@@ -1,7 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser;
+namespace Graviton\RqlParser;
 
-use Xiag\Rql\Parser\ValueParser\ScalarParser;
+use Graviton\RqlParser\ValueParser\ScalarParser;
 
 class RqlEncoder
 {

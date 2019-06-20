@@ -1,7 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser\Node\Query\ScalarOperator;
+namespace Graviton\RqlParser\Node\Query\ScalarOperator;
 
-use Xiag\Rql\Parser\Node\Query\AbstractScalarOperatorNode;
+use Graviton\RqlParser\Node\Query\AbstractScalarOperatorNode;
 
 /**
  * @codeCoverageIgnore

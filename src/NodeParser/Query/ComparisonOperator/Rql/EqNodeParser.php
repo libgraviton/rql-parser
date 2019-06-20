@@ -1,8 +1,8 @@
 <?php
-namespace Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator\Rql;
+namespace Graviton\RqlParser\NodeParser\Query\ComparisonOperator\Rql;
 
-use Xiag\Rql\Parser\Node\Query\ScalarOperator\EqNode;
-use Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator\AbstractComparisonRqlNodeParser;
+use Graviton\RqlParser\Node\Query\ScalarOperator\EqNode;
+use Graviton\RqlParser\NodeParser\Query\ComparisonOperator\AbstractComparisonRqlNodeParser;
 
 class EqNodeParser extends AbstractComparisonRqlNodeParser
 {

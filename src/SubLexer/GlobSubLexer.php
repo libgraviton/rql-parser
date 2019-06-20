@@ -1,9 +1,9 @@
 <?php
-namespace Xiag\Rql\Parser\SubLexer;
+namespace Graviton\RqlParser\SubLexer;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\SubLexerInterface;
-use Xiag\Rql\Parser\Glob;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\SubLexerInterface;
+use Graviton\RqlParser\Glob;
 
 class GlobSubLexer implements SubLexerInterface
 {

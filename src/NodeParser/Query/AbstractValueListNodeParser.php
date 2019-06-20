@@ -1,11 +1,11 @@
 <?php
-namespace Xiag\Rql\Parser\NodeParser\Query;
+namespace Graviton\RqlParser\NodeParser\Query;
 
-use Xiag\Rql\Parser\Node\SelectNode;
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\TokenStream;
-use Xiag\Rql\Parser\NodeParserInterface;
-use Xiag\Rql\Parser\SubParserInterface;
+use Graviton\RqlParser\Node\SelectNode;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\TokenStream;
+use Graviton\RqlParser\NodeParserInterface;
+use Graviton\RqlParser\SubParserInterface;
 
 abstract class AbstractValueListNodeParser implements NodeParserInterface
 {

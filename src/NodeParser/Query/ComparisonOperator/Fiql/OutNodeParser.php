@@ -1,8 +1,8 @@
 <?php
-namespace Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator\Fiql;
+namespace Graviton\RqlParser\NodeParser\Query\ComparisonOperator\Fiql;
 
-use Xiag\Rql\Parser\Node\Query\ArrayOperator\OutNode;
-use Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator\AbstractComparisonFiqlNodeParser;
+use Graviton\RqlParser\Node\Query\ArrayOperator\OutNode;
+use Graviton\RqlParser\NodeParser\Query\ComparisonOperator\AbstractComparisonFiqlNodeParser;
 
 class OutNodeParser extends AbstractComparisonFiqlNodeParser
 {

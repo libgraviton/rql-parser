@@ -1,11 +1,11 @@
 <?php
-namespace Xiag\Rql\Parser\ValueParser;
+namespace Graviton\RqlParser\ValueParser;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\TokenStream;
-use Xiag\Rql\Parser\TypeCasterInterface;
-use Xiag\Rql\Parser\SubParserInterface;
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\TokenStream;
+use Graviton\RqlParser\TypeCasterInterface;
+use Graviton\RqlParser\SubParserInterface;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
 
 class ScalarParser implements SubParserInterface
 {

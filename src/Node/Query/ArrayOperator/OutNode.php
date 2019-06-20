@@ -1,7 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser\Node\Query\ArrayOperator;
+namespace Graviton\RqlParser\Node\Query\ArrayOperator;
 
-use Xiag\Rql\Parser\Node\Query\AbstractArrayOperatorNode;
+use Graviton\RqlParser\Node\Query\AbstractArrayOperatorNode;
 
 /**
  * @codeCoverageIgnore

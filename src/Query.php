@@ -1,11 +1,11 @@
 <?php
-namespace Xiag\Rql\Parser;
+namespace Graviton\RqlParser;
 
-use Xiag\Rql\Parser\Node\DeselectNode;
-use Xiag\Rql\Parser\Node\SelectNode;
-use Xiag\Rql\Parser\Node\AbstractQueryNode;
-use Xiag\Rql\Parser\Node\SortNode;
-use Xiag\Rql\Parser\Node\LimitNode;
+use Graviton\RqlParser\Node\DeselectNode;
+use Graviton\RqlParser\Node\SelectNode;
+use Graviton\RqlParser\Node\AbstractQueryNode;
+use Graviton\RqlParser\Node\SortNode;
+use Graviton\RqlParser\Node\LimitNode;
 
 /**
  * @codeCoverageIgnore

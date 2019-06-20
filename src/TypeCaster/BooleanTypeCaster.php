@@ -1,8 +1,8 @@
 <?php
-namespace Xiag\Rql\Parser\TypeCaster;
+namespace Graviton\RqlParser\TypeCaster;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\TypeCasterInterface;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\TypeCasterInterface;
 
 class BooleanTypeCaster implements TypeCasterInterface
 {

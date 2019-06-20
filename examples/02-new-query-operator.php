@@ -1,19 +1,19 @@
 <?php
-namespace Xiag\Rql\ParserExample02;
+namespace Graviton\RqlParserExample02;
 
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Parser;
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\NodeParserInterface;
-use Xiag\Rql\Parser\SubParserInterface;
-use Xiag\Rql\Parser\TokenStream;
-use Xiag\Rql\Parser\NodeParserChain;
-use Xiag\Rql\Parser\Node\AbstractQueryNode;
-use Xiag\Rql\Parser\Node\Query\AbstractComparisonOperatorNode;
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
-use Xiag\Rql\Parser\ValueParser;
-use Xiag\Rql\Parser\NodeParser;
-use Xiag\Rql\Parser\TypeCaster;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Parser;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\NodeParserInterface;
+use Graviton\RqlParser\SubParserInterface;
+use Graviton\RqlParser\TokenStream;
+use Graviton\RqlParser\NodeParserChain;
+use Graviton\RqlParser\Node\AbstractQueryNode;
+use Graviton\RqlParser\Node\Query\AbstractComparisonOperatorNode;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
+use Graviton\RqlParser\ValueParser;
+use Graviton\RqlParser\NodeParser;
+use Graviton\RqlParser\TypeCaster;
 
 require __DIR__ . '/../vendor/autoload.php';
 

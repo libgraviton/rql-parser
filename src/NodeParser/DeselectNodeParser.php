@@ -1,8 +1,8 @@
 <?php
-namespace Xiag\Rql\Parser\NodeParser;
+namespace Graviton\RqlParser\NodeParser;
 
-use Xiag\Rql\Parser\Node\DeselectNode;
-use Xiag\Rql\Parser\NodeParser\Query\AbstractValueListNodeParser;
+use Graviton\RqlParser\Node\DeselectNode;
+use Graviton\RqlParser\NodeParser\Query\AbstractValueListNodeParser;
 
 class DeselectNodeParser extends AbstractValueListNodeParser
 {

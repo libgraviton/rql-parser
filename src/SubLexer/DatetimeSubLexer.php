@@ -1,9 +1,9 @@
 <?php
-namespace Xiag\Rql\Parser\SubLexer;
+namespace Graviton\RqlParser\SubLexer;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\SubLexerInterface;
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\SubLexerInterface;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
 
 class DatetimeSubLexer implements SubLexerInterface
 {

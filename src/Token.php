@@ -1,7 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser;
+namespace Graviton\RqlParser;
 
-use Xiag\Rql\Parser\Exception\UnknownTokenException;
+use Graviton\RqlParser\Exception\UnknownTokenException;
 
 class Token
 {

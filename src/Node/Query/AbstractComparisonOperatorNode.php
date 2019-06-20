@@ -1,7 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser\Node\Query;
+namespace Graviton\RqlParser\Node\Query;
 
-use Xiag\Rql\Parser\Node\AbstractQueryNode;
+use Graviton\RqlParser\Node\AbstractQueryNode;
 
 /**
  * @codeCoverageIgnore
