@@ -1,14 +1,14 @@
 <?php
-namespace Xiag\Rql\ParserTests;
+namespace Graviton\RqlParserTests;
 
 use PHPUnit\Framework\TestCase;
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Parser;
-use Xiag\Rql\Parser\Query;
-use Xiag\Rql\Parser\QueryBuilder;
-use Xiag\Rql\Parser\Node;
-use Xiag\Rql\Parser\Glob;
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Parser;
+use Graviton\RqlParser\Query;
+use Graviton\RqlParser\QueryBuilder;
+use Graviton\RqlParser\Node;
+use Graviton\RqlParser\Glob;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
 
 class ParserTest extends TestCase
 {

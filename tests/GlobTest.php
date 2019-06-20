@@ -1,11 +1,11 @@
 <?php
-namespace Xiag\Rql\ParserTests;
+namespace Graviton\RqlParserTests;
 
 use PHPUnit\Framework\TestCase;
-use Xiag\Rql\Parser\Glob;
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Parser;
-use Xiag\Rql\Parser\Node\Query\ScalarOperator\LikeNode;
+use Graviton\RqlParser\Glob;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Parser;
+use Graviton\RqlParser\Node\Query\ScalarOperator\LikeNode;
 
 class GlobTest extends TestCase
 {
@@ -86,7 +86,7 @@ class GlobTest extends TestCase
             ],
             'date' => [
                 '2016-06-30T23:33:55Z',
-                $this->escapeRql('2016-06-30T23:33:55Z'),
+                $this->escapeRql('2016-06-30T23:33:55+0000'),
             ],
             'complex' => [
                 '*' .
@@ -137,7 +137,7 @@ class GlobTest extends TestCase
             ],
             'date' => [
                 '2016-06-30T23:33:55Z',
-                $this->escapeRegExp('2016-06-30T23:33:55Z'),
+                $this->escapeRegExp('2016-06-30T23:33:55+0000'),
             ],
             'complex' => [
                 '*' .
@@ -188,7 +188,7 @@ class GlobTest extends TestCase
             ],
             'date' => [
                 '2016-06-30T23:33:55Z',
-                $this->escapeLike('2016-06-30T23:33:55Z'),
+                $this->escapeLike('2016-06-30T23:33:55+0000'),
             ],
             'complex' => [
                 '*' .
@@ -239,7 +239,7 @@ class GlobTest extends TestCase
             ],
             'date' => [
                 '2016-06-30T23:33:55Z',
-                $this->escapeGlob('2016-06-30T23:33:55Z'),
+                $this->escapeGlob('2016-06-30T23:33:55+0000'),
             ],
             'complex' => [
                 '*' .

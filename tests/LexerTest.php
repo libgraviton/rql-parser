@@ -1,10 +1,10 @@
 <?php
-namespace Xiag\Rql\ParserTests;
+namespace Graviton\RqlParserTests;
 
 use PHPUnit\Framework\TestCase;
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
 
 class LexerTest extends TestCase
 {
@@ -93,7 +93,7 @@ class LexerTest extends TestCase
                     [',', Token::T_COMMA],
                     ['-.4e12', Token::T_FLOAT],
                     [',', Token::T_COMMA],
-                    ['2015-04-16T17:40:32Z', Token::T_DATE],
+                    ['2015-04-16T17:40:32+0000', Token::T_DATE],
                     [',', Token::T_COMMA],
                     ['*abc?', Token::T_GLOB],
                 ],
@@ -133,7 +133,7 @@ class LexerTest extends TestCase
                     [',', Token::T_COMMA],
                     ['null()', Token::T_STRING],
                     [',', Token::T_COMMA],
-                    ['2015-04-19T21:00:00Z', Token::T_DATE],
+                    ['2015-04-19T21:00:00+0000', Token::T_DATE],
                     [',', Token::T_COMMA],
                     ['2015-04-19T21:00:00Z', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -171,9 +171,9 @@ class LexerTest extends TestCase
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
                     ['(', Token::T_OPEN_PARENTHESIS],
-                    ['2015-04-16T17:40:32Z', Token::T_DATE],
+                    ['2015-04-16T17:40:32+0000', Token::T_DATE],
                     [',', Token::T_COMMA],
-                    ['2012-02-29T17:40:32Z', Token::T_DATE],
+                    ['2012-02-29T17:40:32+0000', Token::T_DATE],
                     [')', Token::T_CLOSE_PARENTHESIS],
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],
