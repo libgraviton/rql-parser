@@ -43,10 +43,10 @@ Basic usage
 require 'vendor/autoload.php';
 
 // default lexer supports all RQL rules
-$lexer = new Xiag\Rql\Parser\Lexer();
+$lexer = new Graviton\RqlParser\Lexer();
 
 // default parser contains all parsing strategies
-$parser = new Xiag\Rql\Parser\Parser();
+$parser = new Graviton\RqlParser\Parser();
 
 
 // RQL code

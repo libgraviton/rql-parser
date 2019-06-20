@@ -1,15 +1,15 @@
 {
-  "name": "xiag/rql-parser",
+  "name": "libgraviton/rql-parser",
   "keywords": ["rest", "rql", "resource", "query", "language", "parser"],
   "license": "MIT",
   "autoload": {
-    "psr-4": { "Xiag\\Rql\\Parser\\": "src/"}
+    "psr-4": { "Graviton\\RqlParser\\": "src/"}
   },
   "autoload-dev": {
-    "psr-4": { "Xiag\\Rql\\ParserTests\\": "test/"}
+    "psr-4": { "Graviton\\RqlParserTests\\": "test/"}
   },
   "require": {
-    "php": ">=7.1"
+    "php": ">=7.2.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~8",
