@@ -219,7 +219,7 @@ class ParserTest extends TestCase
                     ->addQuery(new Node\Query\ScalarOperator\LikeNode('a', new Glob('0')))
                     ->addQuery(new Node\Query\ScalarOperator\LikeNode('b', new Glob('1.5')))
                     ->addQuery(new Node\Query\ScalarOperator\LikeNode('c', new Glob('a')))
-                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('d', new Glob('2016-07-01T09:48:55Z')))
+                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('d', new Glob('2016-07-01T09:48:55+0000')))
                     ->getQuery(),
             ],
             'constants' => [
@@ -301,7 +301,7 @@ class ParserTest extends TestCase
                     ->getQuery(),
             ],
             'datetime support' => [
-                'in(a,(2015-04-16T17:40:32+0000,2012-02-29T17:40:32+0000))',
+                'in(a,(2015-04-16T17:40:32Z,2012-02-29T17:40:32+0000))',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
                         new \DateTime('2015-04-16T17:40:32+0000'),
@@ -309,6 +309,27 @@ class ParserTest extends TestCase
                     ]))
                     ->getQuery(),
             ],
+
+            'datetime timezone support' => [
+                'in(a,(2019-01-01T00:00:00+0200,2019-12-01T00:00:00+0600,2019-06-01T00:00:00-0600))',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
+                        new \DateTime('2019-01-01T00:00:00+0200'),
+                        new \DateTime('2019-12-01T00:00:00+0600'),
+                        new \DateTime('2019-06-01T00:00:00-0600'),
+                    ]))
+                    ->getQuery(),
+            ],
+
+            'datetime z timezone support' => [
+                'in(a,(2019-01-01T00:00:00Z))',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
+                        new \DateTime('2019-01-01T00:00:00+0000')
+                    ]))
+                    ->getQuery(),
+            ],
+
             'string encoding' => [
                 vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s))&like(b,%s)&eq(c,%s)', [
                     $this->encodeString('+a-b:c'),

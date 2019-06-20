@@ -12,7 +12,7 @@ class DatetimeSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        $regExp = '/(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})T(?<h>\d{2}):(?<i>\d{2}):(?<s>\d{2})(?<tz>(Z|\+\d{4}))/A';
+        $regExp = '/(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})T(?<h>\d{2}):(?<i>\d{2}):(?<s>\d{2})(?<tz>(Z|[\+|-]\d{4}))/A';
         if (!preg_match($regExp, $code, $matches, null, $cursor)) {
             return null;
         }
@@ -22,11 +22,18 @@ class DatetimeSubLexer implements SubLexerInterface
             throw new SyntaxErrorException(sprintf('Invalid datetime value "%s"', $matches[0]));
         }
 
+        $valueLength = strlen($matches[0]);
+
+        // ensure "proper" timezone type
+        if (substr($matches[0], -1) == 'Z') {
+            $matches[0] = substr($matches[0], 0, -1) . '+0000';
+        }
+
         return new Token(
             Token::T_DATE,
             $matches[0],
             $cursor,
-            $cursor + strlen($matches[0])
+            $cursor + $valueLength
         );
     }
 }
