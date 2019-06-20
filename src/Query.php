@@ -130,4 +130,29 @@ class Query extends AbstractNode
     {
         $this->limit = $limit;
     }
+
+    /**
+     * encodes to rql
+     *
+     * @return string rql
+     */
+    public function toRql()
+    {
+        $nodes = [
+            $this->query,
+            $this->select,
+            $this->deselect,
+            $this->sort,
+            $this->limit
+        ];
+
+        $usedParts = [];
+        foreach ($nodes as $node) {
+            if ($node instanceof AbstractNode) {
+                $usedParts[] = $node->toRql();
+            }
+        }
+
+        return implode('&', $usedParts);
+    }
 }
