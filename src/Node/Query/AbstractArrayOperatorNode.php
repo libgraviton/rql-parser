@@ -1,6 +1,8 @@
 <?php
 namespace Xiag\Rql\Parser\Node\Query;
 
+use Xiag\Rql\Parser\RqlEncoder;
+
 /**
  * @codeCoverageIgnore
  */
@@ -36,5 +38,20 @@ abstract class AbstractArrayOperatorNode extends AbstractComparisonOperatorNode
     public function setValues(array $values)
     {
         $this->values = $values;
+    }
+
+    /**
+     * encodes to rql
+     *
+     * @return string rql
+     */
+    public function toRql()
+    {
+        return sprintf(
+            '%s(%s,(%s))',
+            $this->getNodeName(),
+            RqlEncoder::encodeFieldName($this->getField()),
+            RqlEncoder::encodeList($this->getValues())
+        );
     }
 }

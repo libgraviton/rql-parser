@@ -2,6 +2,7 @@
 namespace Xiag\Rql\Parser\Node;
 
 use Xiag\Rql\Parser\AbstractNode;
+use Xiag\Rql\Parser\RqlEncoder;
 
 /**
  * @codeCoverageIgnore
@@ -67,5 +68,24 @@ class LimitNode extends AbstractNode
     public function setOffset($offset)
     {
         $this->offset = $offset;
+    }
+
+    /**
+     * encodes to rql
+     *
+     * @return string rql
+     */
+    public function toRql()
+    {
+        $values = [$this->limit];
+        if ($this->offset > 0) {
+            $values[] = $this->offset;
+        }
+
+        return sprintf(
+            '%s(%s)',
+            $this->getNodeName(),
+            RqlEncoder::encodeList($values, false)
+        );
     }
 }

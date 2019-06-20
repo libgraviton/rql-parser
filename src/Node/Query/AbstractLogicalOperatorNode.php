@@ -46,4 +46,25 @@ abstract class AbstractLogicalOperatorNode extends AbstractQueryNode
     {
         $this->queries = $queries;
     }
+
+    /**
+     * convert to rql
+     *
+     * @return string rql
+     */
+    public function toRql()
+    {
+        $queryNodes = array_map(
+            function ($item) {
+                return $item->toRql();
+            },
+            $this->queries
+        );
+
+        return sprintf(
+            '%s(%s)',
+            $this->getNodeName(),
+            implode(',', $queryNodes)
+        );
+    }
 }

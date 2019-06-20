@@ -2,6 +2,7 @@
 namespace Xiag\Rql\Parser\Node;
 
 use Xiag\Rql\Parser\AbstractNode;
+use Xiag\Rql\Parser\RqlEncoder;
 
 /**
  * @codeCoverageIgnore
@@ -11,7 +12,7 @@ class SelectNode extends AbstractNode
     /**
      * @var array
      */
-    protected $fields;
+    protected $fields = [];
 
     /**
      * @param array $fields
@@ -45,5 +46,19 @@ class SelectNode extends AbstractNode
     public function getFields()
     {
         return $this->fields;
+    }
+
+    /**
+     * encodes to rql
+     *
+     * @return string rql
+     */
+    public function toRql()
+    {
+        return sprintf(
+            '%s(%s)',
+            $this->getNodeName(),
+            RqlEncoder::encodeList($this->fields, false)
+        );
     }
 }
