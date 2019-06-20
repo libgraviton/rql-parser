@@ -1,12 +1,12 @@
 RQL parser
 ==========
 
-[![Build Status](https://travis-ci.org/xiag-ag/rql-parser.svg?branch=master)](https://travis-ci.org/xiag-ag/rql-parser)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xiag-ag/rql-parser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xiag-ag/rql-parser/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/xiag-ag/rql-parser/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/xiag-ag/rql-parser/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/xiag/rql-parser/v/stable)](https://packagist.org/packages/xiag/rql-parser)
-[![Total Downloads](https://poser.pugx.org/xiag/rql-parser/downloads)](https://packagist.org/packages/xiag/rql-parser)
-[![License](https://poser.pugx.org/xiag/rql-parser/license)](https://packagist.org/packages/xiag/rql-parser)
+[![Build Status](https://travis-ci.org/libgraviton/rql-parser.svg?branch=master)](https://travis-ci.org/libgraviton/rql-parser)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/libgraviton/rql-parser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/libgraviton/rql-parser/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/libgraviton/rql-parser/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/libgraviton/rql-parser/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/graviton/rql-parser/v/stable)](https://packagist.org/packages/graviton/rql-parser)
+[![Total Downloads](https://poser.pugx.org/graviton/rql-parser/downloads)](https://packagist.org/packages/graviton/rql-parser)
+[![License](https://poser.pugx.org/graviton/rql-parser/license)](https://packagist.org/packages/graviton/rql-parser)
 
 This is a RQL parsing library written in PHP.
 
@@ -23,13 +23,13 @@ The preferred way to install library is through [composer](http://getcomposer.or
 Either run
 
 ```
-composer require xiag/rql-parser
+composer require graviton/rql-parser
 ```
 
 or add
 
 ```json
-"xiag/rql-parser": "*",
+"graviton/rql-parser": "*",
 ```
 
 to the require section of your `composer.json`.
@@ -60,7 +60,7 @@ $tokens = $lexer->tokenize($rql);
 var_dump($parser->parse($tokens));
 ```
 
-See also [rql-command library](https://github.com/xiag-ag/rql-command).
+See also [rql-command library](https://github.com/libgraviton/rql-command).
 This is a console application to debug RQL lexing and parsing.
 
 

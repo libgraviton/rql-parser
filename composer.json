@@ -15,9 +15,6 @@
     "phpunit/phpunit": "~8",
     "squizlabs/php_codesniffer": "~2.0"
   },
-  "suggest": {
-    "xiag/rql-command": "Console commands to visualize your RQL code"
-  },
   "scripts": {
     "cs": [
       "vendor/bin/phpcs --standard=PSR1 src/ tests/",
