@@ -1,9 +1,9 @@
 <?php
-namespace Xiag\Rql\Parser;
+namespace Graviton\RqlParser;
 
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
-use Xiag\Rql\Parser\NodeParser\Query\LogicalOperator;
-use Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
+use Graviton\RqlParser\NodeParser\Query\LogicalOperator;
+use Graviton\RqlParser\NodeParser\Query\ComparisonOperator;
 
 class Parser
 {

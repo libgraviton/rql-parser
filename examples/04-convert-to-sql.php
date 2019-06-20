@@ -1,11 +1,11 @@
 <?php
-namespace Xiag\Rql\ParserExample04;
+namespace Graviton\RqlParserExample04;
 
-use Xiag\Rql\Parser\Glob;
-use Xiag\Rql\Parser\Query;
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Node;
-use Xiag\Rql\Parser\Parser;
+use Graviton\RqlParser\Glob;
+use Graviton\RqlParser\Query;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Node;
+use Graviton\RqlParser\Parser;
 
 require __DIR__ . '/../vendor/autoload.php';
 

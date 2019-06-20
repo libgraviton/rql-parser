@@ -1,9 +1,9 @@
 <?php
-namespace Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator;
+namespace Graviton\RqlParser\NodeParser\Query\ComparisonOperator;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\TokenStream;
-use Xiag\Rql\Parser\NodeParser\Query\AbstractComparisonOperatorNodeParser;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\TokenStream;
+use Graviton\RqlParser\NodeParser\Query\AbstractComparisonOperatorNodeParser;
 
 abstract class AbstractComparisonRqlNodeParser extends AbstractComparisonOperatorNodeParser
 {

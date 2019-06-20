@@ -1,7 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser\Node\Query\LogicalOperator;
+namespace Graviton\RqlParser\Node\Query\LogicalOperator;
 
-use Xiag\Rql\Parser\Node\Query\AbstractLogicalOperatorNode;
+use Graviton\RqlParser\Node\Query\AbstractLogicalOperatorNode;
 
 /**
  * @codeCoverageIgnore

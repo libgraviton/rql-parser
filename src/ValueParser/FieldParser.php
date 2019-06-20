@@ -1,9 +1,9 @@
 <?php
-namespace Xiag\Rql\Parser\ValueParser;
+namespace Graviton\RqlParser\ValueParser;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\TokenStream;
-use Xiag\Rql\Parser\SubParserInterface;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\TokenStream;
+use Graviton\RqlParser\SubParserInterface;
 
 class FieldParser implements SubParserInterface
 {

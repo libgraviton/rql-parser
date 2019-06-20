@@ -1,33 +1,48 @@
 <?php
-namespace Xiag\Rql\ParserTests;
+namespace Graviton\RqlParserTests;
 
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Parser;
-use Xiag\Rql\Parser\Query;
-use Xiag\Rql\Parser\QueryBuilder;
-use Xiag\Rql\Parser\NodeParser;
-use Xiag\Rql\Parser\Node;
-use Xiag\Rql\Parser\Glob;
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
+use PHPUnit\Framework\TestCase;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Parser;
+use Graviton\RqlParser\Query;
+use Graviton\RqlParser\QueryBuilder;
+use Graviton\RqlParser\Node;
+use Graviton\RqlParser\Glob;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends TestCase
 {
     /**
      * @param string $rql
      * @param Query $expected
+     * @param bool $explicitComparison if false, we don't fully compare backwards (only for long integers)
      * @return void
      *
      * @dataProvider dataParse()
      */
-    public function testParse($rql, Query $expected)
+    public function testParse($rql, Query $expected, $explicitComparison = true)
     {
         $lexer = new Lexer();
         $parser = new Parser();
 
-        $this->assertSame(
-            var_export($expected, true),
-            var_export($parser->parse($lexer->tokenize($rql)), true)
+        // see if the query parses as expected
+        $query = $parser->parse($lexer->tokenize($rql));
+
+        $this->assertEquals(
+            $expected,
+            $query
         );
+
+        // now we call toRql() on the query -> parse that again -> see if it's indeed the same query
+        if ($explicitComparison) {
+            $backToRql = $query->toRql();
+            $backToRqlQuery = $parser->parse($lexer->tokenize($backToRql));
+
+            $this->assertEquals(
+                $expected,
+                $backToRqlQuery
+            );
+        }
     }
 
     /**
@@ -39,7 +54,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testSyntaxError($rql, $exceptionMessage)
     {
-        $this->setExpectedException(SyntaxErrorException::class, $exceptionMessage);
+        $this->expectException(SyntaxErrorException::class);
+        $this->expectExceptionMessage($exceptionMessage);
 
         $lexer = new Lexer();
         $parser = new Parser();
@@ -203,7 +219,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->addQuery(new Node\Query\ScalarOperator\LikeNode('a', new Glob('0')))
                     ->addQuery(new Node\Query\ScalarOperator\LikeNode('b', new Glob('1.5')))
                     ->addQuery(new Node\Query\ScalarOperator\LikeNode('c', new Glob('a')))
-                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('d', new Glob('2016-07-01T09:48:55Z')))
+                    ->addQuery(new Node\Query\ScalarOperator\LikeNode('d', new Glob('2016-07-01T09:48:55+0000')))
                     ->getQuery(),
             ],
             'constants' => [
@@ -285,21 +301,42 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     ->getQuery(),
             ],
             'datetime support' => [
-                'in(a,(2015-04-16T17:40:32Z,2012-02-29T17:40:32Z))',
+                'in(a,(2015-04-16T17:40:32Z,2012-02-29T17:40:32+0000))',
                 (new QueryBuilder())
                     ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
-                        new \DateTime('2015-04-16T17:40:32Z'),
-                        new \DateTime('2012-02-29T17:40:32Z'),
+                        new \DateTime('2015-04-16T17:40:32+0000'),
+                        new \DateTime('2012-02-29T17:40:32+0000'),
                     ]))
                     ->getQuery(),
             ],
+
+            'datetime timezone support' => [
+                'in(a,(2019-01-01T00:00:00+0200,2019-12-01T00:00:00+0600,2019-06-01T00:00:00-0600))',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
+                        new \DateTime('2019-01-01T00:00:00+0200'),
+                        new \DateTime('2019-12-01T00:00:00+0600'),
+                        new \DateTime('2019-06-01T00:00:00-0600'),
+                    ]))
+                    ->getQuery(),
+            ],
+
+            'datetime z timezone support' => [
+                'in(a,(2019-01-01T00:00:00Z))',
+                (new QueryBuilder())
+                    ->addQuery(new Node\Query\ArrayOperator\InNode('a', [
+                        new \DateTime('2019-01-01T00:00:00+0000')
+                    ]))
+                    ->getQuery(),
+            ],
+
             'string encoding' => [
                 vsprintf('in(a,(%s,%s,%s,%s,%s,%s,%s))&like(b,%s)&eq(c,%s)', [
                     $this->encodeString('+a-b:c'),
                     'null()',
                     $this->encodeString('null()'),
-                    '2015-04-19T21:00:00Z',
-                    $this->encodeString('2015-04-19T21:00:00Z'),
+                    '2015-04-19T21:00:00+0000',
+                    $this->encodeString('2015-04-19T21:00:00+0000'),
                     '1.1e+3',
                     $this->encodeString('1.1e+3'),
                     '*abc?',
@@ -310,8 +347,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         '+a-b:c',
                         null,
                         'null()',
-                        new \DateTime('2015-04-19T21:00:00Z'),
-                        '2015-04-19T21:00:00Z',
+                        new \DateTime('2015-04-19T21:00:00+0000'),
+                        '2015-04-19T21:00:00+0000',
                         1.1e+3,
                         '1.1e+3',
                     ]))
@@ -346,6 +383,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         (float)-9223372036854775810,
                     ]))
                     ->getQuery(),
+                false // these never fully match back when converting them again
             ],
         ];
     }

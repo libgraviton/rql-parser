@@ -1,8 +1,8 @@
 <?php
-namespace Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator\Rql;
+namespace Graviton\RqlParser\NodeParser\Query\ComparisonOperator\Rql;
 
-use Xiag\Rql\Parser\Node\Query\ScalarOperator\LikeNode;
-use Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator\AbstractComparisonRqlNodeParser;
+use Graviton\RqlParser\Node\Query\ScalarOperator\LikeNode;
+use Graviton\RqlParser\NodeParser\Query\ComparisonOperator\AbstractComparisonRqlNodeParser;
 
 class LikeNodeParser extends AbstractComparisonRqlNodeParser
 {

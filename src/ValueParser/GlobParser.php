@@ -1,10 +1,10 @@
 <?php
-namespace Xiag\Rql\Parser\ValueParser;
+namespace Graviton\RqlParser\ValueParser;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\TokenStream;
-use Xiag\Rql\Parser\SubParserInterface;
-use Xiag\Rql\Parser\Glob;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\TokenStream;
+use Graviton\RqlParser\SubParserInterface;
+use Graviton\RqlParser\Glob;
 
 class GlobParser implements SubParserInterface
 {

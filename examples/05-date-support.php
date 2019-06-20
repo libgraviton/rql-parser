@@ -1,14 +1,14 @@
 <?php
-namespace Xiag\Rql\ParserExample05;
+namespace Graviton\RqlParserExample05;
 
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Node;
-use Xiag\Rql\Parser\Parser;
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\SubLexerChain;
-use Xiag\Rql\Parser\SubLexer;
-use Xiag\Rql\Parser\SubLexerInterface;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Node;
+use Graviton\RqlParser\Parser;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\SubLexerChain;
+use Graviton\RqlParser\SubLexer;
+use Graviton\RqlParser\SubLexerInterface;
 
 require __DIR__ . '/../vendor/autoload.php';
 

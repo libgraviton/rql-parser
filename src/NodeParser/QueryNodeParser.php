@@ -1,7 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser\NodeParser;
+namespace Graviton\RqlParser\NodeParser;
 
-use Xiag\Rql\Parser\NodeParserChain;
+use Graviton\RqlParser\NodeParserChain;
 
 class QueryNodeParser extends NodeParserChain
 {

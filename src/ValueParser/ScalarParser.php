@@ -1,14 +1,20 @@
 <?php
-namespace Xiag\Rql\Parser\ValueParser;
+namespace Graviton\RqlParser\ValueParser;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\TokenStream;
-use Xiag\Rql\Parser\TypeCasterInterface;
-use Xiag\Rql\Parser\SubParserInterface;
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\TokenStream;
+use Graviton\RqlParser\TypeCasterInterface;
+use Graviton\RqlParser\SubParserInterface;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
 
 class ScalarParser implements SubParserInterface
 {
+
+    /**
+     * @var string
+     */
+    public const DATETIME_FORMAT = 'Y-m-d\TH:i:sO';
+
     /**
      * @var TypeCasterInterface[]
      */
@@ -69,7 +75,7 @@ class ScalarParser implements SubParserInterface
         } elseif ($token->test(Token::T_EMPTY)) {
             return '';
         } elseif ($token->test(Token::T_DATE)) {
-            return new \DateTime($token->getValue());
+            return \DateTime::createFromFormat(self::DATETIME_FORMAT, $token->getValue());
         } elseif ($token->test(Token::T_STRING)) {
             return $token->getValue();
         } elseif ($token->test(Token::T_INTEGER)) {

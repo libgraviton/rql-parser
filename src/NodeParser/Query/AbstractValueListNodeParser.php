@@ -1,18 +1,20 @@
 <?php
-namespace Graviton\RqlParser\NodeParser;
+namespace Graviton\RqlParser\NodeParser\Query;
 
+use Graviton\RqlParser\Node\SelectNode;
 use Graviton\RqlParser\Token;
 use Graviton\RqlParser\TokenStream;
 use Graviton\RqlParser\NodeParserInterface;
-use Graviton\RqlParser\Node\SortNode;
 use Graviton\RqlParser\SubParserInterface;
 
-class SortNodeParser implements NodeParserInterface
+abstract class AbstractValueListNodeParser implements NodeParserInterface
 {
     /**
      * @var SubParserInterface
      */
     protected $fieldNameParser;
+
+    protected $separator = Token::T_COMMA;
 
     /**
      * @param SubParserInterface $fieldNameParser
@@ -22,6 +24,10 @@ class SortNodeParser implements NodeParserInterface
         $this->fieldNameParser = $fieldNameParser;
     }
 
+    abstract public function getOperatorName();
+
+    abstract public function getNode(array $elements);
+
     /**
      * @inheritdoc
      */
@@ -29,15 +35,11 @@ class SortNodeParser implements NodeParserInterface
     {
         $fields = [];
 
-        $tokenStream->expect(Token::T_OPERATOR, 'sort');
+        $tokenStream->expect(Token::T_OPERATOR, $this->getOperatorName());
         $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
 
         do {
-            $direction = $tokenStream->expect([Token::T_PLUS, Token::T_MINUS]);
-            $fields[$this->fieldNameParser->parse($tokenStream)] = $direction->test(Token::T_PLUS) ?
-                SortNode::SORT_ASC :
-                SortNode::SORT_DESC;
-
+            $fields[] = $this->fieldNameParser->parse($tokenStream);
             if (!$tokenStream->nextIf(Token::T_COMMA)) {
                 break;
             }
@@ -45,7 +47,7 @@ class SortNodeParser implements NodeParserInterface
 
         $tokenStream->expect(Token::T_CLOSE_PARENTHESIS);
 
-        return new SortNode($fields);
+        return $this->getNode($fields);
     }
 
     /**
@@ -53,6 +55,6 @@ class SortNodeParser implements NodeParserInterface
      */
     public function supports(TokenStream $tokenStream)
     {
-        return $tokenStream->test(Token::T_OPERATOR, 'sort');
+        return $tokenStream->test(Token::T_OPERATOR, $this->getOperatorName());
     }
 }

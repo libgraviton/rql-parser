@@ -1,7 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser;
+namespace Graviton\RqlParser;
 
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
 
 interface SubParserInterface
 {

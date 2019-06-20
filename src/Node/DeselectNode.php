@@ -7,7 +7,7 @@ use Graviton\RqlParser\RqlEncoder;
 /**
  * @codeCoverageIgnore
  */
-class SelectNode extends AbstractNode
+class DeselectNode extends AbstractNode
 {
     /**
      * @var array
@@ -27,7 +27,7 @@ class SelectNode extends AbstractNode
      */
     public function getNodeName()
     {
-        return 'select';
+        return 'deselect';
     }
 
     /**
@@ -58,7 +58,7 @@ class SelectNode extends AbstractNode
         return sprintf(
             '%s(%s)',
             $this->getNodeName(),
-            RqlEncoder::encodeList($this->fields, false)
+            RqlEncoder::encodeList($this->fields)
         );
     }
 }

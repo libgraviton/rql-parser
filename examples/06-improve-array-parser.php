@@ -1,13 +1,13 @@
 <?php
-namespace Xiag\Rql\ParserExample07;
+namespace Graviton\RqlParserExample07;
 
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Parser;
-use Xiag\Rql\Parser\Node;
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\NodeParser\Query\ComparisonOperator\Rql\InNodeParser;
-use Xiag\Rql\Parser\TokenStream;
-use Xiag\Rql\Parser\ValueParser;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Parser;
+use Graviton\RqlParser\Node;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\NodeParser\Query\ComparisonOperator\Rql\InNodeParser;
+use Graviton\RqlParser\TokenStream;
+use Graviton\RqlParser\ValueParser;
 
 require __DIR__ . '/../vendor/autoload.php';
 

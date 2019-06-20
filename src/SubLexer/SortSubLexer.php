@@ -1,8 +1,8 @@
 <?php
-namespace Xiag\Rql\Parser\SubLexer;
+namespace Graviton\RqlParser\SubLexer;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\SubLexerInterface;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\SubLexerInterface;
 
 class SortSubLexer implements SubLexerInterface
 {

@@ -1,11 +1,12 @@
 <?php
-namespace Xiag\Rql\ParserTests;
+namespace Graviton\RqlParserTests;
 
-use Xiag\Rql\Parser\Lexer;
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
+use PHPUnit\Framework\TestCase;
+use Graviton\RqlParser\Lexer;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
 
-class LexerTest extends \PHPUnit_Framework_TestCase
+class LexerTest extends TestCase
 {
     /**
      * @param string $rql
@@ -48,7 +49,8 @@ class LexerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSyntaxError($rql, $exceptionMessage)
     {
-        $this->setExpectedException(SyntaxErrorException::class, $exceptionMessage);
+        $this->expectException(SyntaxErrorException::class);
+        $this->expectExceptionMessage($exceptionMessage);
 
         $lexer = new Lexer();
         $lexer->tokenize($rql);
@@ -91,7 +93,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     [',', Token::T_COMMA],
                     ['-.4e12', Token::T_FLOAT],
                     [',', Token::T_COMMA],
-                    ['2015-04-16T17:40:32Z', Token::T_DATE],
+                    ['2015-04-16T17:40:32+0000', Token::T_DATE],
                     [',', Token::T_COMMA],
                     ['*abc?', Token::T_GLOB],
                 ],
@@ -131,7 +133,7 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     [',', Token::T_COMMA],
                     ['null()', Token::T_STRING],
                     [',', Token::T_COMMA],
-                    ['2015-04-19T21:00:00Z', Token::T_DATE],
+                    ['2015-04-19T21:00:00+0000', Token::T_DATE],
                     [',', Token::T_COMMA],
                     ['2015-04-19T21:00:00Z', Token::T_STRING],
                     [',', Token::T_COMMA],
@@ -169,9 +171,9 @@ class LexerTest extends \PHPUnit_Framework_TestCase
                     ['a', Token::T_STRING],
                     [',', Token::T_COMMA],
                     ['(', Token::T_OPEN_PARENTHESIS],
-                    ['2015-04-16T17:40:32Z', Token::T_DATE],
+                    ['2015-04-16T17:40:32+0000', Token::T_DATE],
                     [',', Token::T_COMMA],
-                    ['2012-02-29T17:40:32Z', Token::T_DATE],
+                    ['2012-02-29T17:40:32+0000', Token::T_DATE],
                     [')', Token::T_CLOSE_PARENTHESIS],
                     [')', Token::T_CLOSE_PARENTHESIS],
                 ],

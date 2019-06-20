@@ -1,5 +1,5 @@
 <?php
-namespace Xiag\Rql\Parser;
+namespace Graviton\RqlParser;
 
 class Glob
 {

@@ -1,22 +1,19 @@
 {
-  "name": "xiag/rql-parser",
+  "name": "graviton/rql-parser",
   "keywords": ["rest", "rql", "resource", "query", "language", "parser"],
-  "license": "GPL-2.0",
+  "license": "MIT",
   "autoload": {
-    "psr-4": { "Xiag\\Rql\\Parser\\": "src/"}
+    "psr-4": { "Graviton\\RqlParser\\": "src/"}
   },
   "autoload-dev": {
-    "psr-4": { "Xiag\\Rql\\ParserTests\\": "test/"}
+    "psr-4": { "Graviton\\RqlParserTests\\": "test/"}
   },
   "require": {
-    "php": ">=5.5"
+    "php": ">=7.2.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.8 || ~5.7",
+    "phpunit/phpunit": "~8",
     "squizlabs/php_codesniffer": "~2.0"
-  },
-  "suggest": {
-    "xiag/rql-command": "Console commands to visualize your RQL code"
   },
   "scripts": {
     "cs": [

@@ -1,9 +1,9 @@
 <?php
-namespace Xiag\Rql\Parser\NodeParser\Query\LogicalOperator;
+namespace Graviton\RqlParser\NodeParser\Query\LogicalOperator;
 
-use Xiag\Rql\Parser\Exception\SyntaxErrorException;
-use Xiag\Rql\Parser\NodeParser\Query\AbstractLogicalOperatorNodeParser;
-use Xiag\Rql\Parser\Node\Query\LogicalOperator\NotNode;
+use Graviton\RqlParser\Exception\SyntaxErrorException;
+use Graviton\RqlParser\NodeParser\Query\AbstractLogicalOperatorNodeParser;
+use Graviton\RqlParser\Node\Query\LogicalOperator\NotNode;
 
 class NotNodeParser extends AbstractLogicalOperatorNodeParser
 {

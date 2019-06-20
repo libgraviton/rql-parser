@@ -1,9 +1,9 @@
 <?php
-namespace Xiag\Rql\Parser\SubLexer;
+namespace Graviton\RqlParser\SubLexer;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\SubLexerInterface;
-use Xiag\Rql\Parser\Glob;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\SubLexerInterface;
+use Graviton\RqlParser\Glob;
 
 class GlobSubLexer implements SubLexerInterface
 {
@@ -12,7 +12,7 @@ class GlobSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        if (!preg_match('/([a-z0-9\*\?]|\%[0-9a-f]{2})+/Ai', $code, $matches, null, $cursor)) {
+        if (!preg_match('/([a-z0-9\*\?-]|\%[0-9a-f]{2})+/Ai', $code, $matches, null, $cursor)) {
             return null;
         } elseif (strpos($matches[0], '?') === false && strpos($matches[0], '*') === false) {
             return null;

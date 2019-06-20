@@ -1,7 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser\Node\Query;
+namespace Graviton\RqlParser\Node\Query;
 
-use Xiag\Rql\Parser\Node\AbstractQueryNode;
+use Graviton\RqlParser\Node\AbstractQueryNode;
 
 /**
  * @codeCoverageIgnore
@@ -45,5 +45,26 @@ abstract class AbstractLogicalOperatorNode extends AbstractQueryNode
     public function setQueries(array $queries)
     {
         $this->queries = $queries;
+    }
+
+    /**
+     * convert to rql
+     *
+     * @return string rql
+     */
+    public function toRql()
+    {
+        $queryNodes = array_map(
+            function ($item) {
+                return $item->toRql();
+            },
+            $this->queries
+        );
+
+        return sprintf(
+            '%s(%s)',
+            $this->getNodeName(),
+            implode(',', $queryNodes)
+        );
     }
 }

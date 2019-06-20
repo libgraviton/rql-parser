@@ -1,5 +1,7 @@
 <?php
-namespace Xiag\Rql\Parser\Node\Query;
+namespace Graviton\RqlParser\Node\Query;
+
+use Graviton\RqlParser\RqlEncoder;
 
 /**
  * @codeCoverageIgnore
@@ -36,5 +38,20 @@ abstract class AbstractScalarOperatorNode extends AbstractComparisonOperatorNode
     public function setValue($value)
     {
         $this->value = $value;
+    }
+
+    /**
+     * encodes to rql
+     *
+     * @return string rql
+     */
+    public function toRql()
+    {
+        return sprintf(
+            '%s(%s,%s)',
+            $this->getNodeName(),
+            RqlEncoder::encodeFieldName($this->getField()),
+            RqlEncoder::encode($this->getValue())
+        );
     }
 }

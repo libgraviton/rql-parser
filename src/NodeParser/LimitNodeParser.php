@@ -1,11 +1,11 @@
 <?php
-namespace Xiag\Rql\Parser\NodeParser;
+namespace Graviton\RqlParser\NodeParser;
 
-use Xiag\Rql\Parser\Token;
-use Xiag\Rql\Parser\TokenStream;
-use Xiag\Rql\Parser\NodeParserInterface;
-use Xiag\Rql\Parser\Node\LimitNode;
-use Xiag\Rql\Parser\SubParserInterface;
+use Graviton\RqlParser\Token;
+use Graviton\RqlParser\TokenStream;
+use Graviton\RqlParser\NodeParserInterface;
+use Graviton\RqlParser\Node\LimitNode;
+use Graviton\RqlParser\SubParserInterface;
 
 class LimitNodeParser implements NodeParserInterface
 {
