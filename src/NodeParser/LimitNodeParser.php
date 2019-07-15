@@ -28,7 +28,7 @@ class LimitNodeParser implements NodeParserInterface
     public function parse(TokenStream $tokenStream)
     {
         $limit = null;
-        $offset = null;
+        $offset = 0;
 
         $tokenStream->expect(Token::T_OPERATOR, 'limit');
         $tokenStream->expect(Token::T_OPEN_PARENTHESIS);
