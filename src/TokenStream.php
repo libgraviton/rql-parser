@@ -109,7 +109,7 @@ class TokenStream implements \Countable
                                     function ($value) {
                                         return '"' . $value . '"';
                                     },
-                                    (array)$type
+                                    (array)$value
                                 )
                             ),
                             implode(
