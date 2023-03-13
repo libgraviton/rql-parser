@@ -1,12 +1,10 @@
 RQL parser
 ==========
 
-[![Build Status](https://travis-ci.org/libgraviton/rql-parser.svg?branch=master)](https://travis-ci.org/libgraviton/rql-parser)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/libgraviton/rql-parser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/libgraviton/rql-parser/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/libgraviton/rql-parser/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/libgraviton/rql-parser/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/graviton/rql-parser/v/stable)](https://packagist.org/packages/graviton/rql-parser)
-[![Total Downloads](https://poser.pugx.org/graviton/rql-parser/downloads)](https://packagist.org/packages/graviton/rql-parser)
-[![License](https://poser.pugx.org/graviton/rql-parser/license)](https://packagist.org/packages/graviton/rql-parser)
+[![CI](https://github.com/libgraviton/rql-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/libgraviton/rql-parser/actions/workflows/ci.yml)
+![Packagist Version](https://img.shields.io/packagist/v/graviton/rql-parser)
+![Packagist Downloads](https://img.shields.io/packagist/dt/graviton/rql-parser)
+![Packagist License](https://img.shields.io/packagist/l/graviton/rql-parser)
 
 This is a RQL parsing library written in PHP.
 
