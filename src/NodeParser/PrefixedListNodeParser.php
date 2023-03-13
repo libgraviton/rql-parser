@@ -1,6 +1,7 @@
 <?php
 namespace Graviton\RqlParser\NodeParser;
 
+use Graviton\RqlParser\AbstractNode;
 use Graviton\RqlParser\Token;
 use Graviton\RqlParser\TokenStream;
 use Graviton\RqlParser\NodeParserInterface;
@@ -23,7 +24,7 @@ abstract class PrefixedListNodeParser implements NodeParserInterface
     /**
      * @inheritdoc
      */
-    public function parse(TokenStream $tokenStream)
+    public function parse(TokenStream $tokenStream) : AbstractNode
     {
         $fields = [];
 
@@ -43,7 +44,7 @@ abstract class PrefixedListNodeParser implements NodeParserInterface
 
         $tokenStream->expect(Token::T_CLOSE_PARENTHESIS);
 
-        return new SortNode($fields);
+        return $this->getNode($fields);
     }
 
     public function getAllowedPrefixes() : array {
@@ -51,6 +52,8 @@ abstract class PrefixedListNodeParser implements NodeParserInterface
     }
 
     abstract function getNodeName() : string;
+
+    abstract function getNode(array $fields) : AbstractNode;
 
     abstract function addField(array $fields, Token $prefix, string $value) : array;
 
