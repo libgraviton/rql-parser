@@ -19,7 +19,7 @@ class DateSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        if (!preg_match('/(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})/A', $code, $matches, null, $cursor)) {
+        if (!preg_match('/(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})/A', $code, $matches, 0, $cursor)) {
             return null;
         }
 

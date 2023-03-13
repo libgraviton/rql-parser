@@ -11,7 +11,7 @@ class StringSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        if (!preg_match('/([a-z0-9]|\%[0-9a-f]{2})+/Ai', $code, $matches, null, $cursor)) {
+        if (!preg_match('/([a-z0-9]|\%[0-9a-f]{2})+/Ai', $code, $matches, 0, $cursor)) {
             return null;
         } elseif (ctype_digit($matches[0])) {
             return null;

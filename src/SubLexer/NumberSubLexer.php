@@ -11,7 +11,7 @@ class NumberSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        if (!preg_match('/[-+]?[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?/A', $code, $matches, null, $cursor)) {
+        if (!preg_match('/[-+]?[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?/A', $code, $matches, 0, $cursor)) {
             return null;
         }
 

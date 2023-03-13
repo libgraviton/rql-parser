@@ -34,7 +34,7 @@ class IdentifierSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        if (!preg_match('/[a-z][a-z0-9]*(?:\.[a-z][a-z0-9]*)*/Ai', $code, $matches, null, $cursor)) {
+        if (!preg_match('/[a-z][a-z0-9]*(?:\.[a-z][a-z0-9]*)*/Ai', $code, $matches, 0, $cursor)) {
             return null;
         }
 
@@ -57,7 +57,7 @@ class StringSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        if (!preg_match('/"(?:\\\\"|.)*?"/A', $code, $matches, null, $cursor)) {
+        if (!preg_match('/"(?:\\\\"|.)*?"/A', $code, $matches, 0, $cursor)) {
             return null;
         }
 
@@ -86,7 +86,7 @@ class ConstantSubLexer implements SubLexerInterface
             'null' => Token::T_NULL,
         ];
 
-        if (!preg_match('/(?:true|false|null)/A', $code, $matches, null, $cursor)) {
+        if (!preg_match('/(?:true|false|null)/A', $code, $matches, 0, $cursor)) {
             return null;
         }
 
