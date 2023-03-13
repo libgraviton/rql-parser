@@ -25,7 +25,7 @@ class FiqlOperatorSubLexer implements SubLexerInterface
      */
     public function getTokenAt($code, $cursor)
     {
-        if (!preg_match('/(=[a-z]\w*=|==|!=|<>|>=|<=|<|>|==|=)/Ai', $code, $matches, null, $cursor)) {
+        if (!preg_match('/(=[a-z]\w*=|==|!=|<>|>=|<=|<|>|==|=)/Ai', $code, $matches, 0, $cursor)) {
             return null;
         }
 

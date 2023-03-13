@@ -26,7 +26,7 @@ class TokenStream implements \Countable
     /**
      * @inheritdoc
      */
-    public function count()
+    public function count(): int
     {
         return count($this->tokens);
     }
