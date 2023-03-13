@@ -42,7 +42,7 @@ class Query extends AbstractNode
     }
 
     /**
-     * @return SelectNode
+     * @return SelectNode|null
      */
     public function getSelect()
     {
@@ -61,7 +61,7 @@ class Query extends AbstractNode
     /**
      * get Deselect
      *
-     * @return DeselectNode Deselect
+     * @return DeselectNode|null Deselect
      */
     public function getDeselect()
     {
@@ -81,7 +81,7 @@ class Query extends AbstractNode
     }
 
     /**
-     * @return AbstractQueryNode
+     * @return AbstractQueryNode|null
      */
     public function getQuery()
     {
@@ -98,7 +98,7 @@ class Query extends AbstractNode
     }
 
     /**
-     * @return SortNode
+     * @return SortNode|null
      */
     public function getSort()
     {
@@ -115,7 +115,7 @@ class Query extends AbstractNode
     }
 
     /**
-     * @return LimitNode
+     * @return LimitNode|null
      */
     public function getLimit()
     {
