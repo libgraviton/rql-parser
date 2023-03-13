@@ -54,11 +54,4 @@ jobs:
 
       - name: Run tests
         run: |
-          php -dpcov.directory=${PWD}/src -dpcov.exclude="~vendor~" vendor/bin/phpunit --coverage-clover ${PWD}/coverage.clover --log-junit ${PWD}/phpunit_junit.xml
-
-      - name: Upload Coveralls coverage
-        run: |
-          php-coveralls --coverage_clover=${PWD}/coverage.clover --root_dir=${PWD}/src/Graviton/ -o /tmp/coveralls.json -v
-        env:
-          COVERALLS_REPO_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          COVERALLS_FLAG_NAME: '${{ matrix.php-versions }}'
+          php vendor/bin/phpunit
